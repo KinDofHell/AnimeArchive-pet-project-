@@ -1,0 +1,38 @@
+@use "../../assets/styleStorage.scss" as styleStorage;
+
+.header {
+  @include styleStorage.flex(space-around, center, row, wrap);
+
+  width: 100%;
+  padding-top: 10px;
+
+  .title {
+    @include styleStorage.blur-border();
+
+    font-family: "Sofia";
+    font-size: 3vw;
+
+    padding: 5px 15px;
+
+    border-radius: 100% 100% / 40% 40%;
+
+    cursor: default;
+    span:first-child {
+      color: styleStorage.$orange;
+      filter: drop-shadow(0 0 0.75rem styleStorage.$blue);
+    }
+    span:last-child {
+      color: styleStorage.$blue;
+      filter: drop-shadow(0 0 0.75rem styleStorage.$orange);
+    }
+  }
+}
+
+.navbar {
+}
+
+.user {
+  @include styleStorage.flex(center, center, row, wrap);
+  @include styleStorage.blur-border();
+  min-width: 27%;
+}

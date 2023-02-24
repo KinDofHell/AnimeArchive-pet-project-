@@ -1,0 +1,5 @@
+@use "./assets/styleStorage.scss" as styleStorage;
+
+.App {
+  @include styleStorage.flex(flex-start, center, column, nowrap);
+}

@@ -1,0 +1,17 @@
+//HeaderColor
+$orange: rgb(255, 102, 0);
+$blue: rgb(48, 1, 175);
+
+@mixin flex($justify-content, $align-items, $flex-direction, $flex-wrap) {
+  display: flex;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  flex-direction: $flex-direction;
+  flex-wrap: $flex-wrap;
+}
+
+@mixin blur-border() {
+  backdrop-filter: blur(10px);
+  box-shadow: 1px 1px 7px white;
+  border: 1px solid white;
+}

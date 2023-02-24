@@ -1,0 +1,26 @@
+@use "../../assets/styleStorage.scss" as styleStorage;
+
+.button {
+  @include styleStorage.blur-border();
+
+  font-size: 22px;
+
+  padding: 10px;
+
+  background-color: transparent;
+  color: rgb(0, 89, 255);
+  &:nth-child(2n) {
+    color: styleStorage.$orange;
+    margin: 0 7px;
+  }
+
+  cursor: pointer;
+
+  border-radius: 10px;
+
+  &:hover {
+    padding: 12px;
+    box-shadow: 3px 3px 5px white;
+    transition: box-shadow 0.2s, padding 0.2s;
+  }
+}
