@@ -12,7 +12,7 @@ const Button = ({
   onClick?: MouseEventHandler;
 }) => {
   return (
-    <button className={styles.button + " " + customStyle} onClick={onClick}>
+    <button className={customStyle + " " + styles.button} onClick={onClick}>
       {label}
     </button>
   );

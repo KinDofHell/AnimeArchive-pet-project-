@@ -20,6 +20,16 @@
     span:first-child {
       color: styleStorage.$orange;
       filter: drop-shadow(0 0 0.75rem styleStorage.$blue);
+      &:after {
+        background-image: url("../../assets/imgs/PngItem_5680583.png");
+        background-size: styleStorage.$afterImgTitleWH
+          styleStorage.$afterImgTitleWH;
+        background-repeat: no-repeat;
+        display: inline-block;
+        width: styleStorage.$afterImgTitleWH;
+        height: styleStorage.$afterImgTitleWH;
+        content: "";
+      }
     }
     span:last-child {
       color: styleStorage.$blue;
@@ -33,6 +43,78 @@
 
 .user {
   @include styleStorage.flex(center, center, row, wrap);
-  @include styleStorage.blur-border();
+
   min-width: 27%;
+  .status {
+    @include styleStorage.blur-border();
+    border-radius: 10% 10% / 100% 100%;
+
+    z-index: 0;
+
+    position: relative;
+    right: -50px;
+
+    padding: 0 5px;
+  }
+
+  .avatar {
+    @include styleStorage.blur-border();
+    border-radius: 50%;
+
+    padding: 5px;
+
+    width: styleStorage.$avatarWH;
+    height: styleStorage.$avatarWH;
+
+    z-index: 1;
+
+    cursor: pointer;
+
+    &:hover {
+      transition: transform 0.6s;
+      transform: rotate(360deg);
+    }
+  }
+  .name {
+    @include styleStorage.blur-border();
+    border-radius: 10% 10% / 100% 100%;
+
+    min-width: 40%;
+
+    font-size: 24px;
+
+    position: relative;
+    left: -20px;
+
+    z-index: 0;
+
+    cursor: pointer;
+
+    &:hover {
+      transition: background-color 0.5s, color 0.5s;
+      background-color: white;
+      color: purple;
+    }
+  }
+
+  .btn__login {
+    &:hover {
+      background-color: green;
+      color: white;
+    }
+    &:nth-child(2n):hover {
+      background-color: green;
+      color: white;
+    }
+  }
+  .btn__logout {
+    &:hover {
+      background-color: rgb(94, 0, 0);
+      color: white;
+    }
+    &:nth-child(2n):hover {
+      background-color: rgb(94, 0, 0);
+      color: white;
+    }
+  }
 }

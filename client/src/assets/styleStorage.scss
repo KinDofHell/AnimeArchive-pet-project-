@@ -1,6 +1,11 @@
 //HeaderColor
 $orange: rgb(255, 102, 0);
 $blue: rgb(48, 1, 175);
+$blueVariant: rgb(0, 89, 255);
+$afterImgTitleWH: 55px;
+
+//Avatar
+$avatarWH: 65px;
 
 @mixin flex($justify-content, $align-items, $flex-direction, $flex-wrap) {
   display: flex;
