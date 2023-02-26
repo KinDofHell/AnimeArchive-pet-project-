@@ -1,0 +1,19 @@
+@use "../../assets/styleStorage.scss" as styleStorage;
+
+.card {
+  @include styleStorage.flex(center, space-around, column, wrap);
+  @include styleStorage.blur-border();
+  border-radius: 10px;
+
+  padding: 5px;
+
+  width: 30%;
+
+  .title {
+    font-size: 28px;
+    border-bottom: 1px solid white;
+  }
+  .content {
+    @include styleStorage.flex(center, space-around, column, wrap);
+  }
+}

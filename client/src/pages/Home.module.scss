@@ -1,0 +1,10 @@
+@use "../assets/styleStorage.scss" as styleStorage;
+
+.home {
+  @include styleStorage.flex(center, space-around, column, wrap);
+  width: 100%;
+
+  .top__block:first-child {
+    @include styleStorage.flex(space-around, flex-start, row, wrap);
+  }
+}

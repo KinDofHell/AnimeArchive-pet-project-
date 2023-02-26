@@ -1,6 +1,6 @@
 import styles from "./Header.module.scss";
 
-import Button from "../../components/ui/Button";
+import Button from "../../components/ui/buttons/Button";
 
 const Navbar = ({ buttonLabel }: { buttonLabel: string[] }) => {
   return (

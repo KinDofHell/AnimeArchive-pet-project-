@@ -1,4 +1,4 @@
-@use "../../assets/styleStorage.scss" as styleStorage;
+@use "../../../assets/styleStorage.scss" as styleStorage;
 
 .button {
   @include styleStorage.blur-border();

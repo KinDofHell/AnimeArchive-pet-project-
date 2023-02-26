@@ -1,0 +1,30 @@
+@use "../../assets/styleStorage.scss" as styleStorage;
+
+.rec__anime__items {
+  @include styleStorage.flex(space-around, center, row, nowrap);
+
+  padding: 5px;
+
+  .img__notfound {
+    @include styleStorage.blur-border();
+    border-radius: 10px;
+
+    width: 70px;
+    height: 70px;
+  }
+
+  .title {
+    font-size: 22px;
+    min-width: 40%;
+
+    text-decoration: underline;
+  }
+
+  .btn {
+    background-color: white;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}

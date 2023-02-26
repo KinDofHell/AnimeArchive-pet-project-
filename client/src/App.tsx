@@ -1,11 +1,20 @@
 import "./App.scss";
 
+import { Route, Routes } from "react-router-dom";
+
 import Header from "./layouts/Header/Header";
+import Home from "./pages/Home";
+import Container from "./components/ui/container/Container";
 
 const App = () => {
   return (
     <div className="App">
       <Header />
+      <Container>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Container>
     </div>
   );
 };

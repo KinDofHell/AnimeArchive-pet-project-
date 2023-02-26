@@ -1,7 +1,7 @@
 import styles from "./Header.module.scss";
 import avatar from "../../assets/imgs/PngItem_5680583.png";
 
-import Button from "../../components/ui/Button";
+import Button from "../../components/ui/buttons/Button";
 
 const User = () => {
   const isAuth: boolean = true;
