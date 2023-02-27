@@ -1,6 +1,6 @@
 import styles from "./Header.module.scss";
 
-import { TITLE, NAVBAR_BUTTONS } from "../../data/headerConst";
+import { TITLE, NAVBAR_BUTTONS } from "../../data/Constant";
 
 import Navbar from "./Navbar";
 import User from "./User";

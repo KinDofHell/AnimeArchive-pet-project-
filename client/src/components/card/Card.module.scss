@@ -12,8 +12,13 @@
   .title {
     font-size: 28px;
     border-bottom: 1px solid white;
+    img {
+      width: 40px;
+      height: 40px;
+    }
   }
   .content {
     @include styleStorage.flex(center, space-around, column, wrap);
+    padding: 5px;
   }
 }
