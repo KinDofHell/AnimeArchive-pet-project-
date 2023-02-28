@@ -7,7 +7,7 @@
   .top__block,
   .bottom__block {
     @include styleStorage.flex(space-around, flex-start, row, wrap);
-    margin: 0 0 15vh;
+    margin: 0 0 8vh;
 
     .img {
       width: 10%;
@@ -22,18 +22,24 @@
 
   .bottom__block {
     .card__width {
-      width: 60%;
+      min-width: 60%;
+      // @media screen and (max-width: 1190px) {
+      //   min-width: 90%;
+      //   margin-bottom: 3vh;
+      // }
     }
 
     .card__width__side {
-      width: 220px;
+      min-width: 10%;
+      // @media screen and (max-width: 1190px) {
+      //   order: 1;
+      // }
     }
 
     .addtional__info {
       flex-direction: row;
       justify-content: space-around;
       align-items: center;
-
       .icon__hover {
         &:hover {
           width: 50px;

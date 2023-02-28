@@ -9,15 +9,17 @@ const IconContainer = ({
   customIcon,
   size,
   color,
+  link,
 }: {
   children: ReactNode;
   customIcon?: string;
   size: string;
   color: string;
+  link: string;
 }) => {
   return (
     <IconContext.Provider value={{ size: size, color: color }}>
-      <Link>
+      <Link to={link}>
         <div className={styles.icon__container + " " + customIcon}>
           {children}
         </div>

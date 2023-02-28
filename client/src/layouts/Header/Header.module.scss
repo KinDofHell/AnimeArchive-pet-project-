@@ -38,9 +38,6 @@
   }
 }
 
-.navbar {
-}
-
 .user {
   @include styleStorage.flex(center, center, row, wrap);
 
@@ -48,20 +45,24 @@
   .status {
     @include styleStorage.blur-border();
     border-radius: 10% 10% / 100% 100%;
-
+    font-size: 1vw;
     z-index: 0;
 
     position: relative;
-    right: -50px;
+    right: -3rem;
 
-    padding: 0 5px;
+    padding: 0 0.2rem;
+
+    @media screen and (max-width: 1145px) {
+      display: none;
+    }
   }
 
   .avatar {
     @include styleStorage.blur-border();
     border-radius: 50%;
 
-    padding: 5px;
+    padding: 0.3vw;
 
     width: styleStorage.$avatarWH;
     height: styleStorage.$avatarWH;
@@ -84,7 +85,7 @@
     font-size: 24px;
 
     position: relative;
-    left: -20px;
+    left: -3%;
 
     z-index: 0;
 
@@ -94,6 +95,10 @@
       transition: background-color 0.5s, color 0.5s;
       background-color: white;
       color: purple;
+    }
+
+    @media screen and (max-width: 1372px) {
+      display: none;
     }
   }
 
@@ -116,5 +121,8 @@
       background-color: rgb(94, 0, 0);
       color: white;
     }
+  }
+  @media screen and (max-width: 1372px) {
+    min-width: fit-content;
   }
 }
