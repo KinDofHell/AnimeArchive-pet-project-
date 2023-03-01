@@ -6,8 +6,7 @@
 
   .top__block,
   .bottom__block {
-    @include styleStorage.flex(space-around, flex-start, row, wrap);
-    margin: 0 0 8vh;
+    @include styleStorage.flex(space-around, center, row, nowrap);
 
     .img {
       width: 10%;
@@ -19,21 +18,26 @@
       border-radius: 50%;
     }
   }
-
   .bottom__block {
+    margin-top: 5vh;
+    @media screen and (max-width: 1100px) {
+      flex-wrap: wrap;
+      margin-top: 7vh;
+    }
     .card__width {
       min-width: 60%;
-      // @media screen and (max-width: 1190px) {
-      //   min-width: 90%;
-      //   margin-bottom: 3vh;
-      // }
+      @media screen and (max-width: 1100px) {
+        min-width: 85%;
+        margin-bottom: 5vh;
+      }
     }
 
     .card__width__side {
       min-width: 10%;
-      // @media screen and (max-width: 1190px) {
-      //   order: 1;
-      // }
+      align-items: center;
+      @media screen and (max-width: 1100px) {
+        order: 1;
+      }
     }
 
     .addtional__info {

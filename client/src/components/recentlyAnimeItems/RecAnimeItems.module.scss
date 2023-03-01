@@ -18,6 +18,10 @@
     min-width: 60%;
 
     text-decoration: underline;
+
+    @media screen and (max-width: 1100px) {
+      font-size: 1.7vw;
+    }
   }
 
   .btn {

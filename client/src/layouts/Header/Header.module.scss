@@ -35,6 +35,23 @@
       color: styleStorage.$blue;
       filter: drop-shadow(0 0 0.75rem styleStorage.$orange);
     }
+
+    @media screen and (max-width: 1100px) {
+      font-size: 3.5vw;
+    }
+  }
+}
+
+.navbar {
+  a {
+    text-decoration: none;
+    width: fit-content;
+    &:nth-child(2n) {
+      margin: 0 7px;
+      button {
+        color: styleStorage.$orange;
+      }
+    }
   }
 }
 
