@@ -31,7 +31,7 @@ const Home = () => {
             img={""}
             link={"/news/"}
           />
-          <RecAnimeItems title={"Mikasa Akkerman"} img={""} link={"/news/"} />
+          <RecAnimeItems title={"Mikasa Ackerman"} img={""} link={"/news/"} />
         </Card>
       </div>
       <div className={styles.bottom__block}>

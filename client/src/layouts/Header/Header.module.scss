@@ -5,7 +5,9 @@
 
   width: 100%;
   padding-top: 10px;
-
+  a {
+    text-decoration: none;
+  }
   .title {
     @include styleStorage.blur-border();
 
@@ -16,7 +18,7 @@
 
     border-radius: 100% 100% / 40% 40%;
 
-    cursor: default;
+    cursor: pointer;
     span:first-child {
       color: styleStorage.$orange;
       filter: drop-shadow(0 0 0.75rem styleStorage.$blue);

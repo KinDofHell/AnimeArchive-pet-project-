@@ -1,0 +1,23 @@
+@use "../assets/styleStorage.scss" as styleStorage;
+
+.anime {
+  @include styleStorage.flex(center, center, column, wrap);
+
+  width: 100%;
+  .searchblock {
+    @include styleStorage.flex(space-between, center, row, wrap);
+
+    @include styleStorage.blur-border();
+    border-radius: 10px;
+
+    padding: 5px;
+    width: 90%;
+
+    .spanWords {
+      background-color: styleStorage.$spanWords;
+      padding: 3px;
+      border-radius: 50% 50% / 20% 20%;
+      box-shadow: 3px 3px 5px black;
+    }
+  }
+}
