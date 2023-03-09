@@ -3,6 +3,7 @@ import styles from "./IconContainer.module.scss";
 import { Link } from "react-router-dom";
 import { IconContext } from "react-icons/lib";
 import { ReactNode } from "react";
+import { MouseEventHandler } from "react";
 
 const IconContainer = ({
   children,
@@ -10,20 +11,31 @@ const IconContainer = ({
   size,
   color,
   link,
+  onClick,
 }: {
   children: ReactNode;
   customIcon?: string;
   size: string;
   color: string;
-  link: string;
+  link?: string;
+  onClick?: MouseEventHandler;
 }) => {
   return (
     <IconContext.Provider value={{ size: size, color: color }}>
-      <Link to={link}>
-        <div className={styles.icon__container + " " + customIcon}>
+      {link ? (
+        <Link to={link}>
+          <div className={styles.icon__container + " " + customIcon}>
+            {children}
+          </div>
+        </Link>
+      ) : (
+        <div
+          onClick={onClick}
+          className={styles.icon__container + " " + customIcon}
+        >
           {children}
         </div>
-      </Link>
+      )}
     </IconContext.Provider>
   );
 };
