@@ -1,0 +1,5 @@
+@use "../../assets/styleStorage.scss" as styleStorage;
+
+.my__anime {
+  @include styleStorage.flex(center, center, column, wrap);
+}

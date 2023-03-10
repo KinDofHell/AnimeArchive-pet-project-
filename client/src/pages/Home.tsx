@@ -1,5 +1,6 @@
 import styles from "./Home.module.scss";
 import centralImgs from "../assets/imgs/NicePng_twitter-circle-png_3529605.png";
+import aboutImg from "../assets/imgs/anime-question.gif";
 
 import {
   FaInstagram,
@@ -89,10 +90,7 @@ const Home = () => {
           </IconContainer>
         </Card>
         <Card title="About Us" customStyleCard={styles.card__width__side}>
-          <Image
-            src="https://media.tenor.com/TTagN58VhFYAAAAC/anime-question.gif"
-            linkPath={"/about-us"}
-          />
+          <Image src={aboutImg} linkPath={"/about-us"} />
         </Card>
       </div>
     </main>

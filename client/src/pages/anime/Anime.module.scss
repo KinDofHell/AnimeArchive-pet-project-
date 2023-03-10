@@ -1,4 +1,4 @@
-@use "../assets/styleStorage.scss" as styleStorage;
+@use "../../assets/styleStorage.scss" as styleStorage;
 
 .anime {
   @include styleStorage.flex(center, center, column, wrap);

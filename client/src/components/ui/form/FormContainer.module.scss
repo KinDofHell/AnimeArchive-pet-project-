@@ -1,0 +1,30 @@
+@use "../../../assets/styleStorage.scss" as styleStorage;
+
+.form__container {
+  @include styleStorage.flex(space-around, center, column, wrap);
+  @include styleStorage.blur-border();
+  border-radius: 10px;
+
+  width: 30vw;
+
+  padding-bottom: 2vh;
+
+  .title {
+    font-size: 2vw;
+    font-family: "Sofia";
+    color: rgb(255, 196, 0);
+    border-bottom: 1px solid white;
+    width: 90%;
+    text-align: center;
+  }
+
+  .fields {
+    @include styleStorage.flex(space-around, center, column, wrap);
+    width: 90%;
+  }
+
+  button {
+    margin-top: 2vh;
+    width: 90%;
+  }
+}

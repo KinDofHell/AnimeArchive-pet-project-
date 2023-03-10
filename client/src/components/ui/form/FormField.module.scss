@@ -1,0 +1,26 @@
+@use "../../../assets/styleStorage.scss" as styleStorage;
+
+.form__input,
+.form__textarea {
+  @include styleStorage.blur-border();
+  border-radius: 10px;
+
+  background-color: transparent;
+  color: rgb(255, 208, 0);
+
+  padding: 0.2vw;
+  min-width: 100%;
+
+  font-size: 1.3vw;
+  font-family: "Asul", sans-serif;
+
+  margin-top: 2vh;
+  &::placeholder {
+    color: white;
+    font-family: "Sofia";
+  }
+}
+
+.form__textarea {
+  min-height: 20vh;
+}

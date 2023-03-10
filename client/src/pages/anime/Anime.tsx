@@ -1,12 +1,16 @@
 import styles from "./Anime.module.scss";
 
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
-import Search from "../components/search/Search";
-import Searchbar from "../components/search/Searchbar";
-import AnimeItem from "../components/animeItem/AnimeItem";
+import Search from "../../components/search/Search";
+import Searchbar from "../../components/search/Searchbar";
+import AnimeItem from "../../components/animeItem/AnimeItem";
+import Button from "../../components/ui/buttons/Button";
 
 const Anime = () => {
+  const isAdmin = false;
+
   useEffect(() => {
     const block = document.getElementById("content") as HTMLElement;
     let scroll: string | null = "";
@@ -22,7 +26,13 @@ const Anime = () => {
     <main className={styles.anime}>
       <div className={styles.searchblock}>
         <Search />
-        <span className={styles.spanWords}>Find The Best For You</span>
+        {isAdmin ? (
+          <Link to="/anime-adding">
+            <Button label={"Add Anime"} />
+          </Link>
+        ) : (
+          <span className={styles.spanWords}>Find The Best For You</span>
+        )}
         <Searchbar />
       </div>
       <div className={styles.anime__content} id="content">
