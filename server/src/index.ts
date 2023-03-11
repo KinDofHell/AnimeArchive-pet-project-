@@ -3,6 +3,9 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
+import { handleValidationErrors } from "./utils/imports.js";
+import { CategoryController } from "./controllers/imports.js";
+
 //env config
 dotenv.config();
 
@@ -20,6 +23,18 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use("/uploads", express.static("uploads"));
+
+//routes
+app.post(
+  "/category",
+  handleValidationErrors,
+  CategoryController.createCategory
+);
+
+app.delete("/category/:id", CategoryController.removeCategory);
+app.patch("/category/:id", CategoryController.updateCategory);
+app.get("/category/", CategoryController.getAllCategories);
+app.get("/category/:id", CategoryController.getOneCategory);
 
 const server = app.listen(process.env.PORT, () => {
   console.log("Server is ON");
