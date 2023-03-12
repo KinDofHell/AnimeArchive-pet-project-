@@ -19,10 +19,10 @@ export const createCategory = async (req: any, res: any) => {
 
 export const updateCategory = async (req: any, res: any) => {
   try {
-    const animeID = req.params.id;
+    const categoryID = req.params.id;
     await CategoryModel.updateOne(
       {
-        _id: animeID,
+        _id: categoryID,
       },
       {
         title: req.body.title,
@@ -43,8 +43,8 @@ export const updateCategory = async (req: any, res: any) => {
 
 export const removeCategory = async (req: any, res: any) => {
   try {
-    const animeID = req.params.id;
-    const result = await CategoryModel.findByIdAndRemove(animeID);
+    const categoryID = req.params.id;
+    const result = await CategoryModel.findByIdAndRemove(categoryID);
     res.json({
       success: result,
     });
@@ -70,8 +70,8 @@ export const getAllCategories = async (req: any, res: any) => {
 
 export const getOneCategory = async (req: any, res: any) => {
   try {
-    const animeID = req.params.id;
-    const category = await CategoryModel.findById(animeID);
+    const categoryID = req.params.id;
+    const category = await CategoryModel.findById(categoryID);
     res.json(category);
   } catch (err) {
     console.log(err);

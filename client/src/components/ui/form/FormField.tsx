@@ -40,9 +40,8 @@ const FormField = ({
         placeholder={placeholder}
         onChange={onChange}
         hidden={hidden}
-      >
-        {value}
-      </textarea>
+        defaultValue={value}
+      ></textarea>
     );
 };
 

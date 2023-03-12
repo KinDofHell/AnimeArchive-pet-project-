@@ -1,7 +1,7 @@
 import styles from "../../assets/stylesForAddingPages/Adding.module.scss";
 
-const CategoryAdding = () => {
+const MangaAdding = () => {
   return <div className={styles.adding__page}></div>;
 };
 
-export default CategoryAdding;
+export default MangaAdding;
