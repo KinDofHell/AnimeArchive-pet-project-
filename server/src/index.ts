@@ -8,8 +8,13 @@ import { handleValidationErrors } from "./utils/imports.js";
 import {
   CategoryController,
   CreatorController,
+  AnimeController,
 } from "./controllers/imports.js";
-import { categoryValidation, creatorValidation } from "./validations.js";
+import {
+  categoryValidation,
+  creatorValidation,
+  animeValidation,
+} from "./validations.js";
 
 //env config
 dotenv.config();
@@ -71,6 +76,19 @@ app.delete("/creator/:id", CreatorController.removeCreator);
 app.patch("/creator/:id", CreatorController.updateCreator);
 app.get("/creator/", CreatorController.getAllCreators);
 app.get("/creator/:id", CreatorController.getOneCreator);
+
+//anime
+app.post(
+  "/anime",
+  animeValidation,
+  handleValidationErrors,
+  AnimeController.createAnime
+);
+app.delete("/anime/:id", AnimeController.removeAnime);
+app.patch("/anime/:id", AnimeController.updateAnime);
+app.get("/anime/", AnimeController.getAllAnime);
+app.get("/anime/:id", AnimeController.getOneAnime);
+app.get("/anime-recent/", AnimeController.getRecentAnime);
 
 const server = app.listen(process.env.PORT, () => {
   console.log("Server is ON");

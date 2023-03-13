@@ -50,9 +50,11 @@ export const removeCreator = async (req: any, res: any) => {
     const creatorID = req.params.id;
     const creator = await CreatorModel.findById(creatorID);
     if (creator) {
-      fs.unlink(`../server/${creator.imgUrl}`, (err) => {
-        if (err) console.warn(err);
-      });
+      if (fs.existsSync(`../server/${creator.imgUrl}`)) {
+        fs.unlink(`../server/${creator.imgUrl}`, (err) => {
+          if (err) console.warn(err);
+        });
+      }
     }
     const result = await CreatorModel.findByIdAndRemove(creatorID);
     res.json({
