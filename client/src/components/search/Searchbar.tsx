@@ -1,15 +1,17 @@
 import styles from "./Searchbar.module.scss";
 
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, FC } from "react";
 
-const Searchbar = ({
-  customStyleInput,
-  customStyle,
-  onChangeHandler,
-}: {
+interface Props {
   customStyleInput?: string;
   customStyle?: string;
   onChangeHandler?: ChangeEventHandler;
+}
+
+const Searchbar: FC<Props> = ({
+  customStyleInput,
+  customStyle,
+  onChangeHandler,
 }) => {
   return (
     <div className={styles.searchbar + " " + customStyle}>

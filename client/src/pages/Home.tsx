@@ -10,19 +10,46 @@ import {
 } from "react-icons/Fa";
 import { HiOutlineChatBubbleOvalLeftEllipsis } from "react-icons/hi2";
 
+import { useEffect, Key } from "react";
+import { fetchRecentAnime } from "../redux/slices/anime";
+import { useDispatch, useSelector } from "react-redux";
+
 import Card from "../components/card/Card";
 import RecAnimeItems from "./../components/recentlyAnimeItems/RecAnimeItems";
 import IconContainer from "../components/iconContainer/IconContainer";
 import Image from "../components/Image/Image";
 
 const Home = () => {
+  const dispatch = useDispatch<any>();
+  const { anime } = useSelector((state: any) => state.anime);
+  const isAnimeLoading: boolean = anime.status === "loading";
+
+  useEffect(() => {
+    dispatch(fetchRecentAnime());
+  }, []);
+
   return (
     <main className={styles.home}>
       <div className={styles.top__block}>
         <Card title="Recently Added Anime">
-          <RecAnimeItems title={"Naruto"} img={""} link={"/anime/"} />
-          <RecAnimeItems title={"Bleach"} img={""} link={"/anime/"} />
-          <RecAnimeItems title={"Attack on Titans"} img={""} link={"/anime/"} />
+          {(isAnimeLoading ? [...Array(3)] : anime.items).map(
+            (obj: typeof anime | undefined, index: Key) =>
+              isAnimeLoading ? (
+                <RecAnimeItems
+                  title={"Naruto"}
+                  img={""}
+                  link={"/anime/"}
+                  key={index}
+                />
+              ) : (
+                <RecAnimeItems
+                  title={obj.title}
+                  img={obj.imgCover}
+                  link={`/anime/${obj._id}`}
+                  key={index}
+                />
+              )
+          )}
         </Card>
         <img className={styles.img} src={centralImgs} alt={centralImgs} />
         <Card title="Recently Added News">

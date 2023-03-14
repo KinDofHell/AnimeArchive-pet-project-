@@ -105,7 +105,10 @@ export const removeAnime = async (req: any, res: any) => {
 
 export const getAllAnime = async (req: any, res: any) => {
   try {
-    const anime = await AnimeModel.find().populate("categories").exec();
+    const anime = await AnimeModel.find()
+      .populate("categories")
+      .sort({ $natural: -1 })
+      .exec();
     res.json(anime);
   } catch (err) {
     console.warn(err);
@@ -122,8 +125,7 @@ export const getOneAnime = async (req: any, res: any) => {
       {
         _id: animeID,
       },
-      { $inc: { viewsCount: 1 } },
-      { returnDocuments: "after" }
+      { $inc: { viewsCount: 1 } }
     )
       .populate("categories")
       .exec();
@@ -138,10 +140,28 @@ export const getOneAnime = async (req: any, res: any) => {
 
 export const getRecentAnime = async (req: any, res: any) => {
   try {
-    const anime = await AnimeModel.find().limit(3).exec();
+    const anime = await AnimeModel.find()
+      .limit(3)
+      .sort({ $natural: -1 })
+      .exec();
     res.json(anime);
   } catch (err) {
     console.log(err);
+    res.status(500).json({
+      message: "Cannot recieve anime",
+    });
+  }
+};
+
+export const getPopularAnime = async (req: any, res: any) => {
+  try {
+    const anime = await AnimeModel.find()
+      .populate("categories")
+      .sort({ viewsCount: -1 })
+      .exec();
+    res.json(anime);
+  } catch (err) {
+    console.warn(err);
     res.status(500).json({
       message: "Cannot recieve anime",
     });

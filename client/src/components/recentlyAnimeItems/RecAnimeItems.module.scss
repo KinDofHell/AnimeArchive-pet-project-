@@ -4,8 +4,7 @@
   @include styleStorage.flex(space-around, center, row, nowrap);
 
   padding: 5px;
-
-  .img__notfound {
+  .img {
     @include styleStorage.blur-border();
     border-radius: 10px;
 

@@ -87,6 +87,7 @@ app.post(
 app.delete("/anime/:id", AnimeController.removeAnime);
 app.patch("/anime/:id", AnimeController.updateAnime);
 app.get("/anime/", AnimeController.getAllAnime);
+app.get("/anime/popular", AnimeController.getPopularAnime);
 app.get("/anime/:id", AnimeController.getOneAnime);
 app.get("/anime-recent/", AnimeController.getRecentAnime);
 

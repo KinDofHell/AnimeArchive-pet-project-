@@ -1,15 +1,7 @@
 import styles from "./FormField.module.scss";
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, FC } from "react";
 
-const FormField = ({
-  textarea,
-  customStyle,
-  value,
-  placeholder,
-  type,
-  onChange,
-  hidden,
-}: {
+interface Props {
   textarea?: boolean;
   customStyle?: string;
   value?: string | number;
@@ -17,6 +9,16 @@ const FormField = ({
   type?: string;
   onChange?: ChangeEventHandler;
   hidden?: boolean;
+}
+
+const FormField: FC<Props> = ({
+  textarea,
+  customStyle,
+  value,
+  placeholder,
+  type,
+  onChange,
+  hidden,
 }) => {
   if (!textarea) {
     return (

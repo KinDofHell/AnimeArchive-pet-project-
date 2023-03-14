@@ -2,21 +2,20 @@ import styles from "./AnimeItem.module.scss";
 
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/Ai";
 import { Link } from "react-router-dom";
+import { FC } from "react";
 
 import IconContainer from "../iconContainer/IconContainer";
 import Button from "../ui/buttons/Button";
 
-const AnimeItem = ({
-  title,
-  image,
-  isEditable,
-  isWatched,
-}: {
+interface Props {
+  _id?: string;
   title: string;
   image?: string;
   isEditable: boolean | undefined;
   isWatched?: boolean;
-}) => {
+}
+
+const AnimeItem: FC<Props> = ({ _id, title, image, isEditable, isWatched }) => {
   return (
     <div className={styles.anime__item}>
       <div className={styles.image}>
@@ -34,7 +33,7 @@ const AnimeItem = ({
             : { backgroundColor: "white" }
         }
       >
-        <Link to={`/anime/`}>
+        <Link to={`/anime/${_id}`}>
           <Button label={title} customStyle={styles.btn__Title} />
         </Link>
         {isEditable && (

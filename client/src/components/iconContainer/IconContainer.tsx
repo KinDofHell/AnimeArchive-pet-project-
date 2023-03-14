@@ -3,7 +3,7 @@ import styles from "./IconContainer.module.scss";
 import { Link } from "react-router-dom";
 import { IconContext } from "react-icons/lib";
 import { ReactNode } from "react";
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, FC } from "react";
 
 const IconContainer = ({
   children,

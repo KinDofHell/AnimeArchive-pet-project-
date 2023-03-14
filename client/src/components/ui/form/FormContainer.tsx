@@ -1,13 +1,12 @@
 import styles from "./FormContainer.module.scss";
-import { ReactNode } from "react";
+import { ReactNode, FC } from "react";
 
-const FormContainer = ({
-  children,
-  title,
-}: {
+interface Props {
   children: ReactNode;
   title: string;
-}) => {
+}
+
+const FormContainer: FC<Props> = ({ children, title }) => {
   return (
     <div className={styles.form__container}>
       <div className={styles.title}>{title}</div>

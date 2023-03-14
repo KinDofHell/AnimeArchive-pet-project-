@@ -1,16 +1,16 @@
 import styles from "./Image.module.scss";
 
+import { FC } from "react";
+
 import { Link } from "react-router-dom";
 
-const Image = ({
-  src,
-  customStyleImage,
-  linkPath,
-}: {
+interface Props {
   src: string;
   customStyleImage?: string;
   linkPath: string;
-}) => {
+}
+
+const Image: FC<Props> = ({ src, customStyleImage, linkPath }) => {
   return (
     <Link to={linkPath}>
       <img

@@ -1,16 +1,14 @@
 import styles from "./Button.module.scss";
 
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, FC } from "react";
 
-const Button = ({
-  label,
-  customStyle,
-  onClick,
-}: {
+interface Props {
   label: string;
   customStyle?: string;
   onClick?: MouseEventHandler;
-}) => {
+}
+
+const Button: FC<Props> = ({ label, customStyle, onClick }) => {
   return (
     <button className={customStyle + " " + styles.button} onClick={onClick}>
       {label}

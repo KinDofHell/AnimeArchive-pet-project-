@@ -1,7 +1,10 @@
 import styles from "./Anime.module.scss";
 
-import { useEffect } from "react";
+import { Key, useEffect } from "react";
 import { Link } from "react-router-dom";
+
+import { fetchAnime } from "../../redux/slices/anime";
+import { useDispatch, useSelector } from "react-redux";
 
 import Search from "../../components/search/Search";
 import Searchbar from "../../components/search/Searchbar";
@@ -9,7 +12,15 @@ import AnimeItem from "../../components/animeItem/AnimeItem";
 import Button from "../../components/ui/buttons/Button";
 
 const Anime = () => {
+  const dispatch = useDispatch<any>();
+  const { anime } = useSelector((state: any) => state.anime);
+  const isAnimeLoading: boolean = anime.status === "loading";
+
   const isAdmin = false;
+
+  useEffect(() => {
+    dispatch(fetchAnime());
+  }, []);
 
   useEffect(() => {
     const block = document.getElementById("content") as HTMLElement;
@@ -36,17 +47,29 @@ const Anime = () => {
         <Searchbar />
       </div>
       <div className={styles.anime__content} id="content">
-        {[...Array(12)].map((obj, index) => (
-          <AnimeItem
-            title="Attack on Titan"
-            image={
-              "https://cdn.oneesports.gg/cdn-data/2022/04/AttackOnTitan_Season4Part2_Historia.webp"
-            }
-            key={index}
-            isEditable={true}
-            isWatched={false}
-          />
-        ))}
+        {(isAnimeLoading ? [...Array(6)] : anime.items).map(
+          (obj: typeof anime | undefined, index: Key) =>
+            isAnimeLoading ? (
+              <AnimeItem
+                title="Attack on Titan"
+                image={
+                  "https://cdn.oneesports.gg/cdn-data/2022/04/AttackOnTitan_Season4Part2_Historia.webp"
+                }
+                key={index}
+                isEditable={true}
+                isWatched={false}
+              />
+            ) : (
+              <AnimeItem
+                _id={obj._id}
+                key={index}
+                title={obj.title}
+                image={obj.imgCover}
+                isEditable={true}
+                isWatched={false}
+              />
+            )
+        )}
       </div>
     </main>
   );
