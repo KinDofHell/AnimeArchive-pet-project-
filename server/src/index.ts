@@ -5,16 +5,21 @@ import dotenv from "dotenv";
 import multer from "multer";
 
 import { handleValidationErrors } from "./utils/imports.js";
+import { CheckAuth, CheckProductModerator } from "./utils/checks/imports.js";
+
 import {
   CategoryController,
   CreatorController,
   AnimeController,
+  UserController,
 } from "./controllers/imports.js";
+
 import {
-  categoryValidation,
-  creatorValidation,
-  animeValidation,
-} from "./validations.js";
+  UserValidation,
+  AnimeValidation,
+  CategoryValidation,
+  CreatorValidation,
+} from "./validations/imports.js";
 
 //env config
 dotenv.config();
@@ -53,39 +58,89 @@ app.post("/upload", upload.single("image"), (req: any, res: any) => {
   });
 });
 
+//user
+app.post(
+  "/register",
+  UserValidation.registerValidation,
+  handleValidationErrors,
+  UserController.registerUser
+);
+app.post(
+  "/login",
+  UserValidation.loginValidation,
+  handleValidationErrors,
+  UserController.loginUser
+);
+
 //category
 app.post(
   "/category",
-  categoryValidation,
+  CheckAuth,
+  CheckProductModerator,
+  CategoryValidation.categoryValidation,
   handleValidationErrors,
   CategoryController.createCategory
 );
-app.delete("/category/:id", CategoryController.removeCategory);
-app.patch("/category/:id", CategoryController.updateCategory);
+app.delete(
+  "/category/:id",
+  CheckAuth,
+  CheckProductModerator,
+  CategoryController.removeCategory
+);
+app.patch(
+  "/category/:id",
+  CheckAuth,
+  CheckProductModerator,
+  CategoryController.updateCategory
+);
 app.get("/category/", CategoryController.getAllCategories);
 app.get("/category/:id", CategoryController.getOneCategory);
 
 //creator
 app.post(
   "/creator",
-  creatorValidation,
+  CheckAuth,
+  CheckProductModerator,
+  CreatorValidation.creatorValidation,
   handleValidationErrors,
   CreatorController.createCreator
 );
-app.delete("/creator/:id", CreatorController.removeCreator);
-app.patch("/creator/:id", CreatorController.updateCreator);
+app.delete(
+  "/creator/:id",
+  CheckAuth,
+  CheckProductModerator,
+  CreatorController.removeCreator
+);
+app.patch(
+  "/creator/:id",
+  CheckAuth,
+  CheckProductModerator,
+  CreatorController.updateCreator
+);
 app.get("/creator/", CreatorController.getAllCreators);
 app.get("/creator/:id", CreatorController.getOneCreator);
 
 //anime
 app.post(
   "/anime",
-  animeValidation,
+  CheckAuth,
+  CheckProductModerator,
+  AnimeValidation.animeValidation,
   handleValidationErrors,
   AnimeController.createAnime
 );
-app.delete("/anime/:id", AnimeController.removeAnime);
-app.patch("/anime/:id", AnimeController.updateAnime);
+app.delete(
+  "/anime/:id",
+  CheckAuth,
+  CheckProductModerator,
+  AnimeController.removeAnime
+);
+app.patch(
+  "/anime/:id",
+  CheckAuth,
+  CheckProductModerator,
+  AnimeController.updateAnime
+);
 app.get("/anime/", AnimeController.getAllAnime);
 app.get("/anime/popular", AnimeController.getPopularAnime);
 app.get("/anime/:id", AnimeController.getOneAnime);

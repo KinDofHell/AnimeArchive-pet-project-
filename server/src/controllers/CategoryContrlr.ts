@@ -2,10 +2,7 @@ import CategoryModel from "../model/Category.js";
 
 export const createCategory = async (req: any, res: any) => {
   try {
-    const document = new CategoryModel({
-      title: req.body.title,
-      description: req.body.description,
-    });
+    const document = new CategoryModel(req.body);
 
     const category = await document.save();
     res.json(category);
@@ -24,10 +21,7 @@ export const updateCategory = async (req: any, res: any) => {
       {
         _id: categoryID,
       },
-      {
-        title: req.body.title,
-        description: req.body.description,
-      }
+      req.body
     );
 
     res.json({

@@ -4,11 +4,7 @@ import fs from "fs";
 
 export const createCreator = async (req: any, res: any) => {
   try {
-    const document = new CreatorModel({
-      fullname: req.body.fullname,
-      description: req.body.description,
-      imgUrl: req.body.imgUrl,
-    });
+    const document = new CreatorModel(req.body);
 
     const creator = await document.save();
     res.json(creator);
@@ -27,11 +23,7 @@ export const updateCreator = async (req: any, res: any) => {
       {
         _id: creatorID,
       },
-      {
-        fullname: req.body.fullname,
-        description: req.body.description,
-        imgUrl: req.body.imgUrl,
-      }
+      req.body
     );
 
     res.json({
