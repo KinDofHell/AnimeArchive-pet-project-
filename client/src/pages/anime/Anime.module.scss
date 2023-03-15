@@ -12,13 +12,15 @@
 
     padding: 5px;
     width: 90%;
-
+    a {
+      text-decoration: none;
+    }
     .spanWords {
       background-color: styleStorage.$spanWords;
-      padding: 3px;
+      padding: 0.4rem;
       border-radius: 50% 50% / 20% 20%;
       box-shadow: 3px 3px 5px black;
-      cursor: default;
+      cursor: pointer;
     }
   }
   .anime__content {

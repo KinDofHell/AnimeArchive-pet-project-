@@ -7,6 +7,10 @@ const AnimeSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    originTitle: {
+      type: String,
+      unique: true,
+    },
     description: {
       type: String,
       required: true,

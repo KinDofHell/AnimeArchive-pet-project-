@@ -16,7 +16,7 @@ const Anime = () => {
   const { anime } = useSelector((state: any) => state.anime);
   const isAnimeLoading: boolean = anime.status === "loading";
 
-  const isAdmin = false;
+  const isAdmin = true;
 
   useEffect(() => {
     dispatch(fetchAnime());
@@ -39,7 +39,7 @@ const Anime = () => {
         <Search />
         {isAdmin ? (
           <Link to="/anime-adding">
-            <Button label={"Add Anime"} />
+            <span className={styles.spanWords}>Add New One</span>
           </Link>
         ) : (
           <span className={styles.spanWords}>Find The Best For You</span>

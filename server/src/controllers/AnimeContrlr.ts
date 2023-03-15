@@ -6,6 +6,7 @@ export const createAnime = async (req: any, res: any) => {
   try {
     const document = new AnimeModel({
       title: req.body.title,
+      originTitle: req.body.originTitle,
       description: req.body.description,
       categories: req.body.categories,
       seasons: req.body.seasons,
@@ -38,6 +39,7 @@ export const updateAnime = async (req: any, res: any) => {
       },
       {
         title: req.body.title,
+        originTitle: req.body.originTitle,
         description: req.body.description,
         categories: req.body.categories,
         seasons: req.body.seasons,

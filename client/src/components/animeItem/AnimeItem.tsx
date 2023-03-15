@@ -4,7 +4,7 @@ import { AiOutlineEdit, AiOutlineDelete } from "react-icons/Ai";
 import { Link } from "react-router-dom";
 import { FC } from "react";
 
-import IconContainer from "../iconContainer/IconContainer";
+import IconContainer from "../ui/iconContainer/IconContainer";
 import Button from "../ui/buttons/Button";
 
 interface Props {

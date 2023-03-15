@@ -14,10 +14,10 @@ import { useEffect, Key } from "react";
 import { fetchRecentAnime } from "../redux/slices/anime";
 import { useDispatch, useSelector } from "react-redux";
 
-import Card from "../components/card/Card";
+import Card from "../components/ui/card/Card";
 import RecAnimeItems from "./../components/recentlyAnimeItems/RecAnimeItems";
-import IconContainer from "../components/iconContainer/IconContainer";
-import Image from "../components/Image/Image";
+import IconContainer from "../components/ui/iconContainer/IconContainer";
+import Image from "../components/ui/Image/Image";
 
 const Home = () => {
   const dispatch = useDispatch<any>();
