@@ -8,7 +8,7 @@ export const createAnime = async (req: any, res: any) => {
       title: req.body.title,
       originTitle: req.body.originTitle,
       description: req.body.description,
-      categories: req.body.categories,
+      categoriesArray: req.body.categoriesArray,
       seasons: req.body.seasons,
       series: req.body.series,
       years: req.body.years.split(","),
@@ -41,7 +41,7 @@ export const updateAnime = async (req: any, res: any) => {
         title: req.body.title,
         originTitle: req.body.originTitle,
         description: req.body.description,
-        categories: req.body.categories,
+        categoriesArray: req.body.categoriesArray,
         seasons: req.body.seasons,
         series: req.body.series,
         years: req.body.years.split(","),
@@ -108,7 +108,8 @@ export const removeAnime = async (req: any, res: any) => {
 export const getAllAnime = async (req: any, res: any) => {
   try {
     const anime = await AnimeModel.find()
-      .populate("categories")
+      .populate("categoriesArray")
+      .populate("author")
       .sort({ $natural: -1 })
       .exec();
     res.json(anime);
@@ -129,7 +130,8 @@ export const getOneAnime = async (req: any, res: any) => {
       },
       { $inc: { viewsCount: 1 } }
     )
-      .populate("categories")
+      .populate("categoriesArray")
+      .populate("author")
       .exec();
     res.json(anime);
   } catch (err) {
@@ -158,7 +160,7 @@ export const getRecentAnime = async (req: any, res: any) => {
 export const getPopularAnime = async (req: any, res: any) => {
   try {
     const anime = await AnimeModel.find()
-      .populate("categories")
+      .populate("categoriesArray")
       .sort({ viewsCount: -1 })
       .exec();
     res.json(anime);

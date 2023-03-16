@@ -4,7 +4,6 @@ export const animeValidation = [
   body("title", "Invalid title").isString().isLength({ min: 4 }),
   body("originTitle", "Invalid origin title").isString().isLength({ min: 4 }),
   body("description", "Invalid description").isString().isLength({ min: 10 }),
-  body("categories", "Invalid categories").isArray(),
   body("seasons", "Invalid seasons").isNumeric(),
   body("series", "Invalid series").isNumeric(),
   body("years", "Invalid years").isString(),

@@ -15,7 +15,7 @@ const AnimeSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    categories: {
+    categoriesArray: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "Categories",
       required: true,

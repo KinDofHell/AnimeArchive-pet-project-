@@ -123,8 +123,8 @@ app.get("/creator/:id", CreatorController.getOneCreator);
 //anime
 app.post(
   "/anime",
-  CheckAuth,
-  CheckProductModerator,
+  // CheckAuth,
+  // CheckProductModerator,
   AnimeValidation.animeValidation,
   handleValidationErrors,
   AnimeController.createAnime
