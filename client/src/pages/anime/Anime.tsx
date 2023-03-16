@@ -1,5 +1,7 @@
 import styles from "./Anime.module.scss";
 
+import { SERVER_HOST } from "../../data/Constant";
+
 import { Key, useEffect } from "react";
 import { Link } from "react-router-dom";
 
@@ -9,7 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Search from "../../components/search/Search";
 import Searchbar from "../../components/search/Searchbar";
 import AnimeItem from "../../components/animeItem/AnimeItem";
-import Button from "../../components/ui/buttons/Button";
 
 const Anime = () => {
   const dispatch = useDispatch<any>();
@@ -64,7 +65,7 @@ const Anime = () => {
                 _id={obj._id}
                 key={index}
                 title={obj.title}
-                image={obj.imgCover}
+                image={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
                 isEditable={true}
                 isWatched={false}
               />

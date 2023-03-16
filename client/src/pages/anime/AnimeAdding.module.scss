@@ -35,3 +35,33 @@
   border-bottom: 1px solid white;
   width: 90%;
 }
+
+.wide__page {
+  @include styleStorage.flex(space-around, center, row, nowrap);
+}
+
+.adding__instrument {
+  @include styleStorage.flex(center, center, column, nowrap);
+  width: fit-content;
+  .btn__adding {
+    margin-bottom: 5vh;
+    width: 20vh;
+  }
+}
+
+.imgs__container {
+  @include styleStorage.flex(center, center, column, nowrap);
+  .item {
+    @include styleStorage.flex(space-around, center, row, nowrap);
+    width: 25vh;
+
+    .img {
+      @include styleStorage.blur-border();
+      border-radius: 10px;
+
+      width: 20vh;
+      height: 17vh;
+      margin: 0 0 1vh 0.5vh;
+    }
+  }
+}

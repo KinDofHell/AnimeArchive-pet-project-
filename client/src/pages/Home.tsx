@@ -2,6 +2,8 @@ import styles from "./Home.module.scss";
 import centralImgs from "../assets/imgs/NicePng_twitter-circle-png_3529605.png";
 import aboutImg from "../assets/imgs/anime-question.gif";
 
+import { SERVER_HOST } from "../data/Constant";
+
 import {
   FaInstagram,
   FaTelegram,
@@ -44,7 +46,7 @@ const Home = () => {
               ) : (
                 <RecAnimeItems
                   title={obj.title}
-                  img={obj.imgCover}
+                  img={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
                   link={`/anime/${obj._id}`}
                   key={index}
                 />
