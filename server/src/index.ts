@@ -131,8 +131,8 @@ app.post(
 );
 app.delete(
   "/anime/:id",
-  CheckAuth,
-  CheckProductModerator,
+  // CheckAuth,
+  // CheckProductModerator,
   AnimeController.removeAnime
 );
 app.patch(
