@@ -19,10 +19,11 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/anime" element={<Anime />} />
-          <Route path="/category-adding" element={<CategoryAdding />} />
-          <Route path="/creator-adding" element={<CreatorAdding />} />
           <Route path="/anime-adding" element={<AnimeAdding />} />
           <Route path="/my-anime" element={<MyAnime />} />
+          <Route path="/anime/:id/edit" element={<AnimeAdding />} />
+          <Route path="/category-adding" element={<CategoryAdding />} />
+          <Route path="/creator-adding" element={<CreatorAdding />} />
         </Routes>
       </Container>
     </div>

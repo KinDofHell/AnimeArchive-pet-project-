@@ -14,6 +14,13 @@ export const fetchRecentAnime = createAsyncThunk(
   }
 );
 
+export const fetchRemoveAnime = createAsyncThunk(
+  "anime/fetchRemoveAnime",
+  async (id: any) => {
+    axios.delete(`/anime/${id}`);
+  }
+);
+
 const initialState = {
   anime: {
     items: [],
@@ -26,6 +33,7 @@ const animeSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    //getting anime
     builder.addCase(fetchAnime.pending, (state) => {
       state.anime.items = [];
       state.anime.status = "loading";
@@ -50,6 +58,12 @@ const animeSlice = createSlice({
         state.anime.items = [];
         state.anime.status = "error";
       });
+    //deleting anime
+    builder.addCase(fetchRemoveAnime.pending, (state, action) => {
+      state.anime.items = state.anime.items.filter(
+        (obj: any) => obj._id !== action.meta.arg
+      );
+    });
   },
 });
 

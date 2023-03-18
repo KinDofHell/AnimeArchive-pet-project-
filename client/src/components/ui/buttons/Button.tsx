@@ -6,11 +6,16 @@ interface Props {
   label: string;
   customStyle?: string;
   onClick?: MouseEventHandler;
+  disabled?: boolean;
 }
 
-const Button: FC<Props> = ({ label, customStyle, onClick }) => {
+const Button: FC<Props> = ({ label, customStyle, onClick, disabled }) => {
   return (
-    <button className={customStyle + " " + styles.button} onClick={onClick}>
+    <button
+      className={customStyle + " " + styles.button}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {label}
     </button>
   );

@@ -11,6 +11,7 @@ import FormField from "../../components/ui/form/FormField";
 import Button from "../../components/ui/buttons/Button";
 
 const CategoryAdding = () => {
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -20,7 +21,7 @@ const CategoryAdding = () => {
         title,
         description,
       };
-      const { data } = await axios.post("/category", fields);
+      navigate(`/anime-adding/`);
     } catch (error) {
       console.warn(error);
       alert("Error creating category");

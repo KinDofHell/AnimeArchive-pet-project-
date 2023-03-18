@@ -48,29 +48,17 @@ const Anime = () => {
         <Searchbar />
       </div>
       <div className={styles.anime__content} id="content">
-        {(isAnimeLoading ? [...Array(6)] : anime.items).map(
-          (obj: typeof anime | undefined, index: Key) =>
-            isAnimeLoading ? (
-              <AnimeItem
-                title="Attack on Titan"
-                image={
-                  "https://cdn.oneesports.gg/cdn-data/2022/04/AttackOnTitan_Season4Part2_Historia.webp"
-                }
-                key={index}
-                isEditable={true}
-                isWatched={false}
-              />
-            ) : (
-              <AnimeItem
-                _id={obj._id}
-                key={index}
-                title={obj.title}
-                image={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
-                isEditable={true}
-                isWatched={false}
-              />
-            )
-        )}
+        {!isAnimeLoading &&
+          anime.items.map((obj: typeof anime | undefined, index: Key) => (
+            <AnimeItem
+              _id={obj._id}
+              key={index}
+              title={obj.title}
+              image={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
+              isEditable={true}
+              isWatched={false}
+            />
+          ))}
       </div>
     </main>
   );

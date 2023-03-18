@@ -1,6 +1,6 @@
 import styles from "../../assets/stylesForAddingPages/Adding.module.scss";
 
-import { useState, useRef, useEffect, MutableRefObject } from "react";
+import { useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, Navigate, useParams } from "react-router-dom";
 
@@ -11,6 +11,7 @@ import FormField from "../../components/ui/form/FormField";
 import Button from "../../components/ui/buttons/Button";
 
 const CreatorAdding = () => {
+  const navigate = useNavigate();
   const [fullname, setFullname] = useState("");
   const [description, setDescription] = useState("");
   const [imgUrl, setImgUrl] = useState("");
@@ -42,6 +43,7 @@ const CreatorAdding = () => {
         imgUrl,
       };
       const { data } = await axios.post("/creator", fields);
+      navigate(`/anime-adding/`);
     } catch (error) {
       console.warn(error);
       alert("Error creating creator");

@@ -8,6 +8,7 @@ import { AiOutlineDelete } from "react-icons/Ai";
 import { useState, useRef, useEffect, Key } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Navigate, useParams, Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 import { fetchCategories } from "../../redux/slices/category";
 import { fetchCreators } from "../../redux/slices/creators";
@@ -23,6 +24,7 @@ import Image from "../../components/ui/Image/Image";
 import IconContainer from "../../components/ui/iconContainer/IconContainer";
 
 const AnimeAdding = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch<any>();
   const { categories } = useSelector((state: any) => state.categories);
   const { creators } = useSelector((state: any) => state.creators);
@@ -72,7 +74,7 @@ const AnimeAdding = () => {
       if (num === 1) setImgCover(data.url);
       else if (num === 2) setimgAdditional_1(data.url);
       else if (num === 3) setimgAdditional_2(data.url);
-      else setimgAdditional_3(data.url);
+      else if (num === 4) setimgAdditional_3(data.url);
     } catch (error) {
       console.warn(error);
       alert("Error uploading");
@@ -97,9 +99,12 @@ const AnimeAdding = () => {
         imgAdditional_3,
       };
       const { data } = await axios.post("/anime", fields);
+
+      const _id = data._id;
+      navigate(`/anime/${_id}`);
     } catch (error) {
-      console.warn(error);
       alert("Error creating anime");
+      console.warn(error);
     }
   };
 
@@ -110,12 +115,13 @@ const AnimeAdding = () => {
       if (inputFileRef_2.current) inputFileRef_2.current.click();
     } else if (num === 3) {
       if (inputFileRef_3.current) inputFileRef_3.current.click();
-    } else if (inputFileRef_3.current) inputFileRef_3.current.click();
+    } else if (inputFileRef_4.current) inputFileRef_4.current.click();
   };
 
   const onClickRemoveImage = (num: number) => {
-    if (num === 1) setImgCover("");
-    else if (num === 2) setimgAdditional_1("");
+    if (num === 1) {
+      setImgCover("");
+    } else if (num === 2) setimgAdditional_1("");
     else if (num === 3) setimgAdditional_2("");
     else setimgAdditional_3("");
   };
@@ -136,11 +142,17 @@ const AnimeAdding = () => {
             <FormField
               placeholder="Enter the title"
               type="text"
+              required={true}
+              // {...register("title", { required: "Enter the title" })}
               onChange={(e) => setTitle((e.target as HTMLInputElement).value)}
             />
             <FormField
               placeholder="Enter the origin title"
               type="text"
+              required={true}
+              // {...register("originTitle", {
+              //   required: "Enter the origin title",
+              // })}
               onChange={(e) =>
                 setOriginTitle((e.target as HTMLInputElement).value)
               }
@@ -150,13 +162,14 @@ const AnimeAdding = () => {
             placeholder="Enter the description"
             textarea={true}
             customStyle={wideForm.textarea}
+            required={true}
             onChange={(e) =>
               setDescription((e.target as HTMLInputElement).value)
             }
           />
         </div>
         <span className={wideForm.hint}>Choose categories</span>
-        <FormSelect multiple={true} onChange={onChangeHandler}>
+        <FormSelect multiple={true} onChange={onChangeHandler} required={true}>
           {(isCategoriesLoading ? [...Array(2)] : categories.items).map(
             (obj: typeof categories | undefined, index: Key) =>
               isCategoriesLoading ? (
@@ -175,6 +188,7 @@ const AnimeAdding = () => {
             placeholder="Enter the seasons count"
             type="number"
             customStyle={wideForm.inputWide}
+            required={true}
             onChange={(e) =>
               setSeasons(parseInt((e.target as HTMLInputElement).value))
             }
@@ -183,6 +197,7 @@ const AnimeAdding = () => {
             placeholder="Enter the series count"
             type="number"
             customStyle={wideForm.inputWide}
+            required={true}
             onChange={(e) =>
               setSeries(parseInt((e.target as HTMLInputElement).value))
             }
@@ -191,13 +206,16 @@ const AnimeAdding = () => {
             placeholder="Enter the years of release"
             type="text"
             customStyle={wideForm.inputWide}
+            required={true}
             onChange={(e) => setYears((e.target as HTMLInputElement).value)}
           />
         </div>
         <span className={wideForm.hint}>Choose status</span>
         <FormSelect
           onChange={(e) => setStatus((e.target as HTMLSelectElement).value)}
+          required={true}
         >
+          <FormSelectOption label="Select Status" value="" />
           <FormSelectOption label="Ongoing" value="Ongoing" />
           <FormSelectOption label="Finished" value="Finished" />
           <FormSelectOption label="Will be soon" value="Soon" />
@@ -206,8 +224,9 @@ const AnimeAdding = () => {
         <span className={wideForm.hint}>Choose author</span>
         <FormSelect
           onChange={(e) => setAuthor((e.target as HTMLSelectElement).value)}
+          required={true}
         >
-          <FormSelectOption label="Kurosaki" value="ichika" />
+          <FormSelectOption label="Select author" value="" />
           {(isCreatorsLoading ? [...Array(2)] : creators.items).map(
             (obj: typeof creators | undefined, index: Key) =>
               isCreatorsLoading ? (
@@ -231,7 +250,11 @@ const AnimeAdding = () => {
             hidden={true}
             onChange={(e) => handleChangeFile(1, e)}
           />
-          <IconContainer size="6vh" color="red">
+          <IconContainer
+            size="6vh"
+            color="red"
+            onClick={() => onClickRemoveImage(1)}
+          >
             <AiOutlineDelete />
           </IconContainer>
           <Image
@@ -247,7 +270,11 @@ const AnimeAdding = () => {
             hidden={true}
             onChange={(e) => handleChangeFile(2, e)}
           />
-          <IconContainer size="6vh" color="red">
+          <IconContainer
+            size="6vh"
+            color="red"
+            onClick={() => onClickRemoveImage(2)}
+          >
             <AiOutlineDelete />
           </IconContainer>
           <Image
@@ -263,7 +290,11 @@ const AnimeAdding = () => {
             hidden={true}
             onChange={(e) => handleChangeFile(3, e)}
           />
-          <IconContainer size="6vh" color="red">
+          <IconContainer
+            size="6vh"
+            color="red"
+            onClick={() => onClickRemoveImage(3)}
+          >
             <AiOutlineDelete />
           </IconContainer>
           <Image
@@ -279,7 +310,11 @@ const AnimeAdding = () => {
             hidden={true}
             onChange={(e) => handleChangeFile(4, e)}
           />
-          <IconContainer size="6vh" color="red">
+          <IconContainer
+            size="6vh"
+            color="red"
+            onClick={() => onClickRemoveImage(4)}
+          >
             <AiOutlineDelete />
           </IconContainer>
           <Image

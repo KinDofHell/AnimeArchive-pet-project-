@@ -4,8 +4,11 @@ import { AiOutlineEdit, AiOutlineDelete } from "react-icons/Ai";
 import { Link } from "react-router-dom";
 import { FC } from "react";
 
+import { fetchRemoveAnime } from "../../redux/slices/anime";
+
 import IconContainer from "../ui/iconContainer/IconContainer";
 import Button from "../ui/buttons/Button";
+import { useDispatch } from "react-redux";
 
 interface Props {
   _id?: string;
@@ -16,6 +19,12 @@ interface Props {
 }
 
 const AnimeItem: FC<Props> = ({ _id, title, image, isEditable, isWatched }) => {
+  const dispatch = useDispatch<any>();
+  const onClickRemove = () => {
+    if (window.confirm("Are you sure you want to delete anime?"))
+      dispatch(fetchRemoveAnime(_id));
+  };
+
   return (
     <div className={styles.anime__item}>
       <div className={styles.image}>
@@ -42,7 +51,7 @@ const AnimeItem: FC<Props> = ({ _id, title, image, isEditable, isWatched }) => {
               size={"50%"}
               color={"green"}
               customIcon={styles.icon}
-              link={"#"}
+              link={`/anime/${_id}/edit`}
             >
               <AiOutlineEdit />
             </IconContainer>
@@ -50,6 +59,7 @@ const AnimeItem: FC<Props> = ({ _id, title, image, isEditable, isWatched }) => {
               size={"50%"}
               color={"darkred"}
               customIcon={styles.icon}
+              onClick={onClickRemove}
             >
               <AiOutlineDelete />
             </IconContainer>
