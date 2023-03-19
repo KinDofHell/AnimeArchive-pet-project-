@@ -3,7 +3,6 @@ import styles from "./Anime.module.scss";
 import { SERVER_HOST } from "../../data/Constant";
 
 import { Key, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 import { fetchAnime } from "../../redux/slices/anime";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +11,7 @@ import { isProductModerator } from "../../redux/slices/user";
 import Search from "../../components/search/Search";
 import Searchbar from "../../components/search/Searchbar";
 import AnimeItem from "../../components/animeItem/AnimeItem";
+import Button from "../../components/ui/buttons/Button";
 
 const Anime = () => {
   const dispatch = useDispatch<any>();
@@ -40,9 +40,11 @@ const Anime = () => {
       <div className={styles.searchblock}>
         <Search />
         {isProductManager ? (
-          <Link to="/anime-adding">
-            <span className={styles.spanWords}>Add New One</span>
-          </Link>
+          <Button
+            label="Add New One"
+            link="/anime-adding"
+            customStyle={styles.spanWords}
+          />
         ) : (
           <span className={styles.spanWords}>Find The Best For You</span>
         )}

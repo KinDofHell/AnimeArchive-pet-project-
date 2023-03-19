@@ -2,8 +2,7 @@
 
 .form__input,
 .form__textarea {
-  @include styleStorage.blur-border();
-  border-radius: 10px;
+  @include styleStorage.blur-border(10px);
 
   background-color: transparent;
   color: rgb(255, 208, 0);

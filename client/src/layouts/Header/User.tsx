@@ -1,7 +1,6 @@
 import styles from "./Header.module.scss";
 import avatar from "../../assets/imgs/PngItem_5680583.png";
 
-import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { isAuthenticated, logout } from "../../redux/slices/user";
@@ -61,15 +60,9 @@ const User = () => {
         {isAuth ? user.data.fullName : "Nobody"}
       </span>
       {isAuth ? (
-        <Button
-          label="Log Out"
-          customStyle={styles.btn__logout}
-          onClick={onClickLogout}
-        />
+        <Button label="Log Out" onClick={onClickLogout} />
       ) : (
-        <Link to="/login">
-          <Button label="Log In" customStyle={styles.btn__login} />
-        </Link>
+        <Button label="Log In" link="/login" />
       )}
     </div>
   );

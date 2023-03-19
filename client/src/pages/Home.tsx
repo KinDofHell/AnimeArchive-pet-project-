@@ -34,24 +34,15 @@ const Home = () => {
     <main className={styles.home}>
       <div className={styles.top__block}>
         <Card title="Recently Added Anime">
-          {(isAnimeLoading ? [...Array(3)] : anime.items).map(
-            (obj: typeof anime | undefined, index: Key) =>
-              isAnimeLoading ? (
-                <RecAnimeItems
-                  title={"Naruto"}
-                  img={""}
-                  link={"/anime/"}
-                  key={index}
-                />
-              ) : (
-                <RecAnimeItems
-                  title={obj.title}
-                  img={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
-                  link={`/anime/${obj._id}`}
-                  key={index}
-                />
-              )
-          )}
+          {!isAnimeLoading &&
+            anime.items.map((obj: typeof anime | undefined, index: Key) => (
+              <RecAnimeItems
+                title={obj.title}
+                img={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
+                link={`/anime/${obj._id}`}
+                key={index}
+              />
+            ))}
         </Card>
         <img className={styles.img} src={centralImgs} alt={centralImgs} />
         <Card title="Recently Added News">

@@ -7,8 +7,7 @@
   .searchblock {
     @include styleStorage.flex(space-between, center, row, wrap);
 
-    @include styleStorage.blur-border();
-    border-radius: 10px;
+    @include styleStorage.blur-border(10px);
 
     padding: 5px;
     width: 90%;

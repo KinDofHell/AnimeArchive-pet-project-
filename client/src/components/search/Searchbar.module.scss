@@ -3,8 +3,7 @@
 .searchbar {
   width: 40%;
   .input {
-    @include styleStorage.blur-border();
-    border-radius: 10px;
+    @include styleStorage.blur-border(10px);
     background-color: transparent;
     color: white;
     font-size: 1.1vw;

@@ -42,9 +42,13 @@ const AnimeItem: FC<Props> = ({ _id, title, image, isEditable, isWatched }) => {
             : { backgroundColor: "white" }
         }
       >
-        <Link to={`/anime/${_id}`}>
-          <Button label={title} customStyle={styles.btn__Title} />
-        </Link>
+        <Button
+          label={title}
+          link={`/anime/${_id}`}
+          color="black"
+          fontSize="1.2vw"
+          width="max-content"
+        />
         {isEditable && (
           <div className={styles.editable}>
             <IconContainer

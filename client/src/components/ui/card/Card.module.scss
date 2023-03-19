@@ -2,8 +2,7 @@
 
 .card {
   @include styleStorage.flex(center, space-around, column, wrap);
-  @include styleStorage.blur-border();
-  border-radius: 10px;
+  @include styleStorage.blur-border(10px);
 
   padding: 5px;
 

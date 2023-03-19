@@ -5,8 +5,7 @@
 
   padding: 5px;
   .img {
-    @include styleStorage.blur-border();
-    border-radius: 10px;
+    @include styleStorage.blur-border(10px);
 
     width: 4vw;
     height: 4vw;

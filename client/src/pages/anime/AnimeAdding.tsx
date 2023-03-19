@@ -163,12 +163,16 @@ const AnimeAdding = () => {
   return (
     <div className={styles.adding__page + " " + wideForm.wide__page}>
       <div className={wideForm.adding__instrument}>
-        <Link to="/category-adding">
-          <Button label="Create Category" customStyle={wideForm.btn__adding} />
-        </Link>
-        <Link to="/creator-adding">
-          <Button label="Create Creator" customStyle={wideForm.btn__adding} />
-        </Link>
+        <Button
+          label="Create Category"
+          customStyle={wideForm.btn__adding}
+          link="/category-adding"
+        />
+        <Button
+          label="Create Creator"
+          customStyle={wideForm.btn__adding}
+          link="/creator-adding"
+        />
       </div>
       <FormContainer title="Create Anime" customStyles={wideForm.wide__form}>
         <div className={wideForm.titles__description}>

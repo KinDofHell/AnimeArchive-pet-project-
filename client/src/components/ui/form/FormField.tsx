@@ -1,5 +1,5 @@
 import styles from "./FormField.module.scss";
-import { ChangeEventHandler, FC, Ref } from "react";
+import { ChangeEventHandler, FC } from "react";
 
 interface Props {
   textarea?: boolean;

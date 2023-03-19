@@ -20,9 +20,7 @@ const RecAnimeItems: FC<Props> = ({ title, img, link }) => {
         <div className={styles.img}></div>
       )}
       <span className={styles.title}>{title}</span>
-      <Link to={link}>
-        <Button label={"Show"} customStyle={styles.btn} />
-      </Link>
+      <Button label={"Show"} link={link} />
     </div>
   );
 };

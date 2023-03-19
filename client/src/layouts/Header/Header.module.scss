@@ -9,14 +9,12 @@
     text-decoration: none;
   }
   .title {
-    @include styleStorage.blur-border();
+    @include styleStorage.blur-border(100% 100% / 40% 40%);
 
     font-family: "Sofia";
     font-size: 3vw;
 
     padding: 5px 15px;
-
-    border-radius: 100% 100% / 40% 40%;
 
     cursor: pointer;
     span:first-child {
@@ -45,16 +43,8 @@
 }
 
 .navbar {
-  a {
-    text-decoration: none;
-    width: fit-content;
-    &:nth-child(2n) {
-      margin: 0 7px;
-      button {
-        color: styleStorage.$orange;
-      }
-    }
-  }
+  @include styleStorage.flex(space-around, center, row, wrap);
+  width: 35vw;
 }
 
 .user {
@@ -62,8 +52,7 @@
 
   min-width: 27%;
   .status {
-    @include styleStorage.blur-border();
-    border-radius: 10% 10% / 100% 100%;
+    @include styleStorage.blur-border(10% 10% / 100% 100%);
     font-size: 1vw;
     z-index: 0;
 
@@ -78,8 +67,7 @@
   }
 
   .avatar {
-    @include styleStorage.blur-border();
-    border-radius: 50%;
+    @include styleStorage.blur-border(50%);
 
     padding: 0.3vw;
 
@@ -96,12 +84,11 @@
     }
   }
   .name {
-    @include styleStorage.blur-border();
-    border-radius: 10% 10% / 100% 100%;
+    @include styleStorage.blur-border(10% 10% / 100% 100%);
 
     min-width: 40%;
 
-    font-size: 24px;
+    font-size: 1.2vw;
 
     position: relative;
     left: -3%;

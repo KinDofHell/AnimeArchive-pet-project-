@@ -56,8 +56,7 @@
     width: 25vh;
 
     .img {
-      @include styleStorage.blur-border();
-      border-radius: 10px;
+      @include styleStorage.blur-border(10px);
 
       width: 20vh;
       height: 17vh;

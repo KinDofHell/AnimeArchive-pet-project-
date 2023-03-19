@@ -1,12 +1,8 @@
 @use "../../assets/styleStorage.scss" as styleStorage;
 
-.login__page {
-}
-
 .form__input,
 .form__textarea {
-  @include styleStorage.blur-border();
-  border-radius: 10px;
+  @include styleStorage.blur-border(10px);
 
   background-color: transparent;
   color: rgb(255, 208, 0);
@@ -24,7 +20,7 @@
   }
 }
 .button {
-  @include styleStorage.blur-border();
+  @include styleStorage.blur-border(10px);
   margin-top: 2vh;
   width: 90%;
   font-size: 1.2vw;
@@ -36,8 +32,6 @@
   color: styleStorage.$blueVariant;
 
   cursor: pointer;
-
-  border-radius: 10px;
   &:hover {
     background-color: styleStorage.$blueVariant;
     color: styleStorage.$orange;

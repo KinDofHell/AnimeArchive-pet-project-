@@ -2,8 +2,7 @@
 
 .form__container {
   @include styleStorage.flex(space-around, center, column, wrap);
-  @include styleStorage.blur-border();
-  border-radius: 10px;
+  @include styleStorage.blur-border(10px);
 
   width: 30vw;
 

@@ -1,8 +1,7 @@
 @use "../../../assets/styleStorage.scss" as styleStorage;
 
 .icon__container {
-  @include styleStorage.blur-border();
-  border-radius: 10px;
+  @include styleStorage.blur-border(10px);
 
   background-color: white;
 
