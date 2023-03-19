@@ -93,10 +93,8 @@ export const removeAnime = async (req: any, res: any) => {
         }
       }
     }
-    const result = await AnimeModel.findByIdAndRemove(animeID);
-    res.json({
-      success: result,
-    });
+    await AnimeModel.findByIdAndRemove(animeID);
+    res.status(204);
   } catch (err) {
     console.warn(err);
     res.status(500).json({

@@ -49,9 +49,7 @@ export const removeCreator = async (req: any, res: any) => {
       }
     }
     const result = await CreatorModel.findByIdAndRemove(creatorID);
-    res.json({
-      success: result,
-    });
+    res.status(204);
   } catch (err) {
     console.log(err);
     res.status(500).json({
