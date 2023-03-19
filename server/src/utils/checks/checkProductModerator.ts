@@ -15,12 +15,7 @@ export default async (req: any, res: any, next: any) => {
 
       // const user = await UserModel.findById(decoded._id);
       const role = decoded.role;
-      if (
-        role === "animeModerator" ||
-        role === "mangaModerator" ||
-        role === "admin"
-      )
-        next();
+      if (role === "productModerator" || role === "admin") next();
       else
         return res.status(403).json({
           message: "Access denied. You're not admin",

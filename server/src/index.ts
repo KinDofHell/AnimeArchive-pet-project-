@@ -71,6 +71,7 @@ app.post(
   handleValidationErrors,
   UserController.loginUser
 );
+app.get("/profile", CheckAuth, UserController.profileUser);
 
 //category
 app.post(
@@ -123,16 +124,16 @@ app.get("/creator/:id", CreatorController.getOneCreator);
 //anime
 app.post(
   "/anime",
-  // CheckAuth,
-  // CheckProductModerator,
+  CheckAuth,
+  CheckProductModerator,
   AnimeValidation.animeValidation,
   handleValidationErrors,
   AnimeController.createAnime
 );
 app.delete(
   "/anime/:id",
-  // CheckAuth,
-  // CheckProductModerator,
+  CheckAuth,
+  CheckProductModerator,
   AnimeController.removeAnime
 );
 app.patch(

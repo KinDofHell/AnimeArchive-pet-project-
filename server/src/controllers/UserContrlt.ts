@@ -76,3 +76,24 @@ export const loginUser = async (req: any, res: any) => {
     });
   }
 };
+
+export const profileUser = async (req: any, res: any) => {
+  try {
+    const user: any = await UserModel.findById(req.userID);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    const { passwordHash, ...userData } = user._doc;
+
+    res.json(userData);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Access denied",
+    });
+  }
+};
