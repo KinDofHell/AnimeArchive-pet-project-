@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 import { fetchAnime } from "../../redux/slices/anime";
 import { useDispatch, useSelector } from "react-redux";
+import { isProductModerator } from "../../redux/slices/user";
 
 import Search from "../../components/search/Search";
 import Searchbar from "../../components/search/Searchbar";
@@ -17,7 +18,7 @@ const Anime = () => {
   const { anime } = useSelector((state: any) => state.anime);
   const isAnimeLoading: boolean = anime.status === "loading";
 
-  const isAdmin = true;
+  const isProductManager = useSelector(isProductModerator);
 
   useEffect(() => {
     dispatch(fetchAnime());
@@ -38,7 +39,7 @@ const Anime = () => {
     <main className={styles.anime}>
       <div className={styles.searchblock}>
         <Search />
-        {isAdmin ? (
+        {isProductManager ? (
           <Link to="/anime-adding">
             <span className={styles.spanWords}>Add New One</span>
           </Link>
@@ -55,7 +56,7 @@ const Anime = () => {
               key={index}
               title={obj.title}
               image={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
-              isEditable={true}
+              isEditable={isProductManager}
               isWatched={false}
             />
           ))}

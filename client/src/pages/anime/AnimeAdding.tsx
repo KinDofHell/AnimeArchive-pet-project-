@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 
 import { fetchCategories } from "../../redux/slices/category";
 import { fetchCreators } from "../../redux/slices/creators";
+import { isAuthenticated, isProductModerator } from "../../redux/slices/user";
 
 import axios from "../../utils/axios";
 
@@ -24,6 +25,10 @@ import Image from "../../components/ui/Image/Image";
 import IconContainer from "../../components/ui/iconContainer/IconContainer";
 
 const AnimeAdding = () => {
+  const isAuth = useSelector(isAuthenticated);
+  const isPM = useSelector(isProductModerator);
+
+  const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch<any>();
   const { categories } = useSelector((state: any) => state.categories);
@@ -39,7 +44,7 @@ const AnimeAdding = () => {
   const [series, setSeries] = useState<number>();
   const [years, setYears] = useState("");
   const [status, setStatus] = useState("");
-  const [author, setAuthor] = useState<string>();
+  const [author, setAuthor] = useState<string | object>();
   const [imgCover, setImgCover] = useState("");
   const [imgAdditional_1, setimgAdditional_1] = useState("");
   const [imgAdditional_2, setimgAdditional_2] = useState("");
@@ -49,6 +54,8 @@ const AnimeAdding = () => {
   const inputFileRef_2 = useRef<HTMLInputElement>(null);
   const inputFileRef_3 = useRef<HTMLInputElement>(null);
   const inputFileRef_4 = useRef<HTMLInputElement>(null);
+
+  const isEditing: boolean = Boolean(id);
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -98,15 +105,42 @@ const AnimeAdding = () => {
         imgAdditional_2,
         imgAdditional_3,
       };
-      const { data } = await axios.post("/anime", fields);
+      const { data } = isEditing
+        ? await axios.patch(`/anime/${id}`, fields)
+        : await axios.post("/anime", fields);
 
-      const _id = data._id;
+      const _id = isEditing ? id : data._id;
       navigate(`/anime/${_id}`);
     } catch (error) {
       alert("Error creating anime");
       console.warn(error);
     }
   };
+
+  useEffect(() => {
+    if (id) {
+      let categ: string[] = [];
+      axios.get(`/anime/${id}`).then(({ data }) => {
+        setTitle(data.title);
+        setOriginTitle(data.originTitle);
+        data.categoriesArray.map((obj: any) => categ.push(obj._id));
+        setCategoriesArray(categ);
+        setDescription(data.description);
+        setSeasons(data.seasons);
+        setSeries(data.series);
+        setYears(data.years.join(","));
+        setStatus(data.status);
+        setAuthor(data.author._id);
+        setImgCover(data.imgCover);
+        setimgAdditional_1(data.imgAdditional_1);
+        setimgAdditional_2(data.imgAdditional_2);
+        setimgAdditional_3(data.imgAdditional_3);
+      });
+    }
+  }, []);
+  if (!isAuth && !window.localStorage.getItem("token"))
+    return <Navigate to="/" />;
+  if (!isPM && isPM !== undefined) return <Navigate to="/" />;
 
   const onButtonCliclImage = (num: number) => {
     if (num === 1) {
@@ -142,17 +176,15 @@ const AnimeAdding = () => {
             <FormField
               placeholder="Enter the title"
               type="text"
+              value={title}
               required={true}
-              // {...register("title", { required: "Enter the title" })}
               onChange={(e) => setTitle((e.target as HTMLInputElement).value)}
             />
             <FormField
               placeholder="Enter the origin title"
               type="text"
+              value={originTitle}
               required={true}
-              // {...register("originTitle", {
-              //   required: "Enter the origin title",
-              // })}
               onChange={(e) =>
                 setOriginTitle((e.target as HTMLInputElement).value)
               }
@@ -163,6 +195,7 @@ const AnimeAdding = () => {
             textarea={true}
             customStyle={wideForm.textarea}
             required={true}
+            value={description}
             onChange={(e) =>
               setDescription((e.target as HTMLInputElement).value)
             }
@@ -179,6 +212,11 @@ const AnimeAdding = () => {
                   label={obj.title}
                   value={obj._id}
                   key={index}
+                  selected={
+                    isEditing &&
+                    categoriesArray &&
+                    categoriesArray.some((id) => id === obj._id)
+                  }
                 />
               )
           )}
@@ -189,6 +227,7 @@ const AnimeAdding = () => {
             type="number"
             customStyle={wideForm.inputWide}
             required={true}
+            value={seasons}
             onChange={(e) =>
               setSeasons(parseInt((e.target as HTMLInputElement).value))
             }
@@ -198,6 +237,7 @@ const AnimeAdding = () => {
             type="number"
             customStyle={wideForm.inputWide}
             required={true}
+            value={series}
             onChange={(e) =>
               setSeries(parseInt((e.target as HTMLInputElement).value))
             }
@@ -205,6 +245,7 @@ const AnimeAdding = () => {
           <FormField
             placeholder="Enter the years of release"
             type="text"
+            value={years}
             customStyle={wideForm.inputWide}
             required={true}
             onChange={(e) => setYears((e.target as HTMLInputElement).value)}
@@ -216,10 +257,26 @@ const AnimeAdding = () => {
           required={true}
         >
           <FormSelectOption label="Select Status" value="" />
-          <FormSelectOption label="Ongoing" value="Ongoing" />
-          <FormSelectOption label="Finished" value="Finished" />
-          <FormSelectOption label="Will be soon" value="Soon" />
-          <FormSelectOption label="Abandoned" value="Adandoned" />
+          <FormSelectOption
+            label="Ongoing"
+            value="Ongoing"
+            selected={status === "Ongoing"}
+          />
+          <FormSelectOption
+            label="Finished"
+            value="Finished"
+            selected={status === "Finished"}
+          />
+          <FormSelectOption
+            label="Will be soon"
+            value="Soon"
+            selected={status === "Soon"}
+          />
+          <FormSelectOption
+            label="Abandoned"
+            value="Adandoned"
+            selected={status === "Adandoned"}
+          />
         </FormSelect>
         <span className={wideForm.hint}>Choose author</span>
         <FormSelect
@@ -227,20 +284,25 @@ const AnimeAdding = () => {
           required={true}
         >
           <FormSelectOption label="Select author" value="" />
-          {(isCreatorsLoading ? [...Array(2)] : creators.items).map(
+          {(isCreatorsLoading ? [...Array(1)] : creators.items).map(
             (obj: typeof creators | undefined, index: Key) =>
               isCreatorsLoading ? (
-                <FormSelectOption label="Kurosaki" value="ichika" />
+                <FormSelectOption label="Kurosaki" value="" />
               ) : (
                 <FormSelectOption
                   label={obj.fullname}
                   value={obj._id}
                   key={index}
+                  selected={isEditing && obj._id === author}
                 />
               )
           )}
         </FormSelect>
-        <Button label="Create" onClick={onSubmit} />
+        {isEditing ? (
+          <Button label="Save" onClick={onSubmit} />
+        ) : (
+          <Button label="Create" onClick={onSubmit} />
+        )}
       </FormContainer>
       <div className={wideForm.imgs__container}>
         <div className={wideForm.item}>

@@ -5,12 +5,16 @@ import { useSelector } from "react-redux";
 import { useNavigate, Navigate, useParams } from "react-router-dom";
 
 import axios from "../../utils/axios";
+import { isAuthenticated, isProductModerator } from "../../redux/slices/user";
 
 import FormContainer from "../../components/ui/form/FormContainer";
 import FormField from "../../components/ui/form/FormField";
 import Button from "../../components/ui/buttons/Button";
 
 const CategoryAdding = () => {
+  const isAuth = useSelector(isAuthenticated);
+  const isPM = useSelector(isProductModerator);
+
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -21,12 +25,17 @@ const CategoryAdding = () => {
         title,
         description,
       };
+      const { data } = await axios.post("/category", fields);
       navigate(`/anime-adding/`);
     } catch (error) {
       console.warn(error);
       alert("Error creating category");
     }
   };
+
+  if (!isAuth && !window.localStorage.getItem("token"))
+    return <Navigate to="/" />;
+  if (!isPM && isPM !== undefined) return <Navigate to="/" />;
 
   return (
     <div className={styles.adding__page}>

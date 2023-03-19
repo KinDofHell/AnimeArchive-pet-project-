@@ -5,12 +5,16 @@ import { useSelector } from "react-redux";
 import { useNavigate, Navigate, useParams } from "react-router-dom";
 
 import axios from "../../utils/axios";
+import { isAuthenticated, isProductModerator } from "../../redux/slices/user";
 
 import FormContainer from "../../components/ui/form/FormContainer";
 import FormField from "../../components/ui/form/FormField";
 import Button from "../../components/ui/buttons/Button";
 
 const CreatorAdding = () => {
+  const isAuth = useSelector(isAuthenticated);
+  const isPM = useSelector(isProductModerator);
+
   const navigate = useNavigate();
   const [fullname, setFullname] = useState("");
   const [description, setDescription] = useState("");
@@ -53,6 +57,10 @@ const CreatorAdding = () => {
   const onButtonCliclImage = () => {
     if (inputFileRef.current) inputFileRef.current.click();
   };
+
+  if (!isAuth && !window.localStorage.getItem("token"))
+    return <Navigate to="/" />;
+  if (!isPM && isPM !== undefined) return <Navigate to="/" />;
 
   return (
     <div className={styles.adding__page}>

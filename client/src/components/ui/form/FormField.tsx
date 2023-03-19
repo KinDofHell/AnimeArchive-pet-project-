@@ -1,6 +1,5 @@
-import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
 import styles from "./FormField.module.scss";
-import { ChangeEventHandler, FC } from "react";
+import { ChangeEventHandler, FC, Ref } from "react";
 
 interface Props {
   textarea?: boolean;
@@ -11,6 +10,7 @@ interface Props {
   onChange?: ChangeEventHandler;
   hidden?: boolean;
   required?: boolean;
+  id?: string;
 }
 
 const FormField: FC<Props> = ({
@@ -22,6 +22,7 @@ const FormField: FC<Props> = ({
   onChange,
   hidden,
   required,
+  id,
 }) => {
   if (!textarea) {
     return (
@@ -32,6 +33,7 @@ const FormField: FC<Props> = ({
             ? styles.form__file
             : styles.form__input + " " + customStyle
         }
+        id={id}
         value={value}
         placeholder={placeholder}
         onChange={onChange}
@@ -45,6 +47,7 @@ const FormField: FC<Props> = ({
         className={styles.form__textarea + " " + customStyle}
         placeholder={placeholder}
         onChange={onChange}
+        id={id}
         hidden={hidden}
         defaultValue={value}
         required={required}
