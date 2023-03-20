@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FieldValues, useForm } from "react-hook-form";
 import { fetchRegister, isAuthenticated } from "../../redux/slices/user";
 import { Navigate } from "react-router-dom";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 import Button from "../../components/ui/buttons/Button";
 import FormContainer from "../../components/ui/form/FormContainer";
@@ -14,6 +14,9 @@ import FormField from "../../components/ui/form/FormField";
 const Register = () => {
   const isAuth = useSelector(isAuthenticated);
   const dispatch = useDispatch<any>();
+
+  const [registered, setRegistered] = useState<boolean>(false);
+
   const {
     register,
     handleSubmit,
@@ -21,17 +24,13 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = async (values: FieldValues) => {
-    const data = await dispatch(fetchRegister(values));
-
-    if (!data.payload) return alert("Register failed client");
-
-    if ("token" in data.payload)
-      window.localStorage.setItem("token", data.payload.token);
+    await dispatch(fetchRegister(values));
+    setRegistered(true);
   };
 
-  if (isAuth) {
-    return <Navigate to="/" />;
-  }
+  if (isAuth) return <Navigate to="/" />;
+  if (registered) return <Navigate to="/login" />;
+
   return (
     <div className={styles.adding__page}>
       <form method="POST" onSubmit={handleSubmit(onSubmit)}>

@@ -13,8 +13,7 @@ export const fetchLogin = createAsyncThunk(
 export const fetchRegister = createAsyncThunk(
   "login/fetchRegister",
   async (params: FieldValues) => {
-    const { data } = await axios.post("/register", params);
-    return data;
+    await axios.post("/register", params);
   }
 );
 
@@ -42,10 +41,6 @@ const userSlice = createSlice({
       state.status = "loading";
       state.data = null;
     }),
-      builder.addCase(fetchRegister.fulfilled, (state, action) => {
-        state.data = action.payload;
-        state.status = "loaded";
-      }),
       builder.addCase(fetchRegister.rejected, (state) => {
         state.data = null;
         state.status = "error";

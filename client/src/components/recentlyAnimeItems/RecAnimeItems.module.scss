@@ -2,8 +2,11 @@
 
 .rec__anime__items {
   @include styleStorage.flex(space-around, center, row, nowrap);
-
+  min-width: 25vw;
   padding: 5px;
+  @media screen and (max-width: 1024px) {
+    min-width: 30vw;
+  }
   .img {
     @include styleStorage.blur-border(10px);
 

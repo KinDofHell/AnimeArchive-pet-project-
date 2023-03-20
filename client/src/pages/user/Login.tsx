@@ -55,6 +55,12 @@ const Login = () => {
             value="Login"
             className={registerStyles.button}
           />
+          <Button
+            label="Register"
+            link="/register"
+            backgroundColor="white"
+            color="black"
+          />
         </FormContainer>
       </form>
     </div>

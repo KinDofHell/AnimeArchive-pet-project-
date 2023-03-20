@@ -16,7 +16,7 @@ import { useEffect, Key } from "react";
 import { fetchRecentAnime } from "../redux/slices/anime";
 import { useDispatch, useSelector } from "react-redux";
 
-import Card from "../components/ui/card/Card";
+import Card from "../components/ui/cards/Card";
 import RecAnimeItems from "./../components/recentlyAnimeItems/RecAnimeItems";
 import IconContainer from "../components/ui/iconContainer/IconContainer";
 import Image from "../components/ui/Image/Image";
@@ -33,7 +33,11 @@ const Home = () => {
   return (
     <main className={styles.home}>
       <div className={styles.top__block}>
-        <Card title="Recently Added Anime">
+        <Card
+          title="Recently Added Anime"
+          flexColumn={true}
+          flexContentColumn={true}
+        >
           {!isAnimeLoading &&
             anime.items.map((obj: typeof anime | undefined, index: Key) => (
               <RecAnimeItems
@@ -45,7 +49,11 @@ const Home = () => {
             ))}
         </Card>
         <img className={styles.img} src={centralImgs} alt={centralImgs} />
-        <Card title="Recently Added News">
+        <Card
+          title="Recently Added News"
+          flexColumn={true}
+          flexContentColumn={true}
+        >
           <RecAnimeItems title={"Holidays Event"} img={""} link={"/news/"} />
           <RecAnimeItems
             title={"Back to Death Note"}
@@ -56,7 +64,12 @@ const Home = () => {
         </Card>
       </div>
       <div className={styles.bottom__block}>
-        <Card title="New Image" customStyleCard={styles.card__width__side}>
+        <Card
+          title="New Image"
+          flexColumn={true}
+          flexContentColumn={true}
+          contentPadding="0"
+        >
           <Image
             src="https://img.freepik.com/premium-photo/cute-anime-woman-looking-cityscape-by-night-time-sad-moody-manga-lofi-style-3d-rendering_717906-997.jpg"
             linkPath={"/gallery/"}
@@ -64,9 +77,9 @@ const Home = () => {
         </Card>
         <Card
           title="Additional Info"
-          customStyleCard={styles.card__width}
-          customStyleContent={styles.addtional__info}
-          customStyleTitle={styles.title__img}
+          flexColumn={true}
+          flexContentColumn={false}
+          minWidth="55%"
         >
           <IconContainer
             size={"100%"}
@@ -109,7 +122,12 @@ const Home = () => {
             {<HiOutlineChatBubbleOvalLeftEllipsis />}
           </IconContainer>
         </Card>
-        <Card title="About Us" customStyleCard={styles.card__width__side}>
+        <Card
+          title="About Us"
+          flexColumn={true}
+          flexContentColumn={true}
+          contentPadding="0"
+        >
           <Image src={aboutImg} linkPath={"/about-us"} />
         </Card>
       </div>
