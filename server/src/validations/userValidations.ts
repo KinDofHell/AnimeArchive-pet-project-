@@ -4,8 +4,9 @@ export const registerValidation = [
   body("email", "Invalid email").isEmail(),
   body("password", "Password must be more than 5 characters").isLength({
     min: 5,
+    max: 30,
   }),
-  body("fullName", "Enter the fullname").isLength({ min: 5 }),
+  body("fullName", "Enter the fullname").isLength({ min: 5, max: 13 }),
   body("role", "Enter the role").optional().isLength({ min: 5 }),
   body("avatarUrl", "Incorrect avatar link").optional().isURL(),
 ];
