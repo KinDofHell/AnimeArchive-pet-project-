@@ -1,0 +1,24 @@
+@use "../../../assets/styleStorage.scss" as styleStorage;
+
+.item__info {
+  @include styleStorage.flex(space-around, center, row, wrap);
+  border-bottom: 1px solid white;
+  width: 100%;
+  span {
+    margin-top: 0.5%;
+    min-width: 30%;
+    height: 5vh;
+    padding: 1%;
+
+    &:first-child {
+      background-color: styleStorage.$blue;
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+    }
+    &:last-child {
+      background-color: rgb(139, 6, 73);
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+    }
+  }
+}

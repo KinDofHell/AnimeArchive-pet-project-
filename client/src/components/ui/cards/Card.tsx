@@ -9,6 +9,7 @@ interface Props {
   flexContentColumn: boolean;
   minWidth?: string;
   contentPadding?: string;
+  maxWidth_Height?: boolean;
 }
 
 const Card: FC<Props> = ({
@@ -18,6 +19,7 @@ const Card: FC<Props> = ({
   flexContentColumn,
   minWidth,
   contentPadding,
+  maxWidth_Height,
 }) => {
   return (
     <div
@@ -28,7 +30,9 @@ const Card: FC<Props> = ({
         " " +
         (flexColumn
           ? cardStyles.card__flex__column
-          : cardStyles.card__flex__row)
+          : cardStyles.card__flex__row) +
+        " " +
+        (maxWidth_Height && cardStyles.card__maxWidth_Height)
       }
       style={{ minWidth: minWidth }}
     >

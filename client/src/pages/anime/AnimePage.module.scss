@@ -1,0 +1,29 @@
+@use "../../assets/styleStorage.scss" as styleStorage;
+
+.anime__page {
+  @include styleStorage.flex(center, center, column, nowrap);
+  width: 100%;
+  margin-top: 0.9vh;
+
+  .title {
+    @include styleStorage.blur-border(10px);
+    width: 80%;
+    margin-bottom: 2vh;
+  }
+
+  .info__block {
+    @include styleStorage.flex(space-around, center, row, nowrap);
+    width: 100%;
+  }
+
+  .categories__block {
+    width: 90%;
+    margin-top: 1%;
+  }
+}
+
+.title__bigScreen {
+  @media screen and (min-width: 1440px) {
+    font-size: 2vw;
+  }
+}

@@ -17,7 +17,7 @@ import { fetchRecentAnime } from "../redux/slices/anime";
 import { useDispatch, useSelector } from "react-redux";
 
 import Card from "../components/ui/cards/Card";
-import RecAnimeItems from "./../components/recentlyAnimeItems/RecAnimeItems";
+import RecAnimeItems from "../components/anime/recentlyAnimeItems/RecAnimeItems";
 import IconContainer from "../components/ui/iconContainer/IconContainer";
 import Image from "../components/ui/Image/Image";
 
@@ -73,6 +73,8 @@ const Home = () => {
           <Image
             src="https://img.freepik.com/premium-photo/cute-anime-woman-looking-cityscape-by-night-time-sad-moody-manga-lofi-style-3d-rendering_717906-997.jpg"
             linkPath={"/gallery/"}
+            width="11vw"
+            height="9vw"
           />
         </Card>
         <Card
@@ -128,7 +130,12 @@ const Home = () => {
           flexContentColumn={true}
           contentPadding="0"
         >
-          <Image src={aboutImg} linkPath={"/about-us"} />
+          <Image
+            src={aboutImg}
+            linkPath={"/about-us"}
+            width="11vw"
+            height="9vw"
+          />
         </Card>
       </div>
     </main>

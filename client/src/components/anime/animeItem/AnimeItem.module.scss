@@ -1,4 +1,4 @@
-@use "../../assets/styleStorage.scss" as styleStorage;
+@use "../../../assets/styleStorage.scss" as styleStorage;
 
 .anime__item {
   @include styleStorage.flex(center, center, column, wrap);
@@ -58,16 +58,4 @@
       }
     }
   }
-
-  // .btn__Title {
-  //   background-color: white;
-  //   color: black;
-  //   font-weight: bold;
-
-  //   &:hover {
-  //     background-color: transparent;
-  //     border: 1px solid black;
-  //     box-shadow: 3px 3px 6px black;
-  //   }
-  // }
 }

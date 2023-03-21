@@ -8,7 +8,6 @@ import { AiOutlineDelete } from "react-icons/Ai";
 import { useState, useRef, useEffect, Key } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Navigate, useParams, Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
 
 import { fetchCategories } from "../../redux/slices/category";
 import { fetchCreators } from "../../redux/slices/creators";
@@ -325,7 +324,9 @@ const AnimeAdding = () => {
           </IconContainer>
           <Image
             src={imgCover ? `${SERVER_HOST}${imgCover}` : ""}
-            customStyleImage={wideForm.img}
+            borderMode={true}
+            width="11vw"
+            height="9vw"
             onClick={() => onButtonCliclImage(1)}
           />
         </div>
@@ -345,7 +346,9 @@ const AnimeAdding = () => {
           </IconContainer>
           <Image
             src={imgAdditional_1 ? `${SERVER_HOST}${imgAdditional_1}` : ""}
-            customStyleImage={wideForm.img}
+            borderMode={true}
+            width="11vw"
+            height="9vw"
             onClick={() => onButtonCliclImage(2)}
           />
         </div>
@@ -365,7 +368,9 @@ const AnimeAdding = () => {
           </IconContainer>
           <Image
             src={imgAdditional_2 ? `${SERVER_HOST}${imgAdditional_2}` : ""}
-            customStyleImage={wideForm.img}
+            borderMode={true}
+            width="11vw"
+            height="9vw"
             onClick={() => onButtonCliclImage(3)}
           />
         </div>
@@ -385,7 +390,9 @@ const AnimeAdding = () => {
           </IconContainer>
           <Image
             src={imgAdditional_3 ? `${SERVER_HOST}${imgAdditional_3}` : ""}
-            customStyleImage={wideForm.img}
+            borderMode={true}
+            width="11vw"
+            height="9vw"
             onClick={() => onButtonCliclImage(4)}
           />
         </div>

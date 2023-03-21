@@ -10,7 +10,7 @@ import { isProductModerator } from "../../redux/slices/user";
 
 import Search from "../../components/search/Search";
 import Searchbar from "../../components/search/Searchbar";
-import AnimeItem from "../../components/animeItem/AnimeItem";
+import AnimeItem from "../../components/anime/animeItem/AnimeItem";
 import Button from "../../components/ui/buttons/Button";
 
 const Anime = () => {

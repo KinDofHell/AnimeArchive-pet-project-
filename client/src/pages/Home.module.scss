@@ -3,6 +3,7 @@
 .home {
   @include styleStorage.flex(center, space-around, column, wrap);
   width: 100%;
+  margin-top: 3vh;
 
   .top__block,
   .bottom__block {

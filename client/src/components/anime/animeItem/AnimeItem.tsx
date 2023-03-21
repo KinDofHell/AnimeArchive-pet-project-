@@ -1,13 +1,12 @@
 import styles from "./AnimeItem.module.scss";
 
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/Ai";
-import { Link } from "react-router-dom";
 import { FC } from "react";
 
-import { fetchRemoveAnime } from "../../redux/slices/anime";
+import { fetchRemoveAnime } from "../../../redux/slices/anime";
 
-import IconContainer from "../ui/iconContainer/IconContainer";
-import Button from "../ui/buttons/Button";
+import IconContainer from "../../ui/iconContainer/IconContainer";
+import Button from "../../ui/buttons/Button";
 import { useDispatch } from "react-redux";
 
 interface Props {

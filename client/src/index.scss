@@ -1,6 +1,6 @@
 :root {
   font-family: "Asul", sans-serif;
-  line-height: 1.5;
+  line-height: 1.6;
   font-weight: 400;
 
   color-scheme: light dark;
@@ -22,13 +22,13 @@
 }
 
 body {
-  width: 100vw;
-  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
   background-image: url("./assets/imgs/Scenery-Fantasy-Landscape-Digital-Art.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50%;
   background-attachment: fixed;
   overflow-x: hidden;
-  overflow-y: hidden;
+  // overflow-y: hidden;
 }

@@ -1,9 +1,8 @@
 import styles from "./RecAnimeItems.module.scss";
 
-import { Link } from "react-router-dom";
 import { FC } from "react";
 
-import Button from "../ui/buttons/Button";
+import Button from "../../ui/buttons/Button";
 
 interface Props {
   title: string;

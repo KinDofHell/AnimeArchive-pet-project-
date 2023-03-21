@@ -54,13 +54,5 @@
   .item {
     @include styleStorage.flex(space-around, center, row, nowrap);
     width: 25vh;
-
-    .img {
-      @include styleStorage.blur-border(10px);
-
-      width: 20vh;
-      height: 17vh;
-      margin: 0 0 1vh 0.5vh;
-    }
   }
 }
