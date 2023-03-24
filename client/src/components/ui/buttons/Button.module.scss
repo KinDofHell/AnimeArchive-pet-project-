@@ -6,7 +6,7 @@
   padding: 0.5em;
   background-color: transparent;
   cursor: pointer;
-  width: fit-content;
+  min-width: fit-content;
 
   &:hover {
     background-color: white;

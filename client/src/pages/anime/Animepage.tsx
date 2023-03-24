@@ -71,9 +71,41 @@ const AnimePage = () => {
             ))}
           </Card>
         </div>
-        <div className={animePageStyles.additionalImgs__block}></div>
-        <div className={animePageStyles.description__block}></div>
+        <div className={animePageStyles.description__block}>
+          <Card title="Description" flexColumn={true} flexContentColumn={false}>
+            {data.description}
+          </Card>
+        </div>
         <div className={animePageStyles.characters__block}></div>
+        <div className={animePageStyles.additionalImgs__block}>
+          {data.imgAdditional_1 && (
+            <Image
+              borderMode={true}
+              width="70vw"
+              height="40vw"
+              margin="2vh 0 0 0"
+              src={SERVER_HOST + data.imgAdditional_1}
+            />
+          )}
+          {data.imgAdditional_2 && (
+            <Image
+              borderMode={true}
+              width="70vw"
+              height="40vw"
+              margin="2vh 0 0 0"
+              src={SERVER_HOST + data.imgAdditional_2}
+            />
+          )}
+          {data.imgAdditional_3 && (
+            <Image
+              borderMode={true}
+              width="70vw"
+              height="40vw"
+              margin="2vh 0 0 0"
+              src={SERVER_HOST + data.imgAdditional_3}
+            />
+          )}
+        </div>
       </div>
     );
 };

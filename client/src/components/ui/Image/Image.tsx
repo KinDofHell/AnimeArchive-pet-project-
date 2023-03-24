@@ -11,6 +11,7 @@ interface Props {
   borderMode?: boolean;
   width?: string;
   height?: string;
+  margin?: string;
   onClick?: MouseEventHandler;
 }
 
@@ -20,6 +21,7 @@ const Image: FC<Props> = ({
   borderMode,
   width,
   height,
+  margin,
   onClick,
 }) => {
   return linkPath ? (
@@ -30,7 +32,7 @@ const Image: FC<Props> = ({
         className={
           imgStyles.image + " " + (borderMode && imgStyles.image__blur_border)
         }
-        style={{ width: width, height: height }}
+        style={{ width: width, height: height, margin: margin }}
         onClick={onClick}
       />
     </Link>
@@ -41,7 +43,7 @@ const Image: FC<Props> = ({
       className={
         imgStyles.image + " " + (borderMode && imgStyles.image__blur_border)
       }
-      style={{ width: width, height: height }}
+      style={{ width: width, height: height, margin: margin }}
       onClick={onClick}
     />
   );
