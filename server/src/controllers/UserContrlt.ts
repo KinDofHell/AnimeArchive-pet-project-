@@ -79,6 +79,7 @@ export const loginUser = async (req: any, res: any) => {
 
 export const profileUser = async (req: any, res: any) => {
   try {
+    console.log(req.userID);
     const user: any = await UserModel.findById(req.userID);
 
     if (!user) {
@@ -94,6 +95,56 @@ export const profileUser = async (req: any, res: any) => {
     console.log(err);
     res.status(500).json({
       message: "Access denied",
+    });
+  }
+};
+
+export const updateUser = async (req: any, res: any) => {
+  try {
+    console.log(req.userID);
+    await UserModel.updateOne(
+      {
+        _id: req.userID,
+      },
+      {
+        $push: {
+          watchedAnime: req.body.watchedAnime,
+          ReadManga: req.body.ReadManga,
+        },
+      }
+    );
+    res.json({
+      success: true,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Cannot toggle anime",
+    });
+  }
+};
+
+export const removeFromWatched = async (req: any, res: any) => {
+  try {
+    console.log(req.userID);
+    await UserModel.updateOne(
+      {
+        _id: req.userID,
+      },
+      {
+        $pull: {
+          watchedAnime: req.body.watchedAnime,
+          ReadManga: req.body.ReadManga,
+        },
+      }
+    );
+    res.json({
+      success: true,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Cannot remove anime",
     });
   }
 };

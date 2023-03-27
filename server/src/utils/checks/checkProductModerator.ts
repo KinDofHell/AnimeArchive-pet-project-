@@ -13,7 +13,6 @@ export default async (req: any, res: any, next: any) => {
     try {
       const decoded: any = jwt.verify(token, process.env.SECRET_KEY);
 
-      // const user = await UserModel.findById(decoded._id);
       const role = decoded.role;
       if (role === "productModerator" || role === "admin") next();
       else

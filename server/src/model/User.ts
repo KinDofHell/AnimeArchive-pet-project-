@@ -19,6 +19,14 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "user",
     },
+    watchedAnime: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Anime",
+    },
+    ReadManga: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Manga",
+    },
     avatarUrl: String,
   },
   {
