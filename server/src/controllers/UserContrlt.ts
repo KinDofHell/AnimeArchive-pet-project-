@@ -57,10 +57,12 @@ export const loginUser = async (req: any, res: any) => {
       {
         _id: user._id,
         role: user.role,
+        watchedAnime: user.watchedAnime,
+        readManga: user.ReadManga,
       },
       process.env.SECRET_KEY,
       {
-        expiresIn: "10d",
+        expiresIn: "2d",
       }
     );
 
@@ -79,7 +81,6 @@ export const loginUser = async (req: any, res: any) => {
 
 export const profileUser = async (req: any, res: any) => {
   try {
-    console.log(req.userID);
     const user: any = await UserModel.findById(req.userID);
 
     if (!user) {
@@ -99,9 +100,8 @@ export const profileUser = async (req: any, res: any) => {
   }
 };
 
-export const updateUser = async (req: any, res: any) => {
+export const updateUserWatched = async (req: any, res: any) => {
   try {
-    console.log(req.userID);
     await UserModel.updateOne(
       {
         _id: req.userID,
@@ -126,7 +126,6 @@ export const updateUser = async (req: any, res: any) => {
 
 export const removeFromWatched = async (req: any, res: any) => {
   try {
-    console.log(req.userID);
     await UserModel.updateOne(
       {
         _id: req.userID,

@@ -72,7 +72,7 @@ app.post(
   UserController.loginUser
 );
 app.get("/profile", CheckAuth, UserController.profileUser);
-app.patch("/user", CheckAuth, UserController.updateUser);
+app.patch("/user", CheckAuth, UserController.updateUserWatched);
 app.patch("/watched-list", CheckAuth, UserController.removeFromWatched);
 
 //category
