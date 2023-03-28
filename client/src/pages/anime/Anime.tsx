@@ -59,7 +59,7 @@ const Anime = () => {
               title={obj.title}
               image={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
               isEditable={isProductManager}
-              isWatched={false}
+              isWatched={true}
             />
           ))}
       </div>

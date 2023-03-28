@@ -33,14 +33,7 @@ const AnimeItem: FC<Props> = ({ _id, title, image, isEditable, isWatched }) => {
           "Image will be soon"
         )}
       </div>
-      <div
-        className={styles.title}
-        style={
-          isWatched
-            ? { backgroundColor: "green" }
-            : { backgroundColor: "white" }
-        }
-      >
+      <div className={styles.title} style={{ backgroundColor: "white" }}>
         <Button
           label={title}
           link={`/anime/${_id}`}
@@ -48,6 +41,7 @@ const AnimeItem: FC<Props> = ({ _id, title, image, isEditable, isWatched }) => {
           fontSize="1.2vw"
           width="max-content"
         />
+        {isWatched && <span className={styles.span__status}>WATCHED</span>}
         {isEditable && (
           <div className={styles.editable}>
             <IconContainer

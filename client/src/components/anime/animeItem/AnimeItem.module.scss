@@ -39,6 +39,15 @@
     border-bottom-left-radius: 10px;
     width: 100%;
 
+    .span__status {
+      color: green;
+      font-size: 0.8vw;
+      border-radius: 10px;
+      border: 1px solid green;
+      padding: 0.8%;
+      cursor: default;
+    }
+
     .editable {
       @include styleStorage.flex(center, center, row, nowrap);
       .icon {

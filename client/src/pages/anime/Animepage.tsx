@@ -17,6 +17,8 @@ const AnimePage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { id } = useParams<string>();
 
+  const watched: boolean = true;
+
   useEffect(() => {
     axios
       .get(`/anime/${id}`)
@@ -36,7 +38,24 @@ const AnimePage = () => {
           animePageStyles.anime__page + " " + animePageStyles.title__bigScreen
         }
       >
-        <div className={animePageStyles.title}>{data.title}</div>
+        <div className={animePageStyles.title}>
+          {data.title}
+          {watched ? (
+            <Button
+              label="Watched"
+              margin="0 0 0 2%"
+              backgroundColor="green"
+              color="white"
+            />
+          ) : (
+            <Button
+              label="Mark as watched"
+              margin="0 0 0 2%"
+              backgroundColor="blue"
+              color="white"
+            />
+          )}
+        </div>
         <div className={animePageStyles.info__block}>
           <Image
             borderMode={true}
@@ -108,6 +127,7 @@ const AnimePage = () => {
         </div>
       </div>
     );
+  else return null;
 };
 
 export default AnimePage;
