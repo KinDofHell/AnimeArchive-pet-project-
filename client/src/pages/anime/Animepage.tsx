@@ -3,9 +3,12 @@ import animePageStyles from "./AnimePage.module.scss";
 import { SERVER_HOST } from "../../data/Constant";
 
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { useState, useEffect, Key } from "react";
 
 import axios from "../../utils/axios";
+
+import { isAuthenticated } from "../../redux/slices/user";
 
 import Image from "../../components/ui/Image/Image";
 import AnimeInfo from "../../components/anime/animeInfo/AnimeInfo";
@@ -13,11 +16,40 @@ import Card from "../../components/ui/cards/Card";
 import Button from "../../components/ui/buttons/Button";
 
 const AnimePage = () => {
+  const isAuth = useSelector(isAuthenticated);
+  const { user } = useSelector((state: any) => state);
   const [data, setData] = useState<any>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { id } = useParams<string>();
 
-  const watched: boolean = true;
+  const [watched, setWatched] = useState<boolean>(
+    isAuth && user.data.watchedAnime.includes(id)
+  );
+
+  const onClickAdd = async () => {
+    try {
+      const fields = {
+        watchedAnime: id,
+      };
+      await axios.patch("/user", fields);
+      setWatched(true);
+    } catch (error) {
+      alert("Error marking anime");
+      console.warn(error);
+    }
+  };
+  const onClickRemove = async () => {
+    try {
+      const fields = {
+        watchedAnime: id,
+      };
+      await axios.patch("/watched-list", fields);
+      setWatched(false);
+    } catch (error) {
+      alert("Error marking anime");
+      console.warn(error);
+    }
+  };
 
   useEffect(() => {
     axios
@@ -46,14 +78,18 @@ const AnimePage = () => {
               margin="0 0 0 2%"
               backgroundColor="green"
               color="white"
+              onClick={onClickRemove}
             />
           ) : (
-            <Button
-              label="Mark as watched"
-              margin="0 0 0 2%"
-              backgroundColor="blue"
-              color="white"
-            />
+            isAuth && (
+              <Button
+                label="Mark as watched"
+                margin="0 0 0 2%"
+                backgroundColor="blue"
+                color="white"
+                onClick={onClickAdd}
+              />
+            )
           )}
         </div>
         <div className={animePageStyles.info__block}>

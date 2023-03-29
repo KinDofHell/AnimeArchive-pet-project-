@@ -6,7 +6,11 @@ import { Key, useEffect } from "react";
 
 import { fetchAnime } from "../../redux/slices/anime";
 import { useDispatch, useSelector } from "react-redux";
-import { isProductModerator } from "../../redux/slices/user";
+import {
+  isProductModerator,
+  isAuthenticated,
+  fetchMe,
+} from "../../redux/slices/user";
 
 import Search from "../../components/search/Search";
 import Searchbar from "../../components/search/Searchbar";
@@ -14,6 +18,8 @@ import AnimeItem from "../../components/anime/animeItem/AnimeItem";
 import Button from "../../components/ui/buttons/Button";
 
 const Anime = () => {
+  const isAuth = useSelector(isAuthenticated);
+  const { user } = useSelector((state: any) => state);
   const dispatch = useDispatch<any>();
   const { anime } = useSelector((state: any) => state.anime);
   const isAnimeLoading: boolean = anime.status === "loading";
@@ -22,6 +28,7 @@ const Anime = () => {
 
   useEffect(() => {
     dispatch(fetchAnime());
+    dispatch(fetchMe());
   }, []);
 
   useEffect(() => {
@@ -59,7 +66,11 @@ const Anime = () => {
               title={obj.title}
               image={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
               isEditable={isProductManager}
-              isWatched={true}
+              isWatched={
+                isAuth
+                  ? user && user.data.watchedAnime.includes(obj._id)
+                  : false
+              }
             />
           ))}
       </div>
