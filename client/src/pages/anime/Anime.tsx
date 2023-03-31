@@ -17,7 +17,7 @@ import Searchbar from "../../components/search/Searchbar";
 import AnimeItem from "../../components/anime/animeItem/AnimeItem";
 import Button from "../../components/ui/buttons/Button";
 
-const Anime = () => {
+const Anime = ({ isMyAnime }: { isMyAnime: boolean }) => {
   const isAuth = useSelector(isAuthenticated);
   const { user } = useSelector((state: any) => state);
   const dispatch = useDispatch<any>();
@@ -59,6 +59,7 @@ const Anime = () => {
       </div>
       <div className={styles.anime__content} id="content">
         {!isAnimeLoading &&
+          !isMyAnime &&
           anime.items.map((obj: typeof anime | undefined, index: Key) => (
             <AnimeItem
               _id={obj._id}
@@ -73,6 +74,27 @@ const Anime = () => {
               }
             />
           ))}
+        {!isAnimeLoading &&
+          isMyAnime &&
+          anime.items
+            .filter(
+              (item: typeof anime) =>
+                user && user.data.watchedAnime.includes(item._id)
+            )
+            .map((obj: typeof anime | undefined, index: Key) => (
+              <AnimeItem
+                _id={obj._id}
+                key={index}
+                title={obj.title}
+                image={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
+                isEditable={isProductManager}
+                isWatched={
+                  isAuth
+                    ? user && user.data.watchedAnime.includes(obj._id)
+                    : false
+                }
+              />
+            ))}
       </div>
     </main>
   );

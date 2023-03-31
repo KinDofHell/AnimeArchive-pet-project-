@@ -7,7 +7,7 @@ import { AiOutlineDelete } from "react-icons/Ai";
 
 import { useState, useRef, useEffect, Key } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, Navigate, useParams, Link } from "react-router-dom";
+import { useNavigate, Navigate, useParams } from "react-router-dom";
 
 import { fetchCategories } from "../../redux/slices/category";
 import { fetchCreators } from "../../redux/slices/creators";
@@ -171,6 +171,11 @@ const AnimeAdding = () => {
           label="Create Creator"
           customStyle={wideForm.btn__adding}
           link="/creator-adding"
+        />
+        <Button
+          label="Create Character"
+          customStyle={wideForm.btn__adding}
+          link="/character-adding"
         />
       </div>
       <FormContainer title="Create Anime" customStyles={wideForm.wide__form}>

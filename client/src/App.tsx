@@ -33,8 +33,8 @@ const App = () => {
       <Container>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/anime" element={<Anime />} />
-          <Route path="/my-anime" element={<MyAnime />} />
+          <Route path="/anime" element={<Anime isMyAnime={false} />} />
+          <Route path="/my-anime" element={<Anime isMyAnime={true} />} />
           <Route path="/anime/:id" element={<AnimePage />} />
           <Route path="/anime-adding" element={<AnimeAdding />} />
           <Route path="/anime/:id/edit" element={<AnimeAdding />} />

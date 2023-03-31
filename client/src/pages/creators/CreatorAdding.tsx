@@ -2,7 +2,7 @@ import styles from "../../assets/stylesForAddingPages/Adding.module.scss";
 
 import { useState, useRef } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, Navigate, useParams } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 
 import axios from "../../utils/axios";
 import { isAuthenticated, isProductModerator } from "../../redux/slices/user";
@@ -46,7 +46,7 @@ const CreatorAdding = () => {
         description,
         imgUrl,
       };
-      const { data } = await axios.post("/creator", fields);
+      await axios.post("/creator", fields);
       navigate(`/anime-adding/`);
     } catch (error) {
       console.warn(error);
@@ -65,6 +65,11 @@ const CreatorAdding = () => {
   return (
     <div className={styles.adding__page}>
       <FormContainer title={"Add Creators"}>
+        {imgUrl && (
+          <>
+            <img src={`http://localhost:4000${imgUrl}`} alt="uploaded" />
+          </>
+        )}
         <FormField
           type={"text"}
           value={fullname}
@@ -89,11 +94,6 @@ const CreatorAdding = () => {
         <Button label={"Remove Image"} onClick={onClickRemoveImage} />
         <Button label={"Add"} onClick={onSubmit} />
       </FormContainer>
-      {imgUrl && (
-        <>
-          <img src={`http://localhost:4000${imgUrl}`} alt="uploaded" />
-        </>
-      )}
     </div>
   );
 };
