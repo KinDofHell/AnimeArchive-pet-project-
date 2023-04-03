@@ -108,6 +108,7 @@ export const getAllAnime = async (req: any, res: any) => {
     const anime = await AnimeModel.find()
       .populate("categoriesArray")
       .populate("author")
+      .populate("status")
       .sort({ $natural: -1 })
       .exec();
     res.json(anime);
@@ -130,6 +131,7 @@ export const getOneAnime = async (req: any, res: any) => {
     )
       .populate("categoriesArray")
       .populate("author")
+      .populate("status")
       .exec();
     res.json(anime);
   } catch (err) {

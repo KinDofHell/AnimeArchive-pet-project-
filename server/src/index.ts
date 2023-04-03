@@ -12,6 +12,7 @@ import {
   CreatorController,
   AnimeController,
   UserController,
+  StatusController,
 } from "./controllers/imports.js";
 
 import {
@@ -19,6 +20,7 @@ import {
   AnimeValidation,
   CategoryValidation,
   CreatorValidation,
+  StatusValidation,
 } from "./validations/imports.js";
 
 //env config
@@ -148,6 +150,31 @@ app.get("/anime/", AnimeController.getAllAnime);
 app.get("/anime/popular", AnimeController.getPopularAnime);
 app.get("/anime/:id", AnimeController.getOneAnime);
 app.get("/anime-recent/", AnimeController.getRecentAnime);
+
+//status
+app.post(
+  "/status",
+  CheckAuth,
+  CheckProductModerator,
+  StatusValidation.statusValidation,
+  handleValidationErrors,
+  StatusController.createStatus
+);
+app.delete(
+  "/status/:id",
+  CheckAuth,
+  CheckProductModerator,
+  StatusController.removeStatus
+);
+app.patch(
+  "/status/:id",
+  CheckAuth,
+  CheckProductModerator,
+  StatusController.updateStatus
+);
+
+app.get("/status/", StatusController.getAllStatuses);
+app.get("/status/:id", StatusController.getOneStatus);
 
 const server = app.listen(process.env.PORT, () => {
   console.log("Server is ON");

@@ -33,7 +33,8 @@ const AnimeSchema = new mongoose.Schema(
       required: true,
     },
     status: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Status",
       required: true,
     },
     author: {
