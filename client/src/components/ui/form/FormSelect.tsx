@@ -6,7 +6,7 @@ interface Props {
   children: ReactNode;
   onChange?: ChangeEventHandler;
   required?: boolean;
-  value?: string;
+  value?: string | string[];
 }
 
 const FormSelect: FC<Props> = ({

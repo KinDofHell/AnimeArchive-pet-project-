@@ -11,6 +11,7 @@ import { useNavigate, Navigate, useParams } from "react-router-dom";
 
 import { fetchCategories } from "../../redux/slices/category";
 import { fetchCreators } from "../../redux/slices/creators";
+import { fetchStatuses } from "../../redux/slices/status";
 import { isAuthenticated, isProductModerator } from "../../redux/slices/user";
 
 import axios from "../../utils/axios";
@@ -32,8 +33,10 @@ const AnimeAdding = () => {
   const dispatch = useDispatch<any>();
   const { categories } = useSelector((state: any) => state.categories);
   const { creators } = useSelector((state: any) => state.creators);
+  const { statuses } = useSelector((state: any) => state.statuses);
   const isCategoriesLoading: boolean = categories.status === "loading";
   const isCreatorsLoading: boolean = creators.status === "loading";
+  const isStatusesLoading: boolean = statuses.status === "loading";
 
   const [title, setTitle] = useState("");
   const [originTitle, setOriginTitle] = useState("");
@@ -42,7 +45,7 @@ const AnimeAdding = () => {
   const [seasons, setSeasons] = useState<number>();
   const [series, setSeries] = useState<number>();
   const [years, setYears] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState<string | object>();
   const [author, setAuthor] = useState<string | object>();
   const [imgCover, setImgCover] = useState("");
   const [imgAdditional_1, setimgAdditional_1] = useState("");
@@ -59,6 +62,7 @@ const AnimeAdding = () => {
   useEffect(() => {
     dispatch(fetchCategories());
     dispatch(fetchCreators());
+    dispatch(fetchStatuses());
   }, []);
 
   const onChangeHandler = async (event: any) => {
@@ -128,7 +132,7 @@ const AnimeAdding = () => {
         setSeasons(data.seasons);
         setSeries(data.series);
         setYears(data.years.join(","));
-        setStatus(data.status);
+        setStatus(data.status._id);
         setAuthor(data.author._id);
         setImgCover(data.imgCover);
         setimgAdditional_1(data.imgAdditional_1);
@@ -173,6 +177,11 @@ const AnimeAdding = () => {
           link="/creator-adding"
         />
         <Button
+          label="Create Status"
+          customStyle={wideForm.btn__adding}
+          link="/status-adding"
+        />
+        <Button
           label="Create Character"
           customStyle={wideForm.btn__adding}
           link="/character-adding"
@@ -213,9 +222,7 @@ const AnimeAdding = () => {
         <FormSelect multiple={true} onChange={onChangeHandler} required={true}>
           {(isCategoriesLoading ? [...Array(2)] : categories.items).map(
             (obj: typeof categories | undefined, index: Key) =>
-              isCategoriesLoading ? (
-                <FormSelectOption label="Loading" value="loading" />
-              ) : (
+              !isCategoriesLoading && (
                 <FormSelectOption
                   label={obj.title}
                   value={obj._id}
@@ -264,27 +271,18 @@ const AnimeAdding = () => {
           onChange={(e) => setStatus((e.target as HTMLSelectElement).value)}
           required={true}
         >
-          <FormSelectOption label="Select Status" value="" />
-          <FormSelectOption
-            label="Ongoing"
-            value="Ongoing"
-            selected={status === "Ongoing"}
-          />
-          <FormSelectOption
-            label="Finished"
-            value="Finished"
-            selected={status === "Finished"}
-          />
-          <FormSelectOption
-            label="Will be soon"
-            value="Soon"
-            selected={status === "Soon"}
-          />
-          <FormSelectOption
-            label="Abandoned"
-            value="Adandoned"
-            selected={status === "Adandoned"}
-          />
+          <FormSelectOption label="Select status" value="" />
+          {(isStatusesLoading ? [...Array(1)] : statuses.items).map(
+            (obj: typeof statuses | undefined, index: Key) =>
+              !isStatusesLoading && (
+                <FormSelectOption
+                  label={obj.title}
+                  value={obj._id}
+                  key={index}
+                  selected={isEditing && obj._id === status}
+                />
+              )
+          )}
         </FormSelect>
         <span className={wideForm.hint}>Choose author</span>
         <FormSelect
@@ -294,9 +292,7 @@ const AnimeAdding = () => {
           <FormSelectOption label="Select author" value="" />
           {(isCreatorsLoading ? [...Array(1)] : creators.items).map(
             (obj: typeof creators | undefined, index: Key) =>
-              isCreatorsLoading ? (
-                <FormSelectOption label="Kurosaki" value="" />
-              ) : (
+              !isCreatorsLoading && (
                 <FormSelectOption
                   label={obj.fullname}
                   value={obj._id}

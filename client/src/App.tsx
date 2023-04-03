@@ -11,12 +11,12 @@ import Container from "./components/ui/container/Container";
 
 import Home from "./pages/Home";
 import Anime from "./pages/anime/Anime";
-import MyAnime from "./pages/anime/MyAnime";
 import AnimePage from "./pages/anime/Animepage";
 
 import CategoryAdding from "./pages/categories/CategoryAdding";
 import CreatorAdding from "./pages/creators/CreatorAdding";
 import AnimeAdding from "./pages/anime/AnimeAdding";
+import StatusAdding from "./pages/statuses/StatusAdding";
 
 import Register from "./pages/user/Register";
 import Login from "./pages/user/Login";
@@ -40,6 +40,7 @@ const App = () => {
           <Route path="/anime/:id/edit" element={<AnimeAdding />} />
           <Route path="/category-adding" element={<CategoryAdding />} />
           <Route path="/creator-adding" element={<CreatorAdding />} />
+          <Route path="/status-adding" element={<StatusAdding />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
         </Routes>

@@ -104,7 +104,7 @@ const AnimePage = () => {
             seasonsCount={data.seasons}
             seriesCount={data.series}
             years={data.years.join(",")}
-            status={data.status}
+            status={data.status.title}
             author={data.author.fullname}
             views={data.viewsCount}
           />

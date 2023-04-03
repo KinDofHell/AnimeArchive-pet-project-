@@ -31,23 +31,23 @@ const AnimeInfo: FC<Props> = ({
     >
       <ItemInfo
         label="Original Title"
-        value={originalTitle ? originalTitle : "Will be soon"}
+        value={originalTitle ? originalTitle : "Updating..."}
       />
       <ItemInfo
         label="Seasons Count"
-        value={seasonsCount ? seasonsCount : "Will be soon"}
+        value={seasonsCount ? seasonsCount : "Updating..."}
       />
       <ItemInfo
         label="Series Count"
-        value={seriesCount ? seriesCount : "Will be soon"}
+        value={seriesCount ? seriesCount : "Updating..."}
       />
       <ItemInfo
         label="Years of releases"
-        value={years ? years : "Will be soon"}
+        value={years ? years : "Updating..."}
       />
-      <ItemInfo label="Status" value={status ? status : "Will be soon"} />
-      <ItemInfo label="Author" value={author ? author : "Will be soon"} />
-      <ItemInfo label="Views" value={views ? views : "Will be soon"} />
+      <ItemInfo label="Status" value={status ? status : "Updating..."} />
+      <ItemInfo label="Author" value={author ? author : "Updating...n"} />
+      <ItemInfo label="Views" value={views ? views : "Updating..."} />
     </Card>
   );
 };
