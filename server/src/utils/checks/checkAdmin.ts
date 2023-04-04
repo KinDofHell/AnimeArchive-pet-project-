@@ -11,10 +11,10 @@ export default async (req: any, res: any, next: any) => {
       const decoded: any = jwt.verify(token, process.env.SECRET_KEY);
 
       const role = decoded.role;
-      if (role === "productModerator" || role === "admin") next();
+      if (role === "admin") next();
       else
         return res.status(403).json({
-          message: "Access denied. You're not product manager",
+          message: "Access denied. You're not admin",
         });
     } catch (error) {
       console.log(error);

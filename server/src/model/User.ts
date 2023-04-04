@@ -16,8 +16,9 @@ const UserSchema = new mongoose.Schema(
       required: true,
     },
     role: {
-      type: String,
-      default: "user",
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Roles",
+      default: "642c6ba083145c6516e56f9e",
     },
     watchedAnime: {
       type: [mongoose.Schema.Types.ObjectId],

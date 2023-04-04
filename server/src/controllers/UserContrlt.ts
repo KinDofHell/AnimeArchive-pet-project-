@@ -34,7 +34,9 @@ export const registerUser = async (req: any, res: any) => {
 
 export const loginUser = async (req: any, res: any) => {
   try {
-    const user: any = await UserModel.findOne({ email: req.body.email });
+    const user: any = await UserModel.findOne({ email: req.body.email })
+      .populate("role")
+      .exec();
 
     if (!user) {
       return res.status(404).json({
@@ -56,7 +58,7 @@ export const loginUser = async (req: any, res: any) => {
     const token = jwt.sign(
       {
         _id: user._id,
-        role: user.role,
+        role: user.role.name,
         watchedAnime: user.watchedAnime,
         readManga: user.ReadManga,
       },
@@ -81,7 +83,9 @@ export const loginUser = async (req: any, res: any) => {
 
 export const profileUser = async (req: any, res: any) => {
   try {
-    const user: any = await UserModel.findById(req.userID);
+    const user: any = await UserModel.findById(req.userID)
+      .populate("role")
+      .exec();
 
     if (!user) {
       return res.status(404).json({

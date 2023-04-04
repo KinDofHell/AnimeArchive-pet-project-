@@ -5,7 +5,11 @@ import dotenv from "dotenv";
 import multer from "multer";
 
 import { handleValidationErrors } from "./utils/imports.js";
-import { CheckAuth, CheckProductModerator } from "./utils/checks/imports.js";
+import {
+  CheckAuth,
+  CheckProductModerator,
+  CheckAdmin,
+} from "./utils/checks/imports.js";
 
 import {
   CategoryController,
@@ -13,6 +17,7 @@ import {
   AnimeController,
   UserController,
   StatusController,
+  RoleController,
 } from "./controllers/imports.js";
 
 import {
@@ -21,6 +26,7 @@ import {
   CategoryValidation,
   CreatorValidation,
   StatusValidation,
+  RoleValidation,
 } from "./validations/imports.js";
 
 //env config
@@ -175,6 +181,21 @@ app.patch(
 
 app.get("/status/", StatusController.getAllStatuses);
 app.get("/status/:id", StatusController.getOneStatus);
+
+//role
+app.post(
+  "/role",
+  CheckAuth,
+  CheckAdmin,
+  RoleValidation.roleValidation,
+  handleValidationErrors,
+  RoleController.createRole
+);
+app.delete("/role/:id", CheckAuth, CheckAdmin, RoleController.removeRole);
+app.patch("/role/:id", CheckAuth, CheckAdmin, RoleController.updateRole);
+
+app.get("/role/", RoleController.getAllRoles);
+app.get("/role/:id", RoleController.getOneRole);
 
 const server = app.listen(process.env.PORT, () => {
   console.log("Server is ON");
