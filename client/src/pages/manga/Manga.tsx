@@ -1,10 +1,10 @@
-import styles from "./Anime.module.scss";
+import styles from "../anime/Anime.module.scss";
 
 import { SERVER_HOST } from "../../data/Constant";
 
 import { Key, useEffect } from "react";
 
-import { fetchAnime } from "../../redux/slices/anime";
+import { fetchManga } from "../../redux/slices/manga";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
@@ -19,17 +19,17 @@ import Searchbar from "../../components/search/Searchbar";
 import AnimeItem from "../../components/anime/animeItem/AnimeItem";
 import Button from "../../components/ui/buttons/Button";
 
-const Anime = ({ isMyAnime }: { isMyAnime: boolean }) => {
+const Manga = ({ isMyManga }: { isMyManga: boolean }) => {
   const isAuth = useSelector(isAuthenticated);
   const { user } = useSelector((state: any) => state);
   const dispatch = useDispatch<any>();
-  const { anime } = useSelector((state: any) => state.anime);
-  const isAnimeLoading: boolean = anime.status === "loading";
+  const { manga } = useSelector((state: any) => state.manga);
+  const isMangaLoading: boolean = manga.status === "loading";
 
   const isProductManager = useSelector(isProductModerator);
 
   useEffect(() => {
-    dispatch(fetchAnime());
+    dispatch(fetchManga());
     dispatch(fetchMe());
   }, []);
 
@@ -47,11 +47,11 @@ const Anime = ({ isMyAnime }: { isMyAnime: boolean }) => {
   return (
     <main className={styles.anime}>
       <div className={styles.searchblock}>
-        <Search typeProduct="anime" />
+        <Search typeProduct="manga" />
         {isProductManager ? (
           <Button
             label="Add New One"
-            link="/anime-adding"
+            link="/manga-adding"
             customStyle={styles.spanWords}
           />
         ) : (
@@ -60,52 +60,45 @@ const Anime = ({ isMyAnime }: { isMyAnime: boolean }) => {
         <Searchbar />
       </div>
       <div className={styles.anime__content} id="content">
-        {!isAnimeLoading &&
-          !isMyAnime &&
-          anime.items.map((obj: typeof anime | undefined, index: Key) => (
+        {!isMangaLoading &&
+          !isMyManga &&
+          manga.items.map((obj: typeof manga | undefined, index: Key) => (
             <AnimeItem
               _id={obj._id}
               key={index}
-              type="anime"
+              type="manga"
               title={obj.title}
               image={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
               isEditable={isProductManager}
               isWatched={
-                isAuth
-                  ? user &&
-                    user.data.watchedAnime &&
-                    user.data.watchedAnime.includes(obj._id)
-                  : false
+                isAuth ? user && user.data.ReadManga.includes(obj._id) : false
               }
             />
           ))}
-        {!isAnimeLoading &&
-          isMyAnime &&
+        {!isMangaLoading &&
+          isMyManga &&
           user.data &&
-          anime.items
+          manga.items
             .filter(
-              (item: typeof anime) =>
-                user.data.watchedAnime &&
-                user.data.watchedAnime.includes(item._id)
+              (item: typeof manga) =>
+                user.data.ReadManga &&
+                user &&
+                user.data.ReadManga.includes(item._id)
             )
-            .map((obj: typeof anime | undefined, index: Key) => (
+            .map((obj: typeof manga | undefined, index: Key) => (
               <AnimeItem
                 _id={obj._id}
                 key={index}
-                type="anime"
+                type="manga"
                 title={obj.title}
                 image={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
                 isEditable={isProductManager}
                 isWatched={
-                  isAuth
-                    ? user &&
-                      user.data.watchedAnime &&
-                      user.data.watchedAnime.includes(obj._id)
-                    : false
+                  isAuth ? user && user.data.ReadManga.includes(obj._id) : false
                 }
               />
             ))}
-        {!isAuth && isMyAnime && (
+        {!isAuth && isMyManga && (
           <Button label="Log In Please" link="/login" fontSize="3vw" />
         )}
       </div>
@@ -113,4 +106,4 @@ const Anime = ({ isMyAnime }: { isMyAnime: boolean }) => {
   );
 };
 
-export default Anime;
+export default Manga;

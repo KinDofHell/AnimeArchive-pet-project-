@@ -5,8 +5,9 @@ import Card from "../../ui/cards/Card";
 
 interface Props {
   originalTitle: string;
-  seasonsCount: number;
-  seriesCount: number;
+  seasonsCount?: number;
+  chaptersCount?: number;
+  seriesCount?: number;
   years: string;
   status: string;
   author: string;
@@ -16,6 +17,7 @@ interface Props {
 const AnimeInfo: FC<Props> = ({
   originalTitle,
   seasonsCount,
+  chaptersCount,
   seriesCount,
   years,
   status,
@@ -33,14 +35,25 @@ const AnimeInfo: FC<Props> = ({
         label="Original Title"
         value={originalTitle ? originalTitle : "Updating..."}
       />
-      <ItemInfo
-        label="Seasons Count"
-        value={seasonsCount ? seasonsCount : "Updating..."}
-      />
-      <ItemInfo
-        label="Series Count"
-        value={seriesCount ? seriesCount : "Updating..."}
-      />
+      {chaptersCount ? (
+        <ItemInfo
+          label="Chapters Count"
+          value={chaptersCount ? chaptersCount : "Updating..."}
+        />
+      ) : (
+        <ItemInfo
+          label="Seasons Count"
+          value={seasonsCount ? seasonsCount : "Updating..."}
+        />
+      )}
+
+      {seriesCount && (
+        <ItemInfo
+          label="Series Count"
+          value={seriesCount ? seriesCount : "Updating..."}
+        />
+      )}
+
       <ItemInfo
         label="Years of releases"
         value={years ? years : "Updating..."}

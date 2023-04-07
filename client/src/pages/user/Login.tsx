@@ -5,11 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { FieldValues, useForm } from "react-hook-form";
 import { fetchLogin, isAuthenticated } from "../../redux/slices/user";
 import { Navigate } from "react-router-dom";
-import { useRef, useState } from "react";
 
 import Button from "../../components/ui/buttons/Button";
 import FormContainer from "../../components/ui/form/FormContainer";
-import FormField from "../../components/ui/form/FormField";
 
 const Login = () => {
   const isAuth = useSelector(isAuthenticated);

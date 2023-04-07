@@ -1,12 +1,18 @@
 import styles from "./Search.module.scss";
 
+import { FC } from "react";
+
 import Button from "../ui/buttons/Button";
 
-const Search = () => {
+interface Props {
+  typeProduct: string;
+}
+
+const Search: FC<Props> = ({ typeProduct }) => {
   return (
     <div className={styles.search}>
-      <Button label={"Update"} link="/anime" />
-      <Button label={"Popular"} link="/anime/popular" />
+      <Button label={"Update"} link={`/${typeProduct}`} />
+      <Button label={"Popular"} link={`/${typeProduct}/popular`} />
       <Button label={"Categories"} />
       <Button label={"Status"} />
     </div>

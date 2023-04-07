@@ -12,12 +12,20 @@ import { useDispatch } from "react-redux";
 interface Props {
   _id?: string;
   title: string;
+  type: string;
   image?: string;
   isEditable: boolean | undefined;
   isWatched?: boolean;
 }
 
-const AnimeItem: FC<Props> = ({ _id, title, image, isEditable, isWatched }) => {
+const AnimeItem: FC<Props> = ({
+  _id,
+  title,
+  image,
+  isEditable,
+  isWatched,
+  type,
+}) => {
   const dispatch = useDispatch<any>();
   const onClickRemove = () => {
     if (window.confirm("Are you sure you want to delete anime?"))
@@ -36,19 +44,23 @@ const AnimeItem: FC<Props> = ({ _id, title, image, isEditable, isWatched }) => {
       <div className={styles.title} style={{ backgroundColor: "white" }}>
         <Button
           label={title}
-          link={`/anime/${_id}`}
+          link={`/${type}/${_id}`}
           color="black"
           fontSize="1.2vw"
           width="max-content"
         />
-        {isWatched && <span className={styles.span__status}>WATCHED</span>}
+        {isWatched && (
+          <span className={styles.span__status}>
+            {type === "manga" ? "Read" : "Watched"}
+          </span>
+        )}
         {isEditable && (
           <div className={styles.editable}>
             <IconContainer
               size={"50%"}
               color={"green"}
               customIcon={styles.icon}
-              link={`/anime/${_id}/edit`}
+              link={`/${type}/${_id}/edit`}
             >
               <AiOutlineEdit />
             </IconContainer>

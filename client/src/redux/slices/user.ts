@@ -78,8 +78,8 @@ export const isAuthenticated = (state: any) => state.user.data;
 export const isProductModerator = (state: any) => {
   if (state.user.data) {
     if (
-      state.user.data.role === "productModerator" ||
-      state.user.data.role === "admin"
+      state.user.data.role.name === "productModerator" ||
+      state.user.data.role.name === "admin"
     )
       return true;
     else return false;
