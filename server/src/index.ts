@@ -18,6 +18,7 @@ import {
   UserController,
   StatusController,
   RoleController,
+  MangaController,
 } from "./controllers/imports.js";
 
 import {
@@ -27,6 +28,7 @@ import {
   CreatorValidation,
   StatusValidation,
   RoleValidation,
+  MangaValidation,
 } from "./validations/imports.js";
 
 //env config
@@ -102,6 +104,8 @@ app.patch(
   "/category/:id",
   CheckAuth,
   CheckProductModerator,
+  CategoryValidation.categoryValidation,
+  handleValidationErrors,
   CategoryController.updateCategory
 );
 app.get("/category/", CategoryController.getAllCategories);
@@ -126,6 +130,8 @@ app.patch(
   "/creator/:id",
   CheckAuth,
   CheckProductModerator,
+  CreatorValidation.creatorValidation,
+  handleValidationErrors,
   CreatorController.updateCreator
 );
 app.get("/creator/", CreatorController.getAllCreators);
@@ -150,12 +156,42 @@ app.patch(
   "/anime/:id",
   CheckAuth,
   CheckProductModerator,
+  AnimeValidation.animeValidation,
+  handleValidationErrors,
   AnimeController.updateAnime
 );
 app.get("/anime/", AnimeController.getAllAnime);
 app.get("/anime/popular", AnimeController.getPopularAnime);
 app.get("/anime/:id", AnimeController.getOneAnime);
 app.get("/anime-recent/", AnimeController.getRecentAnime);
+
+//manga
+app.post(
+  "/manga",
+  CheckAuth,
+  CheckProductModerator,
+  MangaValidation.mangaValidation,
+  handleValidationErrors,
+  MangaController.createManga
+);
+app.delete(
+  "/manga/:id",
+  CheckAuth,
+  CheckProductModerator,
+  MangaController.removeManga
+);
+app.patch(
+  "/manga/:id",
+  CheckAuth,
+  CheckProductModerator,
+  MangaValidation.mangaValidation,
+  handleValidationErrors,
+  MangaController.updateManga
+);
+app.get("/manga/", MangaController.getAllManga);
+app.get("/manga/popular", MangaController.getPopularManga);
+app.get("/manga/:id", MangaController.getOneManga);
+app.get("/manga-recent/", MangaController.getRecentManga);
 
 //status
 app.post(
@@ -176,6 +212,8 @@ app.patch(
   "/status/:id",
   CheckAuth,
   CheckProductModerator,
+  StatusValidation.statusValidation,
+  handleValidationErrors,
   StatusController.updateStatus
 );
 
@@ -192,7 +230,14 @@ app.post(
   RoleController.createRole
 );
 app.delete("/role/:id", CheckAuth, CheckAdmin, RoleController.removeRole);
-app.patch("/role/:id", CheckAuth, CheckAdmin, RoleController.updateRole);
+app.patch(
+  "/role/:id",
+  CheckAuth,
+  CheckAdmin,
+  RoleValidation.roleValidation,
+  handleValidationErrors,
+  RoleController.updateRole
+);
 
 app.get("/role/", RoleController.getAllRoles);
 app.get("/role/:id", RoleController.getOneRole);
