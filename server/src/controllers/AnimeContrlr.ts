@@ -161,6 +161,8 @@ export const getPopularAnime = async (req: any, res: any) => {
   try {
     const anime = await AnimeModel.find()
       .populate("categoriesArray")
+      .populate("author")
+      .populate("status")
       .sort({ viewsCount: -1 })
       .exec();
     res.json(anime);

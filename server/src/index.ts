@@ -9,6 +9,7 @@ import {
   CheckAuth,
   CheckProductModerator,
   CheckAdmin,
+  CheckNewsModerator,
 } from "./utils/checks/imports.js";
 
 import {
@@ -19,6 +20,7 @@ import {
   StatusController,
   RoleController,
   MangaController,
+  NewsController,
 } from "./controllers/imports.js";
 
 import {
@@ -29,6 +31,7 @@ import {
   StatusValidation,
   RoleValidation,
   MangaValidation,
+  NewsValidation,
 } from "./validations/imports.js";
 
 //env config
@@ -85,6 +88,28 @@ app.get("/profile", CheckAuth, UserController.profileUser);
 app.patch("/user", CheckAuth, UserController.updateUserWatched);
 app.patch("/watched-list", CheckAuth, UserController.removeFromWatched);
 
+//role
+app.post(
+  "/role",
+  CheckAuth,
+  CheckAdmin,
+  RoleValidation.roleValidation,
+  handleValidationErrors,
+  RoleController.createRole
+);
+app.delete("/role/:id", CheckAuth, CheckAdmin, RoleController.removeRole);
+app.patch(
+  "/role/:id",
+  CheckAuth,
+  CheckAdmin,
+  RoleValidation.roleValidation,
+  handleValidationErrors,
+  RoleController.updateRole
+);
+
+app.get("/role/", RoleController.getAllRoles);
+app.get("/role/:id", RoleController.getOneRole);
+
 //category
 app.post(
   "/category",
@@ -136,6 +161,33 @@ app.patch(
 );
 app.get("/creator/", CreatorController.getAllCreators);
 app.get("/creator/:id", CreatorController.getOneCreator);
+
+//status
+app.post(
+  "/status",
+  CheckAuth,
+  CheckProductModerator,
+  StatusValidation.statusValidation,
+  handleValidationErrors,
+  StatusController.createStatus
+);
+app.delete(
+  "/status/:id",
+  CheckAuth,
+  CheckProductModerator,
+  StatusController.removeStatus
+);
+app.patch(
+  "/status/:id",
+  CheckAuth,
+  CheckProductModerator,
+  StatusValidation.statusValidation,
+  handleValidationErrors,
+  StatusController.updateStatus
+);
+
+app.get("/status/", StatusController.getAllStatuses);
+app.get("/status/:id", StatusController.getOneStatus);
 
 //anime
 app.post(
@@ -193,54 +245,33 @@ app.get("/manga/popular", MangaController.getPopularManga);
 app.get("/manga/:id", MangaController.getOneManga);
 app.get("/manga-recent/", MangaController.getRecentManga);
 
-//status
 app.post(
-  "/status",
+  "/news",
   CheckAuth,
-  CheckProductModerator,
-  StatusValidation.statusValidation,
+  CheckNewsModerator,
+  NewsValidation.newsValidation,
   handleValidationErrors,
-  StatusController.createStatus
+  NewsController.createNews
 );
 app.delete(
-  "/status/:id",
+  "/news/:id",
   CheckAuth,
-  CheckProductModerator,
-  StatusController.removeStatus
+  CheckNewsModerator,
+  NewsController.removeNews
 );
 app.patch(
-  "/status/:id",
+  "/news/:id",
   CheckAuth,
-  CheckProductModerator,
-  StatusValidation.statusValidation,
+  CheckNewsModerator,
+  NewsValidation.newsValidation,
   handleValidationErrors,
-  StatusController.updateStatus
+  NewsController.updateNews
 );
 
-app.get("/status/", StatusController.getAllStatuses);
-app.get("/status/:id", StatusController.getOneStatus);
-
-//role
-app.post(
-  "/role",
-  CheckAuth,
-  CheckAdmin,
-  RoleValidation.roleValidation,
-  handleValidationErrors,
-  RoleController.createRole
-);
-app.delete("/role/:id", CheckAuth, CheckAdmin, RoleController.removeRole);
-app.patch(
-  "/role/:id",
-  CheckAuth,
-  CheckAdmin,
-  RoleValidation.roleValidation,
-  handleValidationErrors,
-  RoleController.updateRole
-);
-
-app.get("/role/", RoleController.getAllRoles);
-app.get("/role/:id", RoleController.getOneRole);
+app.get("/news/", NewsController.getAllNews);
+app.get("/news/popular", NewsController.getPopularNews);
+app.get("/news/:id", NewsController.getOneNews);
+app.get("/news-recent/", NewsController.getRecentNews);
 
 const server = app.listen(process.env.PORT, () => {
   console.log("Server is ON");
