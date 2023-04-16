@@ -1,0 +1,96 @@
+@use "../../assets/generalStyles/mixins.scss" as mixins;
+@use "../../assets/generalStyles/colors.scss" as colors;
+
+.home {
+  @include mixins.flex-config(column, flex-start, center);
+  width: 100%;
+
+  .about__us,
+  .messengers {
+    @include mixins.flex-config(row, center, center);
+
+    background-color: rgb(48, 84, 100);
+
+    width: 4vw;
+    height: 4vw;
+
+    font-size: 2vw;
+
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    cursor: pointer;
+
+    position: fixed;
+    left: 0%;
+  }
+
+  .messengers {
+    top: 15vw;
+
+    &:hover {
+      transition: height 0.4s;
+      height: 20vw;
+    }
+  }
+
+  .about__us:hover {
+    transition: width 0.4s;
+    width: 6vw;
+  }
+
+  .notes {
+    @include mixins.flex-config(column, center, center);
+
+    background-color: rgb(21, 36, 43);
+
+    width: 3vw;
+    height: 20vw;
+
+    font-size: 1vw;
+
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+    cursor: pointer;
+
+    position: fixed;
+    right: 0%;
+
+    div {
+      opacity: 0;
+    }
+
+    &:hover {
+      transition: width 0.4s;
+      width: 12vw;
+
+      div {
+        opacity: 1;
+      }
+    }
+  }
+
+  .info {
+    @include mixins.flex-config(row, space-around, flex-start);
+    flex-wrap: wrap;
+    width: 60%;
+
+    .recent {
+      width: max-content;
+    }
+
+    .news_and_gallery {
+      width: max-content;
+    }
+
+    .inner-page-section {
+      @include mixins.flex-config(column, flex-start, center);
+    }
+  }
+
+  .social {
+    @include mixins.flex-config(row, center, center);
+    margin-top: 1vw;
+  }
+}

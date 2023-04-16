@@ -9,7 +9,7 @@ import { isAuthenticated, isProductModerator } from "../../redux/slices/user";
 
 import FormContainer from "../../components/ui/form/FormContainer";
 import FormField from "../../components/ui/form/FormField";
-import Button from "../../components/ui/buttons/Button";
+import Button from "../../components/ui copy/buttons/Button";
 
 const CategoryAdding = () => {
   const isAuth = useSelector(isAuthenticated);

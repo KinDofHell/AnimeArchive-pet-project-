@@ -1,12 +1,10 @@
-import styles from "./Anime.module.scss";
-
+import animeStyle from "./Anime.module.scss";
 import { SERVER_HOST } from "../../data/Constant";
 
-import { Key, useEffect } from "react";
+import { useEffect, FC, Key } from "react";
 
 import { fetchAnime } from "../../redux/slices/anime";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
 
 import {
   isProductModerator,
@@ -14,12 +12,15 @@ import {
   fetchMe,
 } from "../../redux/slices/user";
 
-import Search from "../../components/search/Search";
-import Searchbar from "../../components/search/Searchbar";
-import AnimeItem from "../../components/anime/animeItem/AnimeItem";
-import Button from "../../components/ui/buttons/Button";
+import Searchbar from "../../components/searchtools/Searchbar";
+import Button from "../../components/ui copy/buttons/Button";
+import ProductCard from "../../components/productCard/ProductCard";
 
-const Anime = ({ isMyAnime }: { isMyAnime: boolean }) => {
+interface AnimeProps {
+  isMyAnime?: boolean;
+}
+
+const Anime: FC<AnimeProps> = ({ isMyAnime }) => {
   const isAuth = useSelector(isAuthenticated);
   const { user } = useSelector((state: any) => state);
   const dispatch = useDispatch<any>();
@@ -45,71 +46,66 @@ const Anime = ({ isMyAnime }: { isMyAnime: boolean }) => {
   }, []);
 
   return (
-    <main className={styles.anime}>
-      <div className={styles.searchblock}>
-        <Search typeProduct="anime" />
-        {isProductManager ? (
-          <Button
-            label="Add New One"
-            link="/anime-adding"
-            customStyle={styles.spanWords}
-          />
-        ) : (
-          <span className={styles.spanWords}>Find The Best For You</span>
-        )}
-        <Searchbar />
+    <div className={animeStyle.anime}>
+      <div className={animeStyle.search__tools}>
+        <div className={animeStyle.searchbar}>
+          <Searchbar placeholder="Enter the title..." />
+        </div>
+        <div className={animeStyle.btn__group__tools}>
+          <Button label="Categories" />
+          <Button label="Statuses" />
+          <Button label="Popular" />
+        </div>
+        {isProductManager && !isMyAnime && <Button label="Add Anime" />}
       </div>
-      <div className={styles.anime__content} id="content">
+      <div className={animeStyle.content} id="content">
         {!isAnimeLoading &&
           !isMyAnime &&
           anime.items.map((obj: typeof anime | undefined, index: Key) => (
-            <AnimeItem
-              _id={obj._id}
-              key={index}
-              type="anime"
+            <ProductCard
               title={obj.title}
-              image={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
-              isEditable={isProductManager}
-              isWatched={
+              imgLink={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
+              linkPath={obj._id}
+              isAnime={true}
+              isSelected={
                 isAuth
                   ? user &&
                     user.data.watchedAnime &&
                     user.data.watchedAnime.includes(obj._id)
                   : false
               }
+              isEditable={isProductManager}
+              key={index}
             />
           ))}
         {!isAnimeLoading &&
           isMyAnime &&
-          user.data &&
           anime.items
             .filter(
               (item: typeof anime) =>
+                user.data &&
                 user.data.watchedAnime &&
                 user.data.watchedAnime.includes(item._id)
             )
             .map((obj: typeof anime | undefined, index: Key) => (
-              <AnimeItem
-                _id={obj._id}
-                key={index}
-                type="anime"
+              <ProductCard
                 title={obj.title}
-                image={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
-                isEditable={isProductManager}
-                isWatched={
+                imgLink={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
+                linkPath={obj._id}
+                isAnime={true}
+                isSelected={
                   isAuth
                     ? user &&
                       user.data.watchedAnime &&
                       user.data.watchedAnime.includes(obj._id)
                     : false
                 }
+                isEditable={isProductManager}
+                key={index}
               />
             ))}
-        {!isAuth && isMyAnime && (
-          <Button label="Log In Please" link="/login" fontSize="3vw" />
-        )}
       </div>
-    </main>
+    </div>
   );
 };
 

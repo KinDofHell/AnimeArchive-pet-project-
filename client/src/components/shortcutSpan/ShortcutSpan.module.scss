@@ -1,0 +1,29 @@
+@use "../../assets/generalStyles/mixins.scss" as mixins;
+@use "../../assets/generalStyles/colors.scss" as colors;
+
+.shortcut__span {
+  @include mixins.flex-config(row, space-between, center);
+
+  min-width: 20vw;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid colors.$silver;
+  }
+
+  img {
+    width: 3vw;
+    height: 3vw;
+    border-radius: 10px;
+  }
+
+  .title {
+    font-size: clamp(1vw, 1.1vw, 1.2vw);
+
+    padding: 0.2rem;
+    border-radius: 10px;
+  }
+
+  .important {
+    color: rgb(153, 0, 0);
+  }
+}

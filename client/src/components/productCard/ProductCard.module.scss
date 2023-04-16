@@ -1,0 +1,54 @@
+@use "../../assets/generalStyles/mixins.scss" as mixins;
+@use "../../assets/generalStyles/colors.scss" as colors;
+
+.product__card {
+  @include mixins.flex-config(column, center, center);
+  min-width: 350px;
+  max-width: 20vw;
+  height: 15vw;
+
+  @media screen and (width < 1561px) {
+    margin-bottom: 4rem;
+  }
+  @media screen and (width < 1025px) {
+    margin-bottom: 7rem;
+  }
+
+  .info {
+    @include mixins.flex-config(row, space-around, center);
+
+    background-color: colors.$logoBackColor;
+
+    width: 100%;
+    min-height: 4vh;
+
+    padding: 0.2rem;
+
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    font-size: clamp(0.8vw, 0.9vw, 1vw);
+
+    .status {
+      @include mixins.flex-config(row, center, center);
+
+      background-color: darkgreen;
+
+      border-radius: 50%;
+
+      width: 8%;
+      height: 90%;
+
+      cursor: default;
+    }
+
+    .title {
+      font-weight: bold;
+    }
+
+    .adm__btn {
+      @include mixins.flex-config(row, space-around, center);
+      min-width: 30%;
+    }
+  }
+}

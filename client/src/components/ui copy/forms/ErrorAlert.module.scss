@@ -1,0 +1,16 @@
+@use "../../../assets/generalStyles/mixins.scss" as mixins;
+@use "../../../assets/generalStyles/colors.scss" as colors;
+
+.error__alert {
+  color: rgb(180, 25, 25);
+  background-color: colors.$logoBackColor;
+
+  width: 60%;
+
+  padding: 1%;
+  border-radius: 10px;
+  margin-bottom: 2%;
+  text-align: center;
+
+  font-size: 0.8vw;
+}

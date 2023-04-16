@@ -1,0 +1,127 @@
+@use "../../../assets/generalStyles/mixins.scss" as mixins;
+@use "../../../assets/generalStyles/colors.scss" as colors;
+
+.form__block {
+  @include mixins.flex-config(column, flex-start, center);
+
+  border-radius: 10px;
+
+  &:hover {
+    transition: box-shadow 0.4s;
+
+    box-shadow: 4px 4px 10px black;
+  }
+
+  &:hover > .avatar {
+    transition: box-shadow 0.4s;
+
+    box-shadow: 4px 4px 10px black;
+  }
+
+  .avatar {
+    width: fit-content;
+
+    cursor: pointer;
+
+    border: 1px solid colors.$logoBackColor;
+    border-radius: 10px;
+
+    position: absolute;
+    top: 26vw;
+    right: 34vw;
+  }
+
+  .title {
+    background-color: colors.$logoBackColor;
+
+    padding: 1%;
+
+    width: 100%;
+
+    font-family: "Sofia";
+    font-size: clamp(1.4vw, 1.6vw, 1.8vw);
+
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    text-align: center;
+  }
+
+  .form {
+    @include mixins.flex-config(column, flex-start, center);
+
+    background-color: rgb(61, 73, 88);
+
+    width: 100%;
+
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    padding: 2% 1%;
+
+    input:not([type="submit"]) {
+      background-color: colors.$silver;
+
+      width: 80%;
+
+      text-align: center;
+
+      &::placeholder {
+        font-size: 1.2vw;
+
+        color: rgb(255, 255, 255, 0.5);
+      }
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      font-size: 1.4vw;
+
+      border-radius: 10px;
+      border: 0;
+
+      padding: 1%;
+
+      &:not(:last-child) {
+        margin-bottom: 2%;
+      }
+
+      &:first-child {
+        margin-top: 2%;
+      }
+    }
+
+    input[type="submit"] {
+      padding: 1%;
+
+      background-color: colors.$logoBackColor;
+
+      border: 0;
+      border-radius: 10px;
+
+      font-size: 1.2vw;
+
+      width: 25%;
+
+      cursor: pointer;
+
+      &:hover {
+        transition: width 0.4s, box-shadow 0.4s;
+
+        width: 35%;
+        box-shadow: 4px 4px 8px black;
+      }
+    }
+
+    .register__block {
+      @include mixins.flex-config(row, center, center);
+
+      border-top: 1px solid colors.$logoBackColor;
+
+      width: 80%;
+
+      margin-top: 3%;
+      padding-top: 2%;
+    }
+  }
+}

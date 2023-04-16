@@ -6,23 +6,21 @@ import { useEffect } from "react";
 
 import { fetchMe } from "./redux/slices/user";
 
-import Header from "./layouts/Header/Header";
-import Container from "./components/ui/container/Container";
+import Header from "./layouts/Header";
+import Content from "./components/Content";
 
-import Home from "./pages/Home";
+import Home from "./pages/home/Home";
 import Anime from "./pages/anime/Anime";
-import AnimePage from "./pages/anime/Animepage";
+import ProductPage from "./pages/productPage/ProductPage";
 import Manga from "./pages/manga/Manga";
-import MangaPage from "./pages/manga/MangaPage";
 
-import CategoryAdding from "./pages/categories/CategoryAdding";
-import CreatorAdding from "./pages/creators/CreatorAdding";
-import AnimeAdding from "./pages/anime/AnimeAdding";
-import MangaAdding from "./pages/manga/MangaAdding";
-import StatusAdding from "./pages/statuses/StatusAdding";
+// import CategoryAdding from "./pages/categories/CategoryAdding";
+// import CreatorAdding from "./pages/creators/CreatorAdding";
+// import AnimeAdding from "./pages/anime/AnimeAdding";
+// import MangaAdding from "./pages/manga/MangaAdding";
+// import StatusAdding from "./pages/statuses/StatusAdding";
 
-import Register from "./pages/user/Register";
-import Login from "./pages/user/Login";
+import UserForms from "./pages/user/UserForms";
 
 const App = () => {
   const dispatch = useDispatch<any>();
@@ -33,26 +31,26 @@ const App = () => {
   return (
     <div className="App">
       <Header />
-      <Container>
+      <Content>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/anime" element={<Anime isMyAnime={false} />} />
-          <Route path="/my-anime" element={<Anime isMyAnime={true} />} />
-          <Route path="/anime/:id" element={<AnimePage />} />
-          <Route path="/anime-adding" element={<AnimeAdding />} />
-          <Route path="/anime/:id/edit" element={<AnimeAdding />} />
+          <Route path="/my-anime-list/" element={<Anime isMyAnime={true} />} />
+          <Route path="/anime/:id" element={<ProductPage isAnime={true} />} />
+          {/* <Route path="/anime-adding" element={<AnimeAdding />} /> */}
+          {/* <Route path="/anime/:id/edit" element={<AnimeAdding />} /> */}
           <Route path="/manga" element={<Manga isMyManga={false} />} />
-          <Route path="/my-manga" element={<Manga isMyManga={true} />} />
-          <Route path="/manga/:id" element={<MangaPage />} />
-          <Route path="/manga-adding" element={<MangaAdding />} />
-          <Route path="/manga/:id/edit" element={<MangaAdding />} />
-          <Route path="/category-adding" element={<CategoryAdding />} />
-          <Route path="/creator-adding" element={<CreatorAdding />} />
-          <Route path="/status-adding" element={<StatusAdding />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/my-manga-list" element={<Manga isMyManga={true} />} />
+          <Route path="/manga/:id" element={<ProductPage isAnime={false} />} />
+          {/* <Route path="/manga-adding" element={<MangaAdding />} /> */}
+          {/* <Route path="/manga/:id/edit" element={<MangaAdding />} /> */}
+          {/* <Route path="/category-adding" element={<CategoryAdding />} /> */}
+          {/* <Route path="/creator-adding" element={<CreatorAdding />} />
+          <Route path="/status-adding" element={<StatusAdding />} /> */}
+          <Route path="/register" element={<UserForms isRegister={true} />} />
+          <Route path="/login" element={<UserForms isRegister={false} />} />
         </Routes>
-      </Container>
+      </Content>
     </div>
   );
 };

@@ -1,0 +1,27 @@
+@use "../../assets/generalStyles/mixins.scss" as mixins;
+@use "../../assets/generalStyles/colors.scss" as colors;
+
+.searchbar {
+  border: 0;
+  border-radius: 10px;
+
+  padding: 0.8em;
+
+  font-size: clamp(80%, 85%, 95%);
+
+  width: 100%;
+
+  max-height: 4vh;
+
+  background-color: colors.$silver;
+  color: white;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  &:focus {
+    background-color: rgb(124, 124, 124);
+    color: black;
+  }
+}

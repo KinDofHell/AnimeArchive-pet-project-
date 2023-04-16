@@ -1,0 +1,28 @@
+@use "../../assets/generalStyles/mixins.scss" as mixins;
+@use "../../assets/generalStyles/colors.scss" as colors;
+
+.name__value__span {
+  @include mixins.flex-config(row, space-between, center);
+
+  span {
+    width: 45%;
+
+    padding: 0.2em;
+    border-radius: 10px;
+    text-align: center;
+
+    font-size: clamp(0.8vw, 1vw, 1.1vw);
+
+    &:not(:nth-child(even)) {
+      background-color: colors.$logoBackColor;
+    }
+
+    &:nth-child(even) {
+      background-color: colors.$silver;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 1%;
+    }
+  }
+}

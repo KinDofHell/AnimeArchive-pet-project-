@@ -1,44 +1,57 @@
-@use "../../assets/styleStorage.scss" as styleStorage;
+@use "../../assets/generalStyles/mixins.scss" as mixins;
+@use "../../assets/generalStyles/colors.scss" as colors;
 
 .anime {
-  @include styleStorage.flex(center, center, column, wrap);
-
+  @include mixins.flex-config(column, flex-start, center);
   width: 100%;
-  .searchblock {
-    @include styleStorage.flex(space-between, center, row, wrap);
+  .search__tools {
+    @include mixins.flex-config(row, space-between, center);
+    width: 100%;
 
-    @include styleStorage.blur-border(10px);
+    .searchbar,
+    .btn__group__tools {
+      background-color: colors.$logoBackColor;
 
-    padding: 5px;
-    width: 90%;
-    a {
-      text-decoration: none;
+      padding: 0.5em;
+      border-radius: 10px;
+
+      min-width: 40%;
     }
-    .spanWords {
-      background-color: styleStorage.$spanWords;
-      padding: 0.4rem;
-      border-radius: 50% 50% / 20% 20%;
-      box-shadow: 3px 3px 5px black;
-      cursor: pointer;
+
+    .btn__group__tools {
+      @include mixins.flex-config(row, space-around, center);
     }
   }
-  .anime__content {
-    @include styleStorage.flex(space-around, center, row, wrap);
-    margin-top: 3vh;
 
-    width: 80vw;
-    height: 70vh;
+  .content {
+    @include mixins.flex-config(row, space-around, center);
 
+    min-width: 30%;
+
+    @media screen and (width < 1025px) {
+      max-height: 50vw;
+      padding-top: 5vh;
+    }
+    @media screen and (width < 1500px) {
+      padding-top: 5vh;
+    }
+
+    flex-wrap: wrap;
+    margin-top: 8vh;
+
+    max-height: 29.2vw;
     overflow-y: scroll;
 
     &::-webkit-scrollbar {
-      width: 0.5rem; /* width of the entire scrollbar */
+      width: 0.4vw;
     }
     &::-webkit-scrollbar-track {
-      background: transparent; /* color of the tracking area */
+      background: colors.$logoBackColor;
+      border-radius: 10px;
     }
     &::-webkit-scrollbar-thumb {
-      background-color: rgba(10, 0, 68, 0.5); /* color of the scroll thumb */
+      background-color: rgb(59, 104, 146); /* color of the scroll thumb */
+      border-radius: 10px; /* roundness of the scroll thumb */
     }
   }
 }

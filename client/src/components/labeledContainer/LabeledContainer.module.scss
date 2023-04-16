@@ -1,0 +1,35 @@
+@use "../../assets/generalStyles/mixins.scss" as mixins;
+@use "../../assets/generalStyles/colors.scss" as colors;
+
+.labeled__container {
+  @include mixins.flex-config(column, flex-start, center);
+
+  min-width: max-content;
+  min-height: 5vw;
+
+  background-color: colors.$logoBackColor;
+
+  border-radius: 10px;
+
+  &:not(:last-child) {
+    margin-bottom: 1vw;
+  }
+
+  .title {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    text-align: center;
+
+    font-family: "Sofia";
+    font-size: clamp(1.1vw, 1.3vw, 1.4vw);
+
+    width: 100%;
+
+    background-color: colors.$silver;
+  }
+
+  .content {
+    @include mixins.flex-config(column, flex-start, center);
+    margin: 2% 0.5vw;
+  }
+}

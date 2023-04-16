@@ -1,6 +1,0 @@
-@use "../../assets/styleStorage.scss" as styleStorage;
-
-.search {
-  @include styleStorage.flex(space-around, center, row, nowrap);
-  width: 40%;
-}

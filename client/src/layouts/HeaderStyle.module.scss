@@ -1,0 +1,106 @@
+@use "../assets/generalStyles/mixins.scss" as mixins;
+@use "../assets/generalStyles/colors.scss" as colors;
+
+a {
+  text-decoration: none;
+  width: max-content;
+  color: white;
+}
+
+.header {
+  @include mixins.flex-config(row, space-between, center);
+  flex-shrink: 1;
+
+  width: 100%;
+
+  background-color: rgb(24, 36, 44);
+}
+
+.logo {
+  @include mixins.flex-config(row, center, center);
+
+  border-radius: 10%;
+  min-width: 17%;
+  img {
+    width: 5vw;
+    border-radius: 10%;
+
+    margin: 1%;
+
+    background-color: colors.$logoBackColor;
+  }
+  .title {
+    font-family: "Sofia";
+    font-size: clamp(16px, 2vw, 40px);
+
+    cursor: pointer;
+
+    span {
+      background-color: rgb(114, 146, 161);
+      color: black;
+      font-weight: bold;
+
+      padding: 2%;
+      border-radius: 10%;
+      margin: 0 2%;
+    }
+  }
+}
+
+.navbar {
+  @include mixins.flex-config(row, space-around, center);
+
+  min-width: 50%;
+
+  .btn__group {
+    @include mixins.flex-config(row, space-around, center);
+    min-width: 18%;
+    border-radius: 10%;
+    padding: 1%;
+
+    background-color: colors.$logoBackColor;
+
+    span {
+      font-size: 18px;
+      cursor: default;
+    }
+  }
+}
+
+.login {
+  @include mixins.flex-config(row, center, center);
+
+  min-width: 15%;
+
+  img {
+    width: 5vw;
+    border-radius: 10%;
+
+    margin: 1%;
+
+    background-color: colors.$logoBackColor;
+
+    cursor: pointer;
+  }
+
+  .name {
+    font-size: clamp(16px, 1vw, 1.2vw);
+    margin-right: 2%;
+    min-width: max-content;
+  }
+}
+
+.dropmenu {
+  opacity: 0;
+  background-color: colors.$logoBackColor;
+
+  border-radius: 10%;
+
+  position: relative;
+  right: 4.7vw;
+
+  &:hover {
+    transition: opacity 0.5s;
+    opacity: 1;
+  }
+}

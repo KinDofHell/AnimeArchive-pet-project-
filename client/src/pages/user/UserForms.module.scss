@@ -1,0 +1,8 @@
+@use "../../assets/generalStyles/mixins.scss" as mixins;
+@use "../../assets/generalStyles/colors.scss" as colors;
+
+.user__form {
+  @include mixins.flex-config(row, center, center);
+
+  margin-top: 5vh;
+}
