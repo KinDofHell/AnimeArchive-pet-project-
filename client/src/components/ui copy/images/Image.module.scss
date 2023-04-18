@@ -1,9 +1,7 @@
 @use "../../../assets/generalStyles/mixins.scss" as mixins;
 
-.img {
-  a {
-    text-decoration: none;
-    height: 100%;
-    width: 100%;
-  }
+.a {
+  text-decoration: none;
+  max-width: fit-content;
+  max-height: fit-content;
 }

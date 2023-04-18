@@ -113,35 +113,38 @@ const ProductPage = ({ isAnime }: { isAnime: boolean }) => {
               {isSelected ? "Remove from list" : "Add to list"}
             </div>
           )}
-          {descriptionOpen ? (
-            <div
-              className={productPageStyle.description__close}
-              id="closeDescription"
-              onClick={() => setDescriptionOpen(false)}
-            >
-              X
-            </div>
-          ) : (
-            <div
-              className={productPageStyle.description}
-              id="openDescription"
-              onClick={() => setDescriptionOpen(true)}
-            >
-              ?
-            </div>
-          )}
-          {descriptionOpen && (
-            <div className={productPageStyle.description__text}>
-              {data.description ? data.description : "Loading..."}
-            </div>
-          )}
-          <Image
-            imgLink={SERVER_HOST + data.imgCover}
-            minWidth="35vw"
-            minHeight="20vw"
-            maxWidth="35vw"
-            allBordered={true}
-          />
+          <div className={productPageStyle.image}>
+            {descriptionOpen ? (
+              <div
+                className={productPageStyle.description__close}
+                id="closeDescription"
+                onClick={() => setDescriptionOpen(false)}
+              >
+                X
+              </div>
+            ) : (
+              <div
+                className={productPageStyle.description}
+                id="openDescription"
+                onClick={() => setDescriptionOpen(true)}
+              >
+                ?
+              </div>
+            )}
+            {descriptionOpen && (
+              <div className={productPageStyle.description__text}>
+                {data.description ? data.description : "Loading..."}
+              </div>
+            )}
+            <Image
+              imgLink={SERVER_HOST + data.imgCover}
+              minWidth="100%"
+              maxWidth="100%"
+              minHeight="22vw"
+              maxHeight="22vw"
+              allBordered={true}
+            />
+          </div>
           <span className={productPageStyle.title}>
             {data.title ? data.title : "Loading..."}
           </span>

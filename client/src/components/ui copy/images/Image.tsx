@@ -1,3 +1,5 @@
+import imageStyle from "./Image.module.scss";
+
 import reservImg from "../../../assets/imgs/logo.png";
 
 import { FC, MouseEventHandler } from "react";
@@ -10,6 +12,7 @@ interface ImageProps {
   minWidth: string;
   minHeight: string;
   maxWidth?: string;
+  maxHeight?: string;
   borderTopRadius?: boolean;
   allBordered?: boolean;
   onClick?: MouseEventHandler;
@@ -22,20 +25,13 @@ const Image: FC<ImageProps> = ({
   minWidth,
   minHeight,
   maxWidth,
+  maxHeight,
   borderTopRadius,
   allBordered,
   onClick,
 }) => {
   return linkPath ? (
-    <Link
-      to={linkPath}
-      style={{
-        textDecoration: "none",
-        height: "auto",
-        padding: "0",
-        width: "fit-content",
-      }}
-    >
+    <Link to={linkPath} className={imageStyle.a}>
       <img
         src={imgLink ? imgLink : reservImg}
         alt={alt}
@@ -45,6 +41,7 @@ const Image: FC<ImageProps> = ({
                 minWidth: minWidth,
                 maxWidth: maxWidth,
                 minHeight: minHeight,
+                maxHeight: maxHeight,
                 borderTopLeftRadius: "10px",
                 borderTopRightRadius: "10px",
               }
@@ -53,9 +50,15 @@ const Image: FC<ImageProps> = ({
                 minWidth: minWidth,
                 maxWidth: maxWidth,
                 minHeight: minHeight,
+                maxHeight: maxHeight,
                 borderRadius: "10px",
               }
-            : { minWidth: minWidth, maxWidth: maxWidth, minHeight: minHeight }
+            : {
+                minWidth: minWidth,
+                maxWidth: maxWidth,
+                minHeight: minHeight,
+                maxHeight: maxHeight,
+              }
         }
       />
     </Link>
@@ -69,6 +72,7 @@ const Image: FC<ImageProps> = ({
               minWidth: minWidth,
               maxWidth: maxWidth,
               minHeight: minHeight,
+              maxHeight: maxHeight,
               borderTopLeftRadius: "10px",
               borderTopRightRadius: "10px",
             }
@@ -77,9 +81,15 @@ const Image: FC<ImageProps> = ({
               minWidth: minWidth,
               maxWidth: maxWidth,
               minHeight: minHeight,
+              maxHeight: maxHeight,
               borderRadius: "10px",
             }
-          : { minWidth: minWidth, maxWidth: maxWidth, minHeight: minHeight }
+          : {
+              minWidth: minWidth,
+              maxWidth: maxWidth,
+              minHeight: minHeight,
+              maxHeight: maxHeight,
+            }
       }
       onClick={onClick}
     />

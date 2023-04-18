@@ -32,9 +32,10 @@ const ProductCard: FC<ProductCardProps> = ({
         imgLink={imgLink ? imgLink : reservImg}
         linkPath={`/${isAnime ? "anime" : "manga"}/${linkPath}`}
         alt={title}
-        minWidth="100%"
-        minHeight="100%"
-        maxWidth="100%"
+        minWidth="20vw"
+        minHeight="12vw"
+        maxWidth="20vw"
+        maxHeight="12vw"
         borderTopRadius={true}
       />
       <div className={productCardStyle.info}>
