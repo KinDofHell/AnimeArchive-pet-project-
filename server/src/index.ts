@@ -65,7 +65,7 @@ app.use("/uploads", express.static("uploads"));
 
 //routes
 //uploads
-app.post("/upload", upload.single("image"), (req: any, res: any) => {
+app.post("/upload", upload.array("image"), (req: any, res: any) => {
   res.json({
     url: `/uploads/${req.file.originalname}`,
   });

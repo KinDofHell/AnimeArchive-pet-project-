@@ -14,10 +14,8 @@ export const createAnime = async (req: any, res: any) => {
       years: req.body.years.split(","),
       status: req.body.status,
       author: req.body.author,
-      imgCover: req.body.imgCover,
-      imgAdditional_1: req.body.imgAdditional_1,
-      imgAdditional_2: req.body.imgAdditional_2,
-      imgAdditional_3: req.body.imgAdditional_3,
+      characters: req.body.characters,
+      images: req.body.images,
     });
 
     const anime = await document.save();
@@ -47,10 +45,8 @@ export const updateAnime = async (req: any, res: any) => {
         years: req.body.years.split(","),
         status: req.body.status,
         author: req.body.author,
-        imgCover: req.body.imgCover,
-        imgAdditional_1: req.body.imgAdditional_1,
-        imgAdditional_2: req.body.imgAdditional_2,
-        imgAdditional_3: req.body.imgAdditional_3,
+        characters: req.body.characters,
+        images: req.body.images,
       }
     );
 
@@ -70,26 +66,13 @@ export const removeAnime = async (req: any, res: any) => {
     const animeID = req.params.id;
     const anime = await AnimeModel.findById(animeID);
     if (anime) {
-      if (anime.imgCover) {
-        if (fs.existsSync(`../server/${anime.imgCover}`)) {
-          fs.unlink(`../server/${anime.imgCover}`, (err) => {
-            if (err) console.warn(err);
-          });
-        }
-        if (fs.existsSync(`../server/${anime.imgAdditional_1}`)) {
-          fs.unlink(`../server/${anime.imgAdditional_1}`, (err) => {
-            if (err) console.warn(err);
-          });
-        }
-        if (fs.existsSync(`../server/${anime.imgAdditional_2}`)) {
-          fs.unlink(`../server/${anime.imgAdditional_2}`, (err) => {
-            if (err) console.warn(err);
-          });
-        }
-        if (fs.existsSync(`../server/${anime.imgAdditional_3}`)) {
-          fs.unlink(`../server/${anime.imgAdditional_3}`, (err) => {
-            if (err) console.warn(err);
-          });
+      if (anime.images) {
+        for (let i = 0; i < anime.images.length; i++) {
+          if (fs.existsSync(`../server/${anime.images[i]}`)) {
+            fs.unlink(`../server/${anime.images[i]}`, (err) => {
+              if (err) console.warn(err);
+            });
+          }
         }
       }
     }

@@ -13,10 +13,7 @@ export const createManga = async (req: any, res: any) => {
       years: req.body.years.split(","),
       status: req.body.status,
       author: req.body.author,
-      imgCover: req.body.imgCover,
-      imgAdditional_1: req.body.imgAdditional_1,
-      imgAdditional_2: req.body.imgAdditional_2,
-      imgAdditional_3: req.body.imgAdditional_3,
+      images: req.body.images,
     });
 
     const manga = await document.save();
@@ -45,10 +42,7 @@ export const updateManga = async (req: any, res: any) => {
         years: req.body.years.split(","),
         status: req.body.status,
         author: req.body.author,
-        imgCover: req.body.imgCover,
-        imgAdditional_1: req.body.imgAdditional_1,
-        imgAdditional_2: req.body.imgAdditional_2,
-        imgAdditional_3: req.body.imgAdditional_3,
+        images: req.body.images,
       }
     );
 
@@ -68,26 +62,13 @@ export const removeManga = async (req: any, res: any) => {
     const mangaID = req.params.id;
     const manga = await MangaModel.findById(mangaID);
     if (manga) {
-      if (manga.imgCover) {
-        if (fs.existsSync(`../server/${manga.imgCover}`)) {
-          fs.unlink(`../server/${manga.imgCover}`, (err) => {
-            if (err) console.warn(err);
-          });
-        }
-        if (fs.existsSync(`../server/${manga.imgAdditional_1}`)) {
-          fs.unlink(`../server/${manga.imgAdditional_1}`, (err) => {
-            if (err) console.warn(err);
-          });
-        }
-        if (fs.existsSync(`../server/${manga.imgAdditional_2}`)) {
-          fs.unlink(`../server/${manga.imgAdditional_2}`, (err) => {
-            if (err) console.warn(err);
-          });
-        }
-        if (fs.existsSync(`../server/${manga.imgAdditional_3}`)) {
-          fs.unlink(`../server/${manga.imgAdditional_3}`, (err) => {
-            if (err) console.warn(err);
-          });
+      if (manga.images) {
+        for (let i = 0; i < manga.images.length; i++) {
+          if (fs.existsSync(`../server/${manga.images[i]}`)) {
+            fs.unlink(`../server/${manga.images[i]}`, (err) => {
+              if (err) console.warn(err);
+            });
+          }
         }
       }
     }

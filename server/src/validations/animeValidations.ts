@@ -10,8 +10,5 @@ export const animeValidation = [
   body("years", "Invalid years").isString(),
   body("status", "Invalid status").isString(),
   body("author", "Invalid author").isString(),
-  body("imgCover", "Invalid imgCover").optional().isString(),
-  body("imgAdditional_1", "Invalid imgAdditional_1").optional().isString(),
-  body("imgAdditional_2", "Invalid imgAdditional_2").optional().isString(),
-  body("imgAdditional_3", "Invalid imgAdditional_3").optional().isString(),
+  body("images", "Invalid images").optional().isArray(),
 ];

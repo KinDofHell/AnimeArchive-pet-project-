@@ -8,7 +8,5 @@ export const newsValidation = [
   body("linkedCharacters", "Invalid list of characters").optional().isArray(),
   body("linkedOuterThing", "Invalid link").optional().isString(),
   body("isImportant", "Invalid important status").isBoolean(),
-  body("imgUrl_1", "Invalid img_1").optional().isString(),
-  body("imgUrl_2", "Invalid img_2").optional().isString(),
-  body("imgUrl_3", "Invalid img_3").optional().isString(),
+  body("images", "Invalid images").optional().isArray(),
 ];

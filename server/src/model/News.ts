@@ -32,9 +32,9 @@ const NewsSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    imgUrl_1: String,
-    imgUrl_2: String,
-    imgUrl_3: String,
+    images: {
+      type: [String],
+    },
   },
   {
     timestamps: true,

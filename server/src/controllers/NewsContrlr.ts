@@ -42,20 +42,14 @@ export const removeNews = async (req: any, res: any) => {
     const newsID = req.params.id;
     const news = await NewsModel.findById(newsID);
     if (news) {
-      if (fs.existsSync(`../server/${news.imgUrl_1}`)) {
-        fs.unlink(`../server/${news.imgUrl_1}`, (err) => {
-          if (err) console.warn(err);
-        });
-      }
-      if (fs.existsSync(`../server/${news.imgUrl_2}`)) {
-        fs.unlink(`../server/${news.imgUrl_2}`, (err) => {
-          if (err) console.warn(err);
-        });
-      }
-      if (fs.existsSync(`../server/${news.imgUrl_3}`)) {
-        fs.unlink(`../server/${news.imgUrl_3}`, (err) => {
-          if (err) console.warn(err);
-        });
+      if (news.images) {
+        for (let i = 0; i < news.images.length; i++) {
+          if (fs.existsSync(`../server/${news.images[i]}`)) {
+            fs.unlink(`../server/${news.images[i]}`, (err) => {
+              if (err) console.warn(err);
+            });
+          }
+        }
       }
     }
     await NewsModel.findByIdAndRemove(newsID);

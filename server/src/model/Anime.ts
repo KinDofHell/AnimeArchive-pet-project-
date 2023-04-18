@@ -42,14 +42,17 @@ const AnimeSchema = new mongoose.Schema(
       ref: "Creator",
       required: true,
     },
+    characters: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Characters",
+    },
     viewsCount: {
       type: Number,
       default: 0,
     },
-    imgCover: String,
-    imgAdditional_1: String,
-    imgAdditional_2: String,
-    imgAdditional_3: String,
+    images: {
+      type: [String],
+    },
   },
   {
     timestamps: true,
