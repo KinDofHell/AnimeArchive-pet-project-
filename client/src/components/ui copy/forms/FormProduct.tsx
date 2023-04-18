@@ -2,9 +2,6 @@ import formProductStyle from "./FormProduct.module.scss";
 
 import { FC, FormEventHandler } from "react";
 
-import Button from "../buttons/Button";
-import Image from "../images/Image";
-
 interface FormProductProps {
   width: string;
   title: string;

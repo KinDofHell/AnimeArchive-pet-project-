@@ -67,7 +67,7 @@ const Anime: FC<AnimeProps> = ({ isMyAnime }) => {
             <ProductCard
               _id={obj._id}
               title={obj.title}
-              imgLink={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
+              imgLink={obj.images[0] ? `${SERVER_HOST}${obj.images[0]}` : ""}
               linkPath={obj._id}
               isAnime={true}
               isSelected={
@@ -94,7 +94,7 @@ const Anime: FC<AnimeProps> = ({ isMyAnime }) => {
               <ProductCard
                 _id={obj._id}
                 title={obj.title}
-                imgLink={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
+                imgLink={obj.images[0] ? `${SERVER_HOST}${obj.images[0]}` : ""}
                 linkPath={obj._id}
                 isAnime={true}
                 isSelected={

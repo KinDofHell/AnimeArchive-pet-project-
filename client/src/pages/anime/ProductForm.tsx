@@ -10,6 +10,8 @@ import { fetchCreators } from "../../redux/slices/creators";
 import { fetchStatuses } from "../../redux/slices/status";
 import { useNavigate, Navigate } from "react-router-dom";
 
+import axios from "../../utils/axios";
+
 import FormProduct from "../../components/ui copy/forms/FormProduct";
 import ErrorAlert from "../../components/ui copy/forms/ErrorAlert";
 
@@ -35,7 +37,12 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
     formState: { errors },
   } = useForm();
 
+  const imagesArray: string[] = [];
+  const imagesArrayFile: any[] = [];
+
   const navigate = useNavigate();
+  const [images, setImages] = useState<string[]>([""]);
+  const [imagesFile, setImagesFile] = useState();
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -44,11 +51,28 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
   }, []);
 
   const onSubmitCreate = async (values: FieldValues) => {
-    // await dispatch(fetchAnimeCreating(values));
-
+    values.images = images;
+    console.log(values);
     if (await dispatch(fetchAnimeCreating(values))) {
+      const formData = new FormData();
+      // @ts-ignore
+      for (let i = 0; i < imagesFile.length; i++) {
+        // @ts-ignore
+        formData.append("image", imagesFile[i]);
+      }
+      await axios.post("/upload", formData);
       navigate("/anime");
     }
+  };
+
+  const onFileChange = async (event: any) => {
+    for (let i = 0; i < event.target.files.length; i++) {
+      imagesArray.push(`/uploads/${event.target.files[i].name}`);
+      imagesArrayFile.push(event.target.files[i]);
+    }
+    setImages(imagesArray);
+    // @ts-ignore
+    setImagesFile(imagesArrayFile);
   };
 
   if (!isAuth && !window.localStorage.getItem("token"))
@@ -254,6 +278,12 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
               <ErrorAlert error="This field must be 6-20 symbols!" />
             )
           )}
+        <input
+          type="file"
+          id="images"
+          onChange={onFileChange}
+          multiple={true}
+        />
         <input type="submit" value={isEditing ? "Update" : "Create"} />
       </FormProduct>
     </div>

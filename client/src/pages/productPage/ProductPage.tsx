@@ -98,6 +98,12 @@ const ProductPage = ({ isAnime }: { isAnime: boolean }) => {
               <ShortcutSpan title="Post-Apocalyptic" linkPath="/anime/" />
             )}
           </LabeledContainer>
+          <ShortcutSpan
+            title={data.author.fullname}
+            linkPath={`/creator/${data.author._id}`}
+            imgLink={data.author.imgUrl && SERVER_HOST + data.author.imgUrl}
+            backForTitle={true}
+          />
         </div>
         <div className={productPageStyle.main__info}>
           {isAuth && (
@@ -136,9 +142,17 @@ const ProductPage = ({ isAnime }: { isAnime: boolean }) => {
                 {data.description ? data.description : "Loading..."}
               </div>
             )}
-            {data.imgCover && (
+            {data.images[0] ? (
               <Image
-                imgLink={SERVER_HOST + data.imgCover}
+                imgLink={SERVER_HOST + data.images[0]}
+                minWidth="100%"
+                maxWidth="100%"
+                minHeight="22vw"
+                maxHeight="22vw"
+                allBordered={true}
+              />
+            ) : (
+              <Image
                 minWidth="100%"
                 maxWidth="100%"
                 minHeight="22vw"
@@ -178,35 +192,36 @@ const ProductPage = ({ isAnime }: { isAnime: boolean }) => {
             value={data.status.title}
             minWidth="60%"
           />
-          <ShortcutSpan
-            title={data.author.fullname}
-            linkPath={`/creator/${data.author._id}`}
-            imgLink={data.author.imgUrl && SERVER_HOST + data.author.imgUrl}
-            backForTitle={true}
-          />
         </div>
         <div className={productPageStyle.addtional__imgs}>
-          {data.imgAdditional_1 && (
+          {data.images[1] ? (
             <Image
-              imgLink={SERVER_HOST + data.imgAdditional_1}
+              imgLink={SERVER_HOST + data.images[1]}
+              minWidth="15vw"
+              minHeight="10vw"
+              maxWidth="15vw"
+              allBordered={true}
+            />
+          ) : (
+            <Image
               minWidth="15vw"
               minHeight="10vw"
               maxWidth="15vw"
               allBordered={true}
             />
           )}
-          {data.imgAdditional_2 && (
+          {data.images[2] && (
             <Image
-              imgLink={SERVER_HOST + data.imgAdditional_2}
+              imgLink={SERVER_HOST + data.images[2]}
               minWidth="15vw"
               minHeight="10vw"
               maxWidth="15vw"
               allBordered={true}
             />
           )}
-          {data.imgAdditional_3 && (
+          {data.images[3] && (
             <Image
-              imgLink={SERVER_HOST + data.imgAdditional_3}
+              imgLink={SERVER_HOST + data.images[3]}
               minWidth="15vw"
               minHeight="10vw"
               maxWidth="15vw"
