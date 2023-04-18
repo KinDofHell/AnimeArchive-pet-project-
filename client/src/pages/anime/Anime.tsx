@@ -56,13 +56,16 @@ const Anime: FC<AnimeProps> = ({ isMyAnime }) => {
           <Button label="Statuses" />
           <Button label="Popular" />
         </div>
-        {isProductManager && !isMyAnime && <Button label="Add Anime" />}
+        {isProductManager && !isMyAnime && (
+          <Button label="Add Anime" linkPath="/anime-adding/" />
+        )}
       </div>
       <div className={animeStyle.content} id="content">
         {!isAnimeLoading &&
           !isMyAnime &&
           anime.items.map((obj: typeof anime | undefined, index: Key) => (
             <ProductCard
+              _id={obj._id}
               title={obj.title}
               imgLink={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
               linkPath={obj._id}
@@ -89,6 +92,7 @@ const Anime: FC<AnimeProps> = ({ isMyAnime }) => {
             )
             .map((obj: typeof anime | undefined, index: Key) => (
               <ProductCard
+                _id={obj._id}
                 title={obj.title}
                 imgLink={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
                 linkPath={obj._id}

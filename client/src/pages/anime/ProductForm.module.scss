@@ -1,0 +1,53 @@
+@use "../../assets/generalStyles/mixins.scss" as mixins;
+@use "../../assets/generalStyles/colors.scss" as colors;
+
+.product__form {
+  @include mixins.flex-config(row, center, center);
+}
+
+.titles {
+  @include mixins.flex-config(column, flex-start, center);
+
+  width: 45vw;
+
+  .titles__inputs {
+    @include mixins.flex-config(row, space-around, center);
+
+    width: 100%;
+  }
+  .titles__errors {
+    @include mixins.flex-config(column, flex-start, center);
+
+    width: 100%;
+  }
+}
+
+.selects {
+  @include mixins.flex-config(column, flex-start, center);
+
+  width: 95%;
+
+  .selects__input {
+    @include mixins.flex-config(row, space-around, flex-start);
+
+    width: 95%;
+  }
+
+  .selects__errors {
+    @include mixins.flex-config(row, center, center);
+
+    width: 95%;
+
+    margin-top: 1%;
+  }
+}
+
+.numbers_and_description {
+  @include mixins.flex-config(row, space-around, center);
+
+  width: 95%;
+
+  .numbers {
+    @include mixins.flex-config(column, flex-start, center);
+  }
+}

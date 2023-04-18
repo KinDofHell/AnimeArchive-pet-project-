@@ -13,6 +13,7 @@ import Home from "./pages/home/Home";
 import Anime from "./pages/anime/Anime";
 import ProductPage from "./pages/productPage/ProductPage";
 import Manga from "./pages/manga/Manga";
+import ProductForms from "./pages/anime/ProductForm";
 
 // import CategoryAdding from "./pages/categories/CategoryAdding";
 // import CreatorAdding from "./pages/creators/CreatorAdding";
@@ -37,7 +38,10 @@ const App = () => {
           <Route path="/anime" element={<Anime isMyAnime={false} />} />
           <Route path="/my-anime-list/" element={<Anime isMyAnime={true} />} />
           <Route path="/anime/:id" element={<ProductPage isAnime={true} />} />
-          {/* <Route path="/anime-adding" element={<AnimeAdding />} /> */}
+          <Route
+            path="/anime-adding"
+            element={<ProductForms isAnime={true} isEditing={false} />}
+          />
           {/* <Route path="/anime/:id/edit" element={<AnimeAdding />} /> */}
           <Route path="/manga" element={<Manga isMyManga={false} />} />
           <Route path="/my-manga-list" element={<Manga isMyManga={true} />} />

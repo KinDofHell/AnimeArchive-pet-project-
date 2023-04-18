@@ -3,11 +3,15 @@ import productCardStyle from "./ProductCard.module.scss";
 import reservImg from "../../assets/imgs/logo.png";
 
 import { FC } from "react";
+import { useDispatch } from "react-redux";
+
+import { fetchRemoveAnime } from "../../redux/slices/anime";
 
 import Image from "../ui copy/images/Image";
 import Button from "../ui copy/buttons/Button";
 
 interface ProductCardProps {
+  _id: string;
   title: string;
   linkPath: string;
   isAnime: boolean;
@@ -18,6 +22,7 @@ interface ProductCardProps {
 }
 
 const ProductCard: FC<ProductCardProps> = ({
+  _id,
   title,
   isAnime,
   isMy,
@@ -26,6 +31,14 @@ const ProductCard: FC<ProductCardProps> = ({
   isEditable,
   isSelected,
 }) => {
+  const dispatch = useDispatch<any>();
+
+  const onClickRemoveAnime = () => {
+    if (window.confirm("Are you sure you want to delete anime")) {
+      dispatch(fetchRemoveAnime(_id));
+    }
+  };
+
   return (
     <div className={productCardStyle.product__card}>
       <Image
@@ -54,7 +67,11 @@ const ProductCard: FC<ProductCardProps> = ({
               label="Edit"
               linkPath={`/${isAnime ? "anime" : "manga"}/${linkPath}/edit`}
             />
-            <Button label="Delete" isDanger={true} />
+            <Button
+              label="Delete"
+              isDanger={true}
+              onClick={onClickRemoveAnime}
+            />
           </div>
         )}
       </div>

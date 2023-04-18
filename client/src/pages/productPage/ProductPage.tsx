@@ -136,14 +136,16 @@ const ProductPage = ({ isAnime }: { isAnime: boolean }) => {
                 {data.description ? data.description : "Loading..."}
               </div>
             )}
-            <Image
-              imgLink={SERVER_HOST + data.imgCover}
-              minWidth="100%"
-              maxWidth="100%"
-              minHeight="22vw"
-              maxHeight="22vw"
-              allBordered={true}
-            />
+            {data.imgCover && (
+              <Image
+                imgLink={SERVER_HOST + data.imgCover}
+                minWidth="100%"
+                maxWidth="100%"
+                minHeight="22vw"
+                maxHeight="22vw"
+                allBordered={true}
+              />
+            )}
           </div>
           <span className={productPageStyle.title}>
             {data.title ? data.title : "Loading..."}

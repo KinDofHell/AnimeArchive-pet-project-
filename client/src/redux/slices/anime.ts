@@ -1,5 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { FieldValues } from "react-hook-form";
+
 import axios from "../../utils/axios";
+
+export const fetchAnimeCreating = createAsyncThunk(
+  "anime/fetchAnimeCreating",
+  async (params: FieldValues) => {
+    await axios.post("/anime", params);
+  }
+);
 
 export const fetchAnime = createAsyncThunk("anime/fetchAnime", async () => {
   const { data } = await axios.get("/anime");
@@ -24,6 +33,7 @@ export const fetchRemoveAnime = createAsyncThunk(
 const initialState = {
   anime: {
     items: [],
+    data: null,
     status: "loading",
   },
 };
@@ -33,6 +43,15 @@ const animeSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    //AnimeCreating
+    builder.addCase(fetchAnimeCreating.pending, (state) => {
+      state.anime.status = "loading";
+      state.anime.data = null;
+    }),
+      builder.addCase(fetchAnimeCreating.rejected, (state) => {
+        state.anime.data = null;
+        state.anime.status = "loading";
+      });
     //getting anime
     builder.addCase(fetchAnime.pending, (state) => {
       state.anime.items = [];
