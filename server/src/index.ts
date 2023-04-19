@@ -67,7 +67,7 @@ app.use("/uploads", express.static("uploads"));
 //uploads
 app.post("/upload", upload.array("image"), (req: any, res: any) => {
   res.json({
-    url: `/uploads/${req.file.originalname}`,
+    message: "success",
   });
 });
 
