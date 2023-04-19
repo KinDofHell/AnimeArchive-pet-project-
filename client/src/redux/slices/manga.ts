@@ -1,5 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { FieldValues } from "react-hook-form";
+
 import axios from "../../utils/axios";
+
+export const fetchMangaCreating = createAsyncThunk(
+  "manga/fetchMangaCreating",
+  async (params: FieldValues) => {
+    await axios.post("/manga", params);
+  }
+);
 
 export const fetchManga = createAsyncThunk("manga/fetchManga", async () => {
   const { data } = await axios.get("/manga");
@@ -24,6 +33,7 @@ export const fetchRemoveManga = createAsyncThunk(
 const initialState = {
   manga: {
     items: [],
+    data: null,
     status: "loading",
   },
 };
@@ -33,6 +43,15 @@ const mangaSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    //MangaCreating
+    builder.addCase(fetchMangaCreating.pending, (state) => {
+      state.manga.status = "loading";
+      state.manga.data = null;
+    }),
+      builder.addCase(fetchMangaCreating.rejected, (state) => {
+        state.manga.data = null;
+        state.manga.status = "loading";
+      });
     //getting manga
     builder.addCase(fetchManga.pending, (state) => {
       state.manga.items = [];

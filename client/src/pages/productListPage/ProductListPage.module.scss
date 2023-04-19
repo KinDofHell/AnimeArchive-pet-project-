@@ -1,7 +1,7 @@
 @use "../../assets/generalStyles/mixins.scss" as mixins;
 @use "../../assets/generalStyles/colors.scss" as colors;
 
-.anime {
+.product__list__page {
   @include mixins.flex-config(column, flex-start, center);
   width: 100%;
   .search__tools {

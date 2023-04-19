@@ -6,6 +6,7 @@ import { FC } from "react";
 import { useDispatch } from "react-redux";
 
 import { fetchRemoveAnime } from "../../redux/slices/anime";
+import { fetchRemoveManga } from "../../redux/slices/manga";
 
 import Image from "../ui copy/images/Image";
 import Button from "../ui copy/buttons/Button";
@@ -34,8 +35,12 @@ const ProductCard: FC<ProductCardProps> = ({
   const dispatch = useDispatch<any>();
 
   const onClickRemoveAnime = () => {
-    if (window.confirm("Are you sure you want to delete anime")) {
-      dispatch(fetchRemoveAnime(_id));
+    if (isAnime) {
+      if (window.confirm("Are you sure you want to delete anime")) {
+        dispatch(fetchRemoveAnime(_id));
+      }
+    } else if (window.confirm("Are you sure you want to delete manga")) {
+      dispatch(fetchRemoveManga(_id));
     }
   };
 

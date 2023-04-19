@@ -6,16 +6,14 @@ interface FormProductProps {
   width: string;
   title: string;
   children: JSX.Element | JSX.Element[] | any;
-  imgLink?: string;
   isPost?: boolean;
   onSubmit?: FormEventHandler;
 }
 
-const Form: FC<FormProductProps> = ({
+const FormProduct: FC<FormProductProps> = ({
   width,
   title,
   children,
-  imgLink,
   isPost,
   onSubmit,
 }) => {
@@ -33,4 +31,4 @@ const Form: FC<FormProductProps> = ({
   );
 };
 
-export default Form;
+export default FormProduct;

@@ -10,10 +10,9 @@ import Header from "./layouts/Header";
 import Content from "./components/Content";
 
 import Home from "./pages/home/Home";
-import Anime from "./pages/anime/Anime";
+import ProductListPage from "./pages/productListPage/ProductListPage";
 import ProductPage from "./pages/productPage/ProductPage";
-import Manga from "./pages/manga/Manga";
-import ProductForms from "./pages/anime/ProductForm";
+import ProductForms from "./pages/productForm/ProductForm";
 
 // import CategoryAdding from "./pages/categories/CategoryAdding";
 // import CreatorAdding from "./pages/creators/CreatorAdding";
@@ -35,19 +34,40 @@ const App = () => {
       <Content>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/anime" element={<Anime isMyAnime={false} />} />
-          <Route path="/my-anime-list/" element={<Anime isMyAnime={true} />} />
+          <Route
+            path="/anime"
+            element={<ProductListPage isMyList={false} isAnime={true} />}
+          />
+          <Route
+            path="/my-anime-list/"
+            element={<ProductListPage isMyList={true} isAnime={true} />}
+          />
           <Route path="/anime/:id" element={<ProductPage isAnime={true} />} />
           <Route
             path="/anime-adding"
             element={<ProductForms isAnime={true} isEditing={false} />}
           />
-          {/* <Route path="/anime/:id/edit" element={<AnimeAdding />} /> */}
-          <Route path="/manga" element={<Manga isMyManga={false} />} />
-          <Route path="/my-manga-list" element={<Manga isMyManga={true} />} />
+          <Route
+            path="/anime/:id/edit"
+            element={<ProductForms isAnime={true} isEditing={true} />}
+          />
+          <Route
+            path="/manga"
+            element={<ProductListPage isMyList={false} isAnime={false} />}
+          />
+          <Route
+            path="/my-manga-list"
+            element={<ProductListPage isMyList={true} isAnime={false} />}
+          />
           <Route path="/manga/:id" element={<ProductPage isAnime={false} />} />
-          {/* <Route path="/manga-adding" element={<MangaAdding />} /> */}
-          {/* <Route path="/manga/:id/edit" element={<MangaAdding />} /> */}
+          <Route
+            path="/manga-adding"
+            element={<ProductForms isAnime={false} isEditing={false} />}
+          />
+          <Route
+            path="/manga/:id/edit"
+            element={<ProductForms isAnime={false} isEditing={true} />}
+          />
           {/* <Route path="/category-adding" element={<CategoryAdding />} /> */}
           {/* <Route path="/creator-adding" element={<CreatorAdding />} />
           <Route path="/status-adding" element={<StatusAdding />} /> */}

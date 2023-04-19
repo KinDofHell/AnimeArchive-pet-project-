@@ -10,6 +10,13 @@ export const fetchAnimeCreating = createAsyncThunk(
   }
 );
 
+export const fetchAnimeUpdate = createAsyncThunk(
+  "anime/fetchAnimeUpdate",
+  async (params: FieldValues) => {
+    await axios.patch(`/anime/=`, params);
+  }
+);
+
 export const fetchAnime = createAsyncThunk("anime/fetchAnime", async () => {
   const { data } = await axios.get("/anime");
   return data;
@@ -49,6 +56,15 @@ const animeSlice = createSlice({
       state.anime.data = null;
     }),
       builder.addCase(fetchAnimeCreating.rejected, (state) => {
+        state.anime.data = null;
+        state.anime.status = "loading";
+      });
+    //Anime Updating
+    builder.addCase(fetchAnimeUpdate.pending, (state) => {
+      state.anime.status = "loading";
+      state.anime.data = null;
+    }),
+      builder.addCase(fetchAnimeUpdate.rejected, (state) => {
         state.anime.data = null;
         state.anime.status = "loading";
       });

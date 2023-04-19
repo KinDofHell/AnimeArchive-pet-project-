@@ -166,7 +166,7 @@ const ProductPage = ({ isAnime }: { isAnime: boolean }) => {
           </span>
           <NameValueSpan
             name="Original Title"
-            value={data.originalTitle}
+            value={data.originTitle}
             minWidth="60%"
           />
           {isAnime ? (

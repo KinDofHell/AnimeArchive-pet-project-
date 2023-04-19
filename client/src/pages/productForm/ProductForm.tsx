@@ -2,13 +2,16 @@ import productFormPageStyle from "./ProductForm.module.scss";
 
 import { useEffect, useState, FC, Key } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Navigate, useParams } from "react-router-dom";
 import { FieldValues, useForm } from "react-hook-form";
+
 import { isAuthenticated, isProductModerator } from "../../redux/slices/user";
-import { fetchAnimeCreating } from "../../redux/slices/anime";
+
+import { fetchAnimeCreating, fetchAnimeUpdate } from "../../redux/slices/anime";
+import { fetchMangaCreating } from "../../redux/slices/manga";
 import { fetchCategories } from "../../redux/slices/category";
 import { fetchCreators } from "../../redux/slices/creators";
 import { fetchStatuses } from "../../redux/slices/status";
-import { useNavigate, Navigate } from "react-router-dom";
 
 import axios from "../../utils/axios";
 
@@ -21,6 +24,7 @@ interface ProductFormsProps {
 }
 
 const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
+  const { id } = useParams<string>();
   const { categories } = useSelector((state: any) => state.categories);
   const { creators } = useSelector((state: any) => state.creators);
   const { statuses } = useSelector((state: any) => state.statuses);
@@ -41,8 +45,20 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
   const imagesArrayFile: any[] = [];
 
   const navigate = useNavigate();
-  const [images, setImages] = useState<string[]>([""]);
+  const [images, setImages] = useState<string[]>();
   const [imagesFile, setImagesFile] = useState();
+
+  const [title, setTitle] = useState("");
+  const [originTitle, setOriginTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [categoriesArray, setCategoriesArray] = useState<string[]>();
+  const [seasons, setSeasons] = useState<number>();
+  const [chapters, setChapters] = useState<number>();
+  const [series, setSeries] = useState<number>();
+  const [years, setYears] = useState("");
+  const [status, setStatus] = useState<string | object>();
+  const [author, setAuthor] = useState<string | object>();
+  const [imagesArr, setImagesArr] = useState<string[]>();
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -50,18 +66,83 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
     dispatch(fetchStatuses());
   }, []);
 
+  useEffect(() => {
+    if (id) {
+      let categ: string[] = [];
+      axios.get(`/anime/${id}`).then(({ data }) => {
+        setTitle(data.title);
+        setOriginTitle(data.originTitle);
+        data.categoriesArray.map((obj: any) => categ.push(obj._id));
+        setCategoriesArray(categ);
+        setDescription(data.description);
+        setSeasons(data.seasons);
+        setSeries(data.series);
+        setYears(data.years.join(","));
+        setStatus(data.status._id);
+        setAuthor(data.author._id);
+        setImagesArr(data.images);
+      });
+    }
+  }, []);
+
   const onSubmitCreate = async (values: FieldValues) => {
-    values.images = images;
-    console.log(values);
-    if (await dispatch(fetchAnimeCreating(values))) {
-      const formData = new FormData();
-      // @ts-ignore
-      for (let i = 0; i < imagesFile.length; i++) {
-        // @ts-ignore
-        formData.append("image", imagesFile[i]);
+    if (images) values.images = images;
+    else values.images = imagesArr;
+    if (isEditing) {
+      if (isAnime) {
+        if (await dispatch(fetchAnimeUpdate(values))) {
+          if (imagesFile) {
+            const formData = new FormData();
+            // @ts-ignore
+            for (let i = 0; i < imagesFile.length; i++) {
+              // @ts-ignore
+              formData.append("image", imagesFile[i]);
+            }
+            await axios.post("/upload", formData);
+          }
+        }
+        await axios.patch(`/anime/${id}/`, values);
+        navigate(`/anime/${id}/`, { replace: true });
+      } else {
+        if (await dispatch(fetchAnimeUpdate(values))) {
+          if (imagesFile) {
+            const formData = new FormData();
+            // @ts-ignore
+            for (let i = 0; i < imagesFile.length; i++) {
+              // @ts-ignore
+              formData.append("image", imagesFile[i]);
+            }
+            await axios.post("/upload", formData);
+          }
+          navigate(`/manga/${id}/`, { replace: true });
+        }
       }
-      await axios.post("/upload", formData);
-      navigate("/anime");
+    } else if (isAnime) {
+      if (await dispatch(fetchAnimeCreating(values))) {
+        if (imagesFile) {
+          const formData = new FormData();
+          // @ts-ignore
+          for (let i = 0; i < imagesFile.length; i++) {
+            // @ts-ignore
+            formData.append("image", imagesFile[i]);
+          }
+          await axios.post("/upload", formData);
+        }
+        navigate("/anime", { replace: true });
+      }
+    } else {
+      if (await dispatch(fetchMangaCreating(values))) {
+        if (imagesFile) {
+          const formData = new FormData();
+          // @ts-ignore
+          for (let i = 0; i < imagesFile.length; i++) {
+            // @ts-ignore
+            formData.append("image", imagesFile[i]);
+          }
+          await axios.post("/upload", formData);
+        }
+        navigate("/manga", { replace: true });
+      }
     }
   };
 
@@ -100,22 +181,28 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
             <input
               type="text"
               id="title"
+              value={title}
               placeholder="Enter title..."
               {...register("title", {
                 required: true,
                 minLength: 6,
                 maxLength: 20,
               })}
+              onChange={(e) => setTitle((e.target as HTMLInputElement).value)}
             />
             <input
               type="text"
               id="originTitle"
+              value={originTitle}
               placeholder="Enter origin title..."
               {...register("originTitle", {
                 required: true,
                 minLength: 6,
                 maxLength: 20,
               })}
+              onChange={(e) =>
+                setOriginTitle((e.target as HTMLInputElement).value)
+              }
             />
           </div>
 
@@ -149,11 +236,11 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
                       label={obj.title}
                       value={obj._id}
                       key={index}
-                      //   selected={
-                      //     isEditing &&
-                      //     categoriesArray &&
-                      //     categoriesArray.some((id) => id === obj._id)
-                      //   }
+                      selected={
+                        isEditing &&
+                        categoriesArray &&
+                        categoriesArray.some((id) => id === obj._id)
+                      }
                     />
                   )
               )}
@@ -172,7 +259,7 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
                       label={obj.title}
                       value={obj._id}
                       key={index}
-                      //   selected={isEditing && obj._id === status}
+                      selected={isEditing && obj._id === status}
                     />
                   )
               )}
@@ -191,7 +278,7 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
                       label={obj.fullname}
                       value={obj._id}
                       key={index}
-                      //   selected={isEditing && obj._id === author}
+                      selected={isEditing && obj._id === author}
                     />
                   )
               )}
@@ -223,25 +310,52 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
         </div>
         <div className={productFormPageStyle.numbers_and_description}>
           <div className={productFormPageStyle.numbers}>
-            <input
-              type="number"
-              id="seasons"
-              placeholder="Enter seasons count..."
-              {...register("seasons", {
-                required: true,
-              })}
-            />
-            <input
-              type="number"
-              id="series"
-              placeholder="Enter series count..."
-              {...register("series", {
-                required: true,
-              })}
-            />
+            {isAnime ? (
+              <input
+                type="number"
+                id="seasons"
+                value={seasons}
+                placeholder="Enter seasons count..."
+                {...register("seasons", {
+                  required: true,
+                })}
+                onChange={(e) =>
+                  setSeasons(parseInt((e.target as HTMLInputElement).value))
+                }
+              />
+            ) : (
+              <input
+                type="number"
+                id="chapters"
+                value={chapters}
+                placeholder="Enter chapters count..."
+                {...register("chapters", {
+                  required: true,
+                })}
+                onChange={(e) =>
+                  setChapters(parseInt((e.target as HTMLInputElement).value))
+                }
+              />
+            )}
+            {isAnime && (
+              <input
+                type="number"
+                id="series"
+                value={series}
+                placeholder="Enter series count..."
+                {...register("series", {
+                  required: true,
+                })}
+                onChange={(e) =>
+                  setSeries(parseInt((e.target as HTMLInputElement).value))
+                }
+              />
+            )}
+
             <input
               type="text"
               id="years"
+              value={years}
               placeholder="Enter years..."
               max={12}
               {...register("years", {
@@ -249,24 +363,29 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
                 minLength: 4,
                 maxLength: 16,
               })}
+              onChange={(e) => setYears((e.target as HTMLInputElement).value)}
             />
           </div>
           <div className={productFormPageStyle.description}>
             <textarea
               id="description"
+              value={description}
               placeholder="Enter description..."
               {...register("description", {
                 required: true,
               })}
+              onChange={(e) =>
+                setDescription((e.target as HTMLTextAreaElement).value)
+              }
             ></textarea>
           </div>
         </div>
-        {(errors.seasons && errors.seasons.type === "required") ||
+        {(isAnime && errors.seasons && errors.seasons.type === "required") ||
           (errors.series && errors.series.type === "required") ||
           (errors.years && errors.years.type === "required" && (
             <ErrorAlert error="This field is required!" />
           ))}
-        {!(errors.seasons && errors.seasons.type === "required") ||
+        {(isAnime && !(errors.seasons && errors.seasons.type === "required")) ||
           !(errors.series && errors.series.type === "required") ||
           !(
             errors.years &&
@@ -277,6 +396,31 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
               errors.years.type === "maxLength") && (
               <ErrorAlert error="This field must be 6-20 symbols!" />
             )
+          )}
+        {!(isAnime && errors.chapters && errors.chapters.type === "required") ||
+          (errors.years && errors.years.type === "required" && (
+            <ErrorAlert error="This field is required!" />
+          ))}
+        {(isAnime &&
+          !(errors.chapters && errors.chapters.type === "required")) ||
+          !(
+            errors.years &&
+            errors.years.type === "required" &&
+            errors.years &&
+            errors.years &&
+            (errors.years.type === "minLength" ||
+              errors.years.type === "maxLength") && (
+              <ErrorAlert error="This field must be 6-20 symbols!" />
+            )
+          )}
+        {errors.description && errors.description.type === "required" && (
+          <ErrorAlert error="This field is required!" />
+        )}
+        {errors.description &&
+          !(errors.description.type === "required") &&
+          (errors.description.type === "minLength" ||
+            errors.description.type === "maxLength") && (
+            <ErrorAlert error="This field must be 6-20 symbols!" />
           )}
         <input
           type="file"
