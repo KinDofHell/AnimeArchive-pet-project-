@@ -10,16 +10,11 @@ import Header from "./layouts/Header";
 import Content from "./components/Content";
 
 import Home from "./pages/home/Home";
+
 import ProductListPage from "./pages/productListPage/ProductListPage";
 import ProductPage from "./pages/productPage/ProductPage";
+
 import ProductForms from "./pages/productForm/ProductForm";
-
-// import CategoryAdding from "./pages/categories/CategoryAdding";
-// import CreatorAdding from "./pages/creators/CreatorAdding";
-// import AnimeAdding from "./pages/anime/AnimeAdding";
-// import MangaAdding from "./pages/manga/MangaAdding";
-// import StatusAdding from "./pages/statuses/StatusAdding";
-
 import UserForms from "./pages/user/UserForms";
 
 const App = () => {

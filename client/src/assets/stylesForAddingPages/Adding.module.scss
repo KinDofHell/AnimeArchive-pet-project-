@@ -1,6 +1,0 @@
-@use "../styleStorage.scss" as styleStorage;
-
-.adding__page {
-  @include styleStorage.flex(center, center, row, wrap);
-  margin-top: 4vh;
-}

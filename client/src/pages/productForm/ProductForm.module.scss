@@ -2,7 +2,18 @@
 @use "../../assets/generalStyles/colors.scss" as colors;
 
 .product__form {
-  @include mixins.flex-config(row, center, center);
+  @include mixins.flex-config(row, space-around, center);
+
+  .btn__group {
+    @include mixins.flex-config(column, flex-start, center);
+
+    background-color: colors.$logoBackColor;
+
+    min-width: 10vw;
+
+    padding: 0.5%;
+    border-radius: 10px;
+  }
 }
 
 .titles {
