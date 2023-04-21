@@ -7,7 +7,7 @@ import { FieldValues, useForm } from "react-hook-form";
 
 import { isAuthenticated, isProductModerator } from "../../redux/slices/user";
 
-import { fetchAnimeCreating} from "../../redux/slices/anime";
+import { fetchAnimeCreating } from "../../redux/slices/anime";
 import { fetchMangaCreating } from "../../redux/slices/manga";
 import { fetchCategories } from "../../redux/slices/category";
 import { fetchCreators } from "../../redux/slices/creators";
@@ -15,7 +15,7 @@ import { fetchStatuses } from "../../redux/slices/status";
 
 import axios from "../../utils/axios";
 
-import FormProduct from "../../components/ui copy/forms/FormProduct";
+import FormProduct from "../../components/ui copy/forms/formsProduct/FormProduct";
 import ErrorAlert from "../../components/ui copy/forms/ErrorAlert";
 import Button from "../../components/ui copy/buttons/Button";
 
@@ -77,13 +77,11 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
         data.categoriesArray.map((obj: any) => categ.push(obj._id));
         setCategoriesArray(categ);
         setDescription(data.description);
-        if(isAnime)
-        {
+        if (isAnime) {
           setSeries(data.series);
           setSeasons(data.seasons);
-        }          
-        if(!isAnime)
-          setChapters(data.chapters);   
+        }
+        if (!isAnime) setChapters(data.chapters);
         setYears(data.years.join(","));
         setStatus(data.status._id);
         setAuthor(data.author._id);
@@ -92,24 +90,22 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
     }
   }, []);
 
-  useEffect(()=>{
-    setTimeout(()=>{
+  useEffect(() => {
+    setTimeout(() => {
       setValue("title", title);
-      setValue("originTitle", originTitle);  
+      setValue("originTitle", originTitle);
       setValue("description", description);
       setValue("categoriesArray", categoriesArray);
       setValue("status", status);
       setValue("author", author);
-      if(isAnime)
-      {
+      if (isAnime) {
         setValue("seasons", seasons);
         setValue("series", series);
       }
-      if(!isAnime)
-        setValue("chapters", chapters);
+      if (!isAnime) setValue("chapters", chapters);
       setValue("years", years);
-    })
-  }, [title])
+    });
+  }, [title]);
 
   const onSubmitCreate = async (values: FieldValues) => {
     if (images) values.images = images;
@@ -126,7 +122,7 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
             }
             await axios.post("/upload", formData);
           }
-        }        
+        }
         navigate(`/anime/${id}/`, { replace: true });
       } else {
         if (await axios.patch(`/manga/${id}/`, values)) {
@@ -188,8 +184,8 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
   return (
     <div className={productFormPageStyle.product__form}>
       <div className={productFormPageStyle.btn__group}>
-        <Button label="Create Category" linkPath="/category/"/>
-        <Button label="Create Status" linkPath="/status/"/>
+        <Button label="Create Category" linkPath="/category-adding/" />
+        <Button label="Create Status" linkPath="/status-adding/" />
       </div>
       <FormProduct
         title={
@@ -236,12 +232,14 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
           </div>
 
           <div className={productFormPageStyle.titles__errors}>
-            {!isEditing && errors.title &&
+            {!isEditing &&
+              errors.title &&
               (errors.title.type === "minLength" ||
                 errors.title.type === "maxLength") && (
                 <ErrorAlert error="Each titles must be 6-20 symbols!" />
               )}
-            {!isEditing && !errors.title &&
+            {!isEditing &&
+              !errors.title &&
               errors.originTitle &&
               (errors.originTitle.type === "minLength" ||
                 errors.originTitle.type === "maxLength") && (
@@ -262,11 +260,7 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
               {(isCategoriesLoading ? [...Array(2)] : categories.items).map(
                 (obj: typeof categories | undefined, index: Key) =>
                   !isCategoriesLoading && (
-                    <option
-                      label={obj.title}
-                      value={obj._id}
-                      key={index}
-                    />
+                    <option label={obj.title} value={obj._id} key={index} />
                   )
               )}
             </select>
@@ -281,11 +275,7 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
               {(isStatusesLoading ? [...Array(1)] : statuses.items).map(
                 (obj: typeof statuses | undefined, index: Key) =>
                   !isStatusesLoading && (
-                    <option
-                      label={obj.title}
-                      value={obj._id}
-                      key={index}                      
-                    />
+                    <option label={obj.title} value={obj._id} key={index} />
                   )
               )}
             </select>
@@ -300,11 +290,7 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
               {(isCreatorsLoading ? [...Array(1)] : creators.items).map(
                 (obj: typeof creators | undefined, index: Key) =>
                   !isCreatorsLoading && (
-                    <option
-                      label={obj.fullname}
-                      value={obj._id}
-                      key={index}                      
-                    />
+                    <option label={obj.fullname} value={obj._id} key={index} />
                   )
               )}
             </select>
@@ -316,16 +302,19 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
             </select>
           </div>
           <div className={productFormPageStyle.selects__errors}>
-            {!isEditing && errors.categoriesArray &&
+            {!isEditing &&
+              errors.categoriesArray &&
               errors.categoriesArray.type === "required" && (
                 <ErrorAlert error="This field is required!" />
               )}
-            {!isEditing && !errors.categoriesArray &&
+            {!isEditing &&
+              !errors.categoriesArray &&
               errors.status &&
               errors.status.type === "required" && (
                 <ErrorAlert error="This field is required!" />
               )}
-            {!isEditing && !errors.categoriesArray &&
+            {!isEditing &&
+              !errors.categoriesArray &&
               !errors.status &&
               errors.author &&
               errors.author.type === "required" && (
@@ -405,12 +394,17 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
             ></textarea>
           </div>
         </div>
-        {!isEditing && (isAnime && errors.seasons && errors.seasons.type === "required") ||
+        {(!isEditing &&
+          isAnime &&
+          errors.seasons &&
+          errors.seasons.type === "required") ||
           (errors.series && errors.series.type === "required") ||
           (errors.years && errors.years.type === "required" && (
             <ErrorAlert error="This field is required!" />
           ))}
-        {!isEditing && (isAnime && !(errors.seasons && errors.seasons.type === "required")) ||
+        {(!isEditing &&
+          isAnime &&
+          !(errors.seasons && errors.seasons.type === "required")) ||
           !(errors.series && errors.series.type === "required") ||
           !(
             errors.years &&
@@ -422,11 +416,17 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
               <ErrorAlert error="This field must be 6-20 symbols!" />
             )
           )}
-        {!isEditing && !(isAnime && errors.chapters && errors.chapters.type === "required") ||
+        {(!isEditing &&
+          !(
+            isAnime &&
+            errors.chapters &&
+            errors.chapters.type === "required"
+          )) ||
           (errors.years && errors.years.type === "required" && (
             <ErrorAlert error="This field is required!" />
           ))}
-        {!isEditing && (isAnime &&
+        {(!isEditing &&
+          isAnime &&
           !(errors.chapters && errors.chapters.type === "required")) ||
           !(
             errors.years &&
@@ -438,10 +438,13 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
               <ErrorAlert error="This field must be 6-20 symbols!" />
             )
           )}
-        {!isEditing && errors.description && errors.description.type === "required" && (
-          <ErrorAlert error="This field is required!" />
-        )}
-        {!isEditing && errors.description &&
+        {!isEditing &&
+          errors.description &&
+          errors.description.type === "required" && (
+            <ErrorAlert error="This field is required!" />
+          )}
+        {!isEditing &&
+          errors.description &&
           !(errors.description.type === "required") &&
           (errors.description.type === "minLength" ||
             errors.description.type === "maxLength") && (
@@ -456,8 +459,8 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
         <input type="submit" value={isEditing ? "Update" : "Create"} />
       </FormProduct>
       <div className={productFormPageStyle.btn__group}>
-        <Button label="Create Creator" linkPath="/creator/"/>
-        <Button label="Create Character" linkPath="/character/"/>
+        <Button label="Create Creator" linkPath="/creator-adding/" />
+        <Button label="Create Character" linkPath="/character-adding/" />
       </div>
     </div>
   );

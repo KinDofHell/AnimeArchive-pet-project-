@@ -1,5 +1,5 @@
-@use "../../../assets/generalStyles/mixins.scss" as mixins;
-@use "../../../assets/generalStyles/colors.scss" as colors;
+@use "../../../../assets/generalStyles/mixins.scss" as mixins;
+@use "../../../../assets/generalStyles/colors.scss" as colors;
 
 .form__block {
   @include mixins.flex-config(column, flex-start, center);
@@ -36,12 +36,6 @@
     border-bottom-right-radius: 10px;
 
     padding: 2% 1%;
-
-    &:hover > textarea {
-      transition: box-shadow 0.4s;
-
-      box-shadow: 4px 4px 10px black;
-    }
 
     input:not([type="submit"]) {
       background-color: colors.$silver;
@@ -91,6 +85,8 @@
 
       padding: 0.5vw;
       resize: none;
+      text-align: center;
+      margin-bottom: 2%;
 
       &::placeholder {
         color: rgb(255, 255, 255, 0.5);
@@ -99,7 +95,7 @@
 
     input[type="file"] {
       padding: 1%;
-      margin-bottom: 1%;
+      margin-bottom: 2%;
 
       background-color: colors.$silver;
 

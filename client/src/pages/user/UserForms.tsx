@@ -10,7 +10,9 @@ import {
 } from "../../redux/slices/user";
 import { Navigate } from "react-router-dom";
 
-import Form from "../../components/ui copy/forms/Form";
+import axios from "../../utils/axios";
+
+import Form from "../../components/ui copy/forms/formUser/Form";
 import ErrorAlert from "../../components/ui copy/forms/ErrorAlert";
 
 interface UserFormsProps {
@@ -31,6 +33,12 @@ const UserForms: FC<UserFormsProps> = ({ isRegister }) => {
   const [passwordRepeat, setPasswordRepeat] = useState<string>("");
   const [passwordMatching, setPasswordMatching] = useState<boolean>(false);
 
+  const imagesArray: string[] = [];
+  const imagesArrayFile: any[] = [];
+
+  const [images, setImages] = useState<string[]>();
+  const [imagesFile, setImagesFile] = useState();
+
   useEffect(() => {
     if (passwordRepeat === password) {
       setPasswordMatching(true);
@@ -48,8 +56,30 @@ const UserForms: FC<UserFormsProps> = ({ isRegister }) => {
   };
 
   const onSubmitRegister = async (values: FieldValues) => {
-    await dispatch(fetchRegister(values));
-    setRegistered(true);
+    if (images) values.avatarUrl = images[0];
+    if (await axios.post("/register", values)) {
+      if (imagesFile) {
+        const formData = new FormData();
+        // @ts-ignore
+        for (let i = 0; i < imagesFile.length; i++) {
+          // @ts-ignore
+          formData.append("image", imagesFile[i]);
+        }
+        await axios.post("/upload", formData);
+      }
+      console.log(values);
+      setRegistered(true);
+    }
+  };
+
+  const onFileChange = async (event: any) => {
+    for (let i = 0; i < event.target.files.length; i++) {
+      imagesArray.push(`/uploads/${event.target.files[i].name}`);
+      imagesArrayFile.push(event.target.files[i]);
+    }
+    setImages(imagesArray);
+    // @ts-ignore
+    setImagesFile(imagesArrayFile);
   };
 
   if (isAuth) {
@@ -148,6 +178,9 @@ const UserForms: FC<UserFormsProps> = ({ isRegister }) => {
           passwordRepeat.length > 0 && (
             <ErrorAlert error="Your passwords don't match" />
           )}
+        {isRegister && (
+          <input type="file" id="avatarUrl" onChange={onFileChange} />
+        )}
         {isRegister ? (
           <input type="submit" value="Create" />
         ) : (

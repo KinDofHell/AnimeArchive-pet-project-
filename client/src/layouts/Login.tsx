@@ -1,6 +1,8 @@
 import headerStyle from "./HeaderStyle.module.scss";
 import avatar from "../assets/imgs/reservAva.jpg";
 
+import { SERVER_HOST } from "../data/Constant";
+
 import { useSelector, useDispatch } from "react-redux";
 
 import { isAuthenticated, logout } from "../redux/slices/user";
@@ -28,7 +30,11 @@ const Login = () => {
         {isAuth ? user.data.fullName : "Noname"}
       </span>
       <img
-        src={isAuth && user.data.avatarUrl ? user.data.avatarUrl : avatar}
+        src={
+          isAuth && user.data.avatarUrl
+            ? SERVER_HOST + user.data.avatarUrl
+            : avatar
+        }
         alt="avatar"
       />
       <div className={headerStyle.dropmenu}>

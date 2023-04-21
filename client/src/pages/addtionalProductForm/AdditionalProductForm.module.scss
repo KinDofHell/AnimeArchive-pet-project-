@@ -1,0 +1,8 @@
+@use "../../assets/generalStyles/mixins.scss" as mixins;
+@use "../../assets/generalStyles/colors.scss" as colors;
+
+.additional__product__form {
+  @include mixins.flex-config(column, flex-start, center);
+
+  width: 100%;
+}

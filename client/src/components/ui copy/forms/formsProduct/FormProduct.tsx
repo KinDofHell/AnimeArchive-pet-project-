@@ -2,7 +2,7 @@ import formProductStyle from "./FormProduct.module.scss";
 
 import { FC, FormEventHandler } from "react";
 
-interface FormProductProps {
+export interface FormProductProps {
   width: string;
   title: string;
   children: JSX.Element | JSX.Element[] | any;

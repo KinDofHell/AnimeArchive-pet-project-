@@ -16,6 +16,7 @@ import ProductPage from "./pages/productPage/ProductPage";
 
 import ProductForms from "./pages/productForm/ProductForm";
 import UserForms from "./pages/user/UserForms";
+import AddtionalProductForm from "./pages/addtionalProductForm/AdditionalProductForm";
 
 const App = () => {
   const dispatch = useDispatch<any>();
@@ -63,9 +64,18 @@ const App = () => {
             path="/manga/:id/edit"
             element={<ProductForms isAnime={false} isEditing={true} />}
           />
-          {/* <Route path="/category-adding" element={<CategoryAdding />} /> */}
-          {/* <Route path="/creator-adding" element={<CreatorAdding />} />
-          <Route path="/status-adding" element={<StatusAdding />} /> */}
+          <Route
+            path="/category-adding"
+            element={<AddtionalProductForm type="category" isEditing={false} />}
+          />
+          <Route
+            path="/creator-adding"
+            element={<AddtionalProductForm type="creator" isEditing={false} />}
+          />
+          <Route
+            path="/status-adding"
+            element={<AddtionalProductForm type="status" isEditing={false} />}
+          />
           <Route path="/register" element={<UserForms isRegister={true} />} />
           <Route path="/login" element={<UserForms isRegister={false} />} />
         </Routes>

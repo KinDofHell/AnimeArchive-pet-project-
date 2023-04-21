@@ -99,9 +99,17 @@ const ProductPage = ({ isAnime }: { isAnime: boolean }) => {
             )}
           </LabeledContainer>
           <ShortcutSpan
-            title={data.author.fullname}
-            linkPath={`/creator/${data.author._id}`}
-            imgLink={data.author.imgUrl && SERVER_HOST + data.author.imgUrl}
+            title={
+              data.author && data.author.fullname
+                ? data.author.fullname
+                : "Loading..."
+            }
+            linkPath={`/creator/${data.author && data.author._id}`}
+            imgLink={
+              data.author &&
+              data.author.imgUrl &&
+              SERVER_HOST + data.author.imgUrl
+            }
             backForTitle={true}
           />
         </div>
