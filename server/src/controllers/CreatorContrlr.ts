@@ -48,7 +48,7 @@ export const removeCreator = async (req: any, res: any) => {
         });
       }
     }
-    const result = await CreatorModel.findByIdAndRemove(creatorID);
+    await CreatorModel.findByIdAndRemove(creatorID);
     res.status(204);
   } catch (err) {
     console.log(err);
