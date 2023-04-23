@@ -17,6 +17,7 @@ import ProductPage from "./pages/productPage/ProductPage";
 import ProductForms from "./pages/productForm/ProductForm";
 import UserForms from "./pages/user/UserForms";
 import AddtionalProductForm from "./pages/addtionalProductForm/AdditionalProductForm";
+import CharacterFormPage from "./pages/characterFormPage/CharacterFormPage";
 
 const App = () => {
   const dispatch = useDispatch<any>();
@@ -30,6 +31,7 @@ const App = () => {
       <Content>
         <Routes>
           <Route path="/" element={<Home />} />
+          {/* anime */}
           <Route
             path="/anime"
             element={<ProductListPage isMyList={false} isAnime={true} />}
@@ -47,6 +49,7 @@ const App = () => {
             path="/anime/:id/edit"
             element={<ProductForms isAnime={true} isEditing={true} />}
           />
+          {/* manga */}
           <Route
             path="/manga"
             element={<ProductListPage isMyList={false} isAnime={false} />}
@@ -64,18 +67,27 @@ const App = () => {
             path="/manga/:id/edit"
             element={<ProductForms isAnime={false} isEditing={true} />}
           />
+          {/* category */}
           <Route
             path="/category-adding"
             element={<AddtionalProductForm type="category" isEditing={false} />}
           />
+          {/* creator */}
           <Route
             path="/creator-adding"
             element={<AddtionalProductForm type="creator" isEditing={false} />}
           />
+          {/* status */}
           <Route
             path="/status-adding"
             element={<AddtionalProductForm type="status" isEditing={false} />}
           />
+          {/* character */}
+          <Route
+            path="/character-adding"
+            element={<CharacterFormPage isEditing={false} />}
+          />
+          {/* login and register */}
           <Route path="/register" element={<UserForms isRegister={true} />} />
           <Route path="/login" element={<UserForms isRegister={false} />} />
         </Routes>

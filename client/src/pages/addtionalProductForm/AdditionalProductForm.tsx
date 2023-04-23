@@ -148,7 +148,7 @@ const AddtionalProductForm: FC<AddtionalProductFormProps> = ({
         {type === "creator" && (
           <input type="file" id="imgUrl" onChange={onFileChange} />
         )}
-        <input type="submit" value="Create" />
+        <input type="submit" value={isEditing ? "Update" : "Create"} />
       </FormProduct>
     </div>
   );
