@@ -1,0 +1,22 @@
+What is ready:
+(Client)
+1. Home page(without news, gallery and characters)
+2. Anime and manga pages(without searchbar and sorting features)
+3. Anime and manga own pages(without scaling imgs, characters)
+4. My list pages(without searchbar and sorting features)
+5. Creating and editing anime, manga
+6. Creating categories, creators, statuses
+7. User sign in and sign out, register
+
+What is left:
+(Client)
+1. Home page -> gallery, news, characters
+2. Anime and manga pages -> searchbar, filter by category, status, sorting by popularity
+3. My list pages -> the same
+4. Anime and manga own pages -> characters, imgs scaling
+5. News features
+6. Characters features
+7. Gallery features
+8. Admin & user pages
+9. Modal for showing categories, creators info
+10. Adaptive
