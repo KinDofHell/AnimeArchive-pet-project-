@@ -73,7 +73,9 @@ export const removeManga = async (req: any, res: any) => {
       }
     }
     await MangaModel.findByIdAndRemove(mangaID);
-    res.status(204);
+    res.status(204).json({
+      success: true,
+    });
   } catch (err) {
     console.warn(err);
     res.status(500).json({

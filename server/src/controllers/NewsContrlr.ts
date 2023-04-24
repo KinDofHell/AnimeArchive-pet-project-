@@ -53,7 +53,9 @@ export const removeNews = async (req: any, res: any) => {
       }
     }
     await NewsModel.findByIdAndRemove(newsID);
-    res.status(204);
+    res.status(204).json({
+      success: true,
+    });
   } catch (err) {
     console.warn(err);
     res.status(500).json({
@@ -64,12 +66,7 @@ export const removeNews = async (req: any, res: any) => {
 
 export const getAllNews = async (req: any, res: any) => {
   try {
-    const news = await NewsModel.find()
-      .populate("linkedAnime")
-      .populate("linkedManga")
-      //   .populate("linkedCharacters")
-      .sort({ $natural: -1 })
-      .exec();
+    const news = await NewsModel.find().sort({ $natural: -1 }).exec();
     res.json(news);
   } catch (err) {
     console.warn(err);
@@ -90,7 +87,7 @@ export const getOneNews = async (req: any, res: any) => {
     )
       .populate("linkedAnime")
       .populate("linkedManga")
-      //   .populate("linkedCharacters")
+      .populate("linkedCharacters")
       .exec();
     res.json(news);
   } catch (err) {
@@ -115,12 +112,7 @@ export const getRecentNews = async (req: any, res: any) => {
 
 export const getPopularNews = async (req: any, res: any) => {
   try {
-    const news = await NewsModel.find()
-      .populate("linkedAnime")
-      .populate("linkedManga")
-      //   .populate("linkedCharacters")
-      .sort({ viewsCount: -1 })
-      .exec();
+    const news = await NewsModel.find().sort({ viewsCount: -1 }).exec();
     res.json(news);
   } catch (err) {
     console.warn(err);

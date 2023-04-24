@@ -39,7 +39,9 @@ export const removeRole = async (req: any, res: any) => {
   try {
     const roleID = req.params.id;
     await RoleModel.findByIdAndRemove(roleID);
-    res.status(204);
+    res.status(204).json({
+      success: true,
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({

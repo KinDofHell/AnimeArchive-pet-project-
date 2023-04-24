@@ -21,6 +21,7 @@ import {
   RoleController,
   MangaController,
   NewsController,
+  CharacterController,
 } from "./controllers/imports.js";
 
 import {
@@ -32,6 +33,7 @@ import {
   RoleValidation,
   MangaValidation,
   NewsValidation,
+  CharacterValidation,
 } from "./validations/imports.js";
 
 //env config
@@ -188,6 +190,33 @@ app.patch(
 
 app.get("/status/", StatusController.getAllStatuses);
 app.get("/status/:id", StatusController.getOneStatus);
+
+//character
+app.post(
+  "/character",
+  CheckAuth,
+  CheckProductModerator,
+  CharacterValidation.characterValidation,
+  handleValidationErrors,
+  CharacterController.createCharacter
+);
+app.delete(
+  "/character/:id",
+  CheckAuth,
+  CheckProductModerator,
+  CharacterController.removeCharacter
+);
+app.patch(
+  "/character/:id",
+  CheckAuth,
+  CheckProductModerator,
+  CharacterValidation.characterValidation,
+  handleValidationErrors,
+  CharacterController.updateCharacter
+);
+app.get("/character", CharacterController.getAllCharacter);
+app.get("/character/:id", CharacterController.getOneCharacter);
+app.get("/character-popular/", CharacterController.getPopularCharacter);
 
 //anime
 app.post(

@@ -39,7 +39,9 @@ export const removeStatus = async (req: any, res: any) => {
   try {
     const statusID = req.params.id;
     await StatusModel.findByIdAndRemove(statusID);
-    res.status(204);
+    res.status(204).json({
+      success: true,
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({

@@ -39,7 +39,9 @@ export const removeCategory = async (req: any, res: any) => {
   try {
     const categoryID = req.params.id;
     await CategoryModel.findByIdAndRemove(categoryID);
-    res.status(204);
+    res.status(204).json({
+      success: true,
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({

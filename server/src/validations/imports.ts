@@ -6,3 +6,4 @@ export * as StatusValidation from "./statusValidation.js";
 export * as RoleValidation from "./roleValidation.js";
 export * as MangaValidation from "./mangaValidation.js";
 export * as NewsValidation from "./newsValidations.js";
+export * as CharacterValidation from "./characterValidation.js";
