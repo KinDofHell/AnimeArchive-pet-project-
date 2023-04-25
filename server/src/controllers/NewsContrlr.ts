@@ -100,7 +100,7 @@ export const getOneNews = async (req: any, res: any) => {
 
 export const getRecentNews = async (req: any, res: any) => {
   try {
-    const news = await NewsModel.find().limit(3).sort({ $natural: -1 }).exec();
+    const news = await NewsModel.find().limit(2).sort({ $natural: -1 }).exec();
     res.json(news);
   } catch (err) {
     console.log(err);

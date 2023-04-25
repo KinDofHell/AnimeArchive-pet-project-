@@ -88,7 +88,6 @@ export const getAllManga = async (req: any, res: any) => {
   try {
     const manga = await MangaModel.find()
       .populate("categoriesArray")
-      .populate("author")
       .populate("status")
       .sort({ $natural: -1 })
       .exec();
@@ -113,6 +112,7 @@ export const getOneManga = async (req: any, res: any) => {
       .populate("categoriesArray")
       .populate("author")
       .populate("status")
+      .populate("characters")
       .exec();
     res.json(manga);
   } catch (err) {
