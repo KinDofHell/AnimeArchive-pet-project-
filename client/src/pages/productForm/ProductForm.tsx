@@ -12,6 +12,7 @@ import { fetchMangaCreating } from "../../redux/slices/manga";
 import { fetchCategories } from "../../redux/slices/category";
 import { fetchCreators } from "../../redux/slices/creators";
 import { fetchStatuses } from "../../redux/slices/status";
+import { fetchCharacters } from "../../redux/slices/character";
 
 import axios from "../../utils/axios";
 
@@ -29,9 +30,11 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
   const { categories } = useSelector((state: any) => state.categories);
   const { creators } = useSelector((state: any) => state.creators);
   const { statuses } = useSelector((state: any) => state.statuses);
+  const { characters } = useSelector((state: any) => state.characters);
   const isCategoriesLoading: boolean = categories.status === "loading";
   const isCreatorsLoading: boolean = creators.status === "loading";
   const isStatusesLoading: boolean = statuses.status === "loading";
+  const isCharactersLoading: boolean = characters.status === "loading";
 
   const isPM = useSelector(isProductModerator);
   const isAuth = useSelector(isAuthenticated);
@@ -60,17 +63,20 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
   const [years, setYears] = useState("");
   const [status, setStatus] = useState<string>();
   const [author, setAuthor] = useState<string>();
+  const [charactersArray, setCharactersArray] = useState<string[]>();
   const [imagesArr, setImagesArr] = useState<string[]>();
 
   useEffect(() => {
     dispatch(fetchCategories());
     dispatch(fetchCreators());
     dispatch(fetchStatuses());
+    dispatch(fetchCharacters());
   }, []);
 
   useEffect(() => {
     if (id) {
       let categ: string[] = [];
+      let charact: string[] = [];
       axios.get(`/${isAnime ? "anime" : "manga"}/${id}`).then(({ data }) => {
         setTitle(data.title);
         setOriginTitle(data.originTitle);
@@ -86,6 +92,10 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
         setStatus(data.status._id);
         setAuthor(data.author._id);
         setImagesArr(data.images);
+        if (data.characters) {
+          data.characters.map((obj: any) => charact.push(obj._id));
+          setCharactersArray(charact);
+        }
       });
     }
   }, []);
@@ -98,6 +108,7 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
       setValue("categoriesArray", categoriesArray);
       setValue("status", status);
       setValue("author", author);
+      setValue("characters", charactersArray);
       if (isAnime) {
         setValue("seasons", seasons);
         setValue("series", series);
@@ -175,6 +186,18 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
     setImages(imagesArray);
     // @ts-ignore
     setImagesFile(imagesArrayFile);
+  };
+
+  const arrayChange = async (event: any, categ: boolean) => {
+    let array: string[] | undefined = [];
+    if (categ) array = categoriesArray;
+    else array = charactersArray;
+
+    if (array?.includes(event.target.value))
+      array = array.filter((value: string) => value !== event.target.value);
+    else array?.push(event.target.value);
+    if (categ) setCategoriesArray(array);
+    else setCharactersArray(array);
   };
 
   if (!isAuth && !window.localStorage.getItem("token"))
@@ -256,6 +279,7 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
               {...register("categoriesArray", {
                 required: true,
               })}
+              onChange={(e) => arrayChange(e, true)}
             >
               {(isCategoriesLoading ? [...Array(2)] : categories.items).map(
                 (obj: typeof categories | undefined, index: Key) =>
@@ -270,6 +294,7 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
               {...register("status", {
                 required: true,
               })}
+              onChange={(e) => setStatus((e.target as HTMLSelectElement).value)}
             >
               <option value="">Select status</option>
               {(isStatusesLoading ? [...Array(1)] : statuses.items).map(
@@ -285,6 +310,7 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
               {...register("author", {
                 required: true,
               })}
+              onChange={(e) => setAuthor((e.target as HTMLSelectElement).value)}
             >
               <option value="">Select author</option>
               {(isCreatorsLoading ? [...Array(1)] : creators.items).map(
@@ -294,11 +320,19 @@ const ProductForms: FC<ProductFormsProps> = ({ isEditing, isAnime }) => {
                   )
               )}
             </select>
-            <select id="characters" multiple={true}>
-              <option value="">Select</option>
-              <option value="">Select</option>
-              <option value="">Select</option>
-              <option value="">Select</option>
+            <select
+              id="characters"
+              multiple={true}
+              value={charactersArray}
+              {...register("characters")}
+              onChange={(e) => arrayChange(e, false)}
+            >
+              {(isCharactersLoading ? [...Array(2)] : characters.items).map(
+                (obj: typeof characters | undefined, index: Key) =>
+                  !isCharactersLoading && (
+                    <option label={obj.fullName} value={obj._id} key={index} />
+                  )
+              )}
             </select>
           </div>
           <div className={productFormPageStyle.selects__errors}>

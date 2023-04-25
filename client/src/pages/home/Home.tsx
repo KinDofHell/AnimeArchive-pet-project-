@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { fetchRecentAnime } from "../../redux/slices/anime";
 import { fetchRecentManga } from "../../redux/slices/manga";
+import { fetchRecentNews } from "../../redux/slices/news";
+import { fetchPopularCharacter } from "../../redux/slices/character";
 
 import LabeledContainer from "../../components/labeledContainer/LabeledContainer";
 import ShortcutSpan from "../../components/shortcutSpan/ShortcutSpan";
@@ -15,12 +17,18 @@ const Home = () => {
   const dispatch = useDispatch<any>();
   const { anime } = useSelector((state: any) => state.anime);
   const { manga } = useSelector((state: any) => state.manga);
+  const { news } = useSelector((state: any) => state.news);
+  const { characters } = useSelector((state: any) => state.characters);
   const isAnimeLoading: boolean = anime.status === "loading";
   const isMangaLoading: boolean = manga.status === "loading";
+  const isNewsLoading: boolean = news.status === "loading";
+  const isCharacterLoading: boolean = characters.status === "loading";
 
   useEffect(() => {
     dispatch(fetchRecentAnime());
     dispatch(fetchRecentManga());
+    dispatch(fetchRecentNews());
+    dispatch(fetchPopularCharacter());
   }, []);
 
   return (
@@ -66,7 +74,22 @@ const Home = () => {
             label="The Most Popular Character"
             linkPath="/characters/"
           >
-            <ShortcutSpan title="Madara Uchiha" linkPath="/characters/" />
+            {!isCharacterLoading &&
+              characters.items.map(
+                (obj: typeof characters | undefined, index: Key) => (
+                  <ShortcutSpan
+                    title={obj.fullName}
+                    imgLink={
+                      obj.images[0] ? `${SERVER_HOST}${obj.images[0]}` : ""
+                    }
+                    linkPath={`/character/${obj._id}`}
+                    key={index}
+                  />
+                )
+              )}
+            {isCharacterLoading && (
+              <ShortcutSpan title="Madara Uchiha" linkPath="/characters/" />
+            )}
           </LabeledContainer>
           <LabeledContainer label="The Most Popular Image" linkPath="/gallery/">
             <Image
@@ -85,12 +108,19 @@ const Home = () => {
           linkPath="/news/"
           attractiveTitle={true}
         >
-          <ShortcutSpan title="Summer is comming..." linkPath="/news/" />
-          <ShortcutSpan
-            title="New Generation of anime!"
-            linkPath="/news/"
-            isImportant={true}
-          />
+          {!isNewsLoading &&
+            news.items.map((obj: typeof news | undefined, index: Key) => (
+              <ShortcutSpan
+                title={obj.title}
+                imgLink={obj.images[0] ? `${SERVER_HOST}${obj.images[0]}` : ""}
+                linkPath={`/news/${obj._id}`}
+                isImportant={obj.isImportant}
+                key={index}
+              />
+            ))}
+          {isNewsLoading && (
+            <ShortcutSpan title="Summer is comming..." linkPath="/news/" />
+          )}
         </LabeledContainer>
       </div>
     </div>

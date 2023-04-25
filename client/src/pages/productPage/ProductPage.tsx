@@ -85,10 +85,17 @@ const ProductPage = ({ isAnime }: { isAnime: boolean }) => {
       <div className={productPageStyle.product__page}>
         <div className={productPageStyle.related}>
           <LabeledContainer label="Chracters">
-            <ShortcutSpan title="Eren Yeager" linkPath="/characters/" />
-            <ShortcutSpan title="Mikasa Akkerman" linkPath="/characters/" />
-            <ShortcutSpan title="Erwin Smith" linkPath="/characters/" />
-            <ShortcutSpan title="Levi Akkerman" linkPath="/characters/" />
+            {data.characters.length > 0 ? (
+              data.characters.map((obj: any, index: Key) => (
+                <ShortcutSpan
+                  title={obj.fullName}
+                  linkPath={`/character/${obj._id}`}
+                  key={index}
+                />
+              ))
+            ) : (
+              <ShortcutSpan title="Character" linkPath="/character/" />
+            )}
           </LabeledContainer>
           <LabeledContainer label="Categories">
             {data.categoriesArray.map((obj: any, index: Key) => (

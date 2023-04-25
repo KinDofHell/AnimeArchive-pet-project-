@@ -133,7 +133,7 @@
 
       padding: 0.2vw;
 
-      width: 20%;
+      width: 24%;
 
       font-size: 1.1vw;
 
@@ -147,6 +147,13 @@
       &::-webkit-scrollbar-thumb {
         background-color: rgb(59, 104, 146); /* color of the scroll thumb */
         border-radius: 10px; /* roundness of the scroll thumb */
+      }
+
+      option {
+        padding: 2%;
+        border-radius: 10px;
+
+        width: 100%;
       }
     }
   }
