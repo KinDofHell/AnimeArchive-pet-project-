@@ -1,0 +1,43 @@
+@use "../../assets/generalStyles/mixins.scss" as mixins;
+@use "../../assets/generalStyles/colors.scss" as colors;
+
+.characters__container {
+  @include mixins.flex-config(column, flex-start, center);
+
+  width: 100%;
+
+  &:not(:last-child) {
+    margin-bottom: 2vh;
+  }
+
+  .moderatorBtn {
+    @include mixins.flex-config(row, space-around, center);
+
+    width: 12%;
+
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+    background-color: colors.$logoBackColor;
+  }
+
+  .info {
+    @include mixins.flex-config(row, space-between, center);
+
+    width: 100%;
+
+    background-color: colors.$logoBackColor;
+
+    font-size: 1.2vw;
+
+    padding: 0 2%;
+    border-radius: 10px;
+
+    span {
+      background-color: colors.$silver;
+
+      padding: 0.5%;
+      border-radius: 10px;
+    }
+  }
+}
