@@ -1,0 +1,68 @@
+@use "../../assets/generalStyles/mixins.scss" as mixins;
+@use "../../assets/generalStyles/colors.scss" as colors;
+
+.character__page {
+  @include mixins.flex-config(row, space-around, center);
+
+  width: 100%;
+
+  .left__bar {
+    @include mixins.flex-config(column, space-around, center);
+
+    width: 25%;
+    min-height: 65vh;
+
+    .name {
+      font-size: 1.5vw;
+
+      background-color: colors.$logoBackColor;
+
+      padding: 1%;
+      border-radius: 10px;
+      margin-bottom: 1%;
+    }
+
+    .info {
+      width: 100%;
+
+      margin-bottom: 1%;
+    }
+  }
+
+  .right__bar {
+    @include mixins.flex-config(column, space-around, center);
+
+    width: 60%;
+
+    .appearance,
+    .personality {
+      &:first-child {
+        margin-bottom: 2%;
+      }
+
+      .content {
+        height: 32vh;
+
+        overflow-y: scroll;
+
+        &::-webkit-scrollbar {
+          width: 0.4vw;
+        }
+        &::-webkit-scrollbar-track {
+          background: colors.$logoBackColor;
+          border-radius: 10px;
+        }
+        &::-webkit-scrollbar-thumb {
+          background-color: rgb(59, 104, 146); /* color of the scroll thumb */
+          border-radius: 10px; /* roundness of the scroll thumb */
+        }
+      }
+
+      span {
+        font-size: 3vh;
+
+        border-bottom: 1px solid white;
+      }
+    }
+  }
+}

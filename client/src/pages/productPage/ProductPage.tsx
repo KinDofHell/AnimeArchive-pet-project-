@@ -160,20 +160,12 @@ const ProductPage = ({ isAnime }: { isAnime: boolean }) => {
             {data.images[0] ? (
               <Image
                 imgLink={SERVER_HOST + data.images[0]}
-                minWidth="100%"
-                maxWidth="100%"
-                minHeight="22vw"
-                maxHeight="22vw"
+                width="100%"
+                height="100%"
                 allBordered={true}
               />
             ) : (
-              <Image
-                minWidth="100%"
-                maxWidth="100%"
-                minHeight="22vw"
-                maxHeight="22vw"
-                allBordered={true}
-              />
+              <Image width="100%" height="100%" allBordered={true} />
             )}
           </div>
           <span className={productPageStyle.title}>
@@ -212,34 +204,26 @@ const ProductPage = ({ isAnime }: { isAnime: boolean }) => {
           {data.images[1] ? (
             <Image
               imgLink={SERVER_HOST + data.images[1]}
-              minWidth="15vw"
-              minHeight="10vw"
-              maxWidth="15vw"
+              width="15vw"
+              height="10vw"
               allBordered={true}
             />
           ) : (
-            <Image
-              minWidth="15vw"
-              minHeight="10vw"
-              maxWidth="15vw"
-              allBordered={true}
-            />
+            <Image width="15vw" height="10vw" allBordered={true} />
           )}
           {data.images[2] && (
             <Image
               imgLink={SERVER_HOST + data.images[2]}
-              minWidth="15vw"
-              minHeight="10vw"
-              maxWidth="15vw"
+              width="15vw"
+              height="10vw"
               allBordered={true}
             />
           )}
           {data.images[3] && (
             <Image
               imgLink={SERVER_HOST + data.images[3]}
-              minWidth="15vw"
-              minHeight="10vw"
-              maxWidth="15vw"
+              width="15vw"
+              height="10vw"
               allBordered={true}
             />
           )}

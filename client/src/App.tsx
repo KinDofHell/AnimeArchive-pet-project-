@@ -14,6 +14,7 @@ import Home from "./pages/home/Home";
 import ProductListPage from "./pages/productListPage/ProductListPage";
 import ProductPage from "./pages/productPage/ProductPage";
 import CharactersPage from "./pages/characters/CharactersPage";
+import CharacterPage from "./pages/characters/CharacterPage";
 
 import ProductForms from "./pages/productForm/ProductForm";
 import UserForms from "./pages/user/UserForms";
@@ -85,6 +86,7 @@ const App = () => {
           />
           {/* character */}
           <Route path="/characters" element={<CharactersPage />} />
+          <Route path="/character/:id" element={<CharacterPage />} />
           <Route
             path="/character-adding"
             element={<CharacterFormPage isEditing={false} />}

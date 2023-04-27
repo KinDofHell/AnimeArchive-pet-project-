@@ -95,9 +95,8 @@ const Home = () => {
             <Image
               imgLink="https://i.pinimg.com/originals/38/89/1d/38891d63301e957da6fc19b732a09caf.jpg"
               linkPath="/gallery/"
-              minWidth="10vw"
-              minHeight="10vw"
-              maxWidth="15vw"
+              width="15vw"
+              height="10vw"
             />
           </LabeledContainer>
         </div>

@@ -9,10 +9,8 @@ interface ImageProps {
   imgLink?: string;
   alt?: string;
   linkPath?: string;
-  minWidth: string;
-  minHeight: string;
-  maxWidth?: string;
-  maxHeight?: string;
+  width: string;
+  height: string;
   borderTopRadius?: boolean;
   allBordered?: boolean;
   onClick?: MouseEventHandler;
@@ -22,10 +20,8 @@ const Image: FC<ImageProps> = ({
   imgLink,
   alt,
   linkPath,
-  minWidth,
-  minHeight,
-  maxWidth,
-  maxHeight,
+  width,
+  height,
   borderTopRadius,
   allBordered,
   onClick,
@@ -38,26 +34,20 @@ const Image: FC<ImageProps> = ({
         style={
           borderTopRadius
             ? {
-                minWidth: minWidth,
-                maxWidth: maxWidth,
-                minHeight: minHeight,
-                maxHeight: maxHeight,
+                width: width,
+                height: height,
                 borderTopLeftRadius: "10px",
                 borderTopRightRadius: "10px",
               }
             : allBordered
             ? {
-                minWidth: minWidth,
-                maxWidth: maxWidth,
-                minHeight: minHeight,
-                maxHeight: maxHeight,
+                width: width,
+                height: height,
                 borderRadius: "10px",
               }
             : {
-                minWidth: minWidth,
-                maxWidth: maxWidth,
-                minHeight: minHeight,
-                maxHeight: maxHeight,
+                width: width,
+                height: height,
               }
         }
       />
@@ -69,26 +59,20 @@ const Image: FC<ImageProps> = ({
       style={
         borderTopRadius
           ? {
-              minWidth: minWidth,
-              maxWidth: maxWidth,
-              minHeight: minHeight,
-              maxHeight: maxHeight,
+              width: width,
+              height: height,
               borderTopLeftRadius: "10px",
               borderTopRightRadius: "10px",
             }
           : allBordered
           ? {
-              minWidth: minWidth,
-              maxWidth: maxWidth,
-              minHeight: minHeight,
-              maxHeight: maxHeight,
+              width: width,
+              height: height,
               borderRadius: "10px",
             }
           : {
-              minWidth: minWidth,
-              maxWidth: maxWidth,
-              minHeight: minHeight,
-              maxHeight: maxHeight,
+              width: width,
+              height: height,
             }
       }
       onClick={onClick}

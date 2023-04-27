@@ -18,7 +18,7 @@ const Login = () => {
   if (!isUserLoading) console.log();
 
   const onClickLogout = () => {
-    if (window.confirm("Are you sure you want to log")) {
+    if (window.confirm("Are you sure you want to sign out?")) {
       dispatch(logout());
       window.localStorage.removeItem("token");
     }

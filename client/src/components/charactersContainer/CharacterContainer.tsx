@@ -1,5 +1,4 @@
 import charactersContainerStyle from "./CharacterContainer.module.scss";
-import reservImg from "../../assets/imgs/logo.png";
 
 import { FC } from "react";
 
@@ -30,7 +29,7 @@ const CharacterContainer: FC<CharacterContainerProps> = ({
         </div>
       )}
       <div className={charactersContainerStyle.info}>
-        <Image minHeight="5vw" minWidth="5vw" maxWidth="5vw" />
+        <Image height="5vw" width="5vw" />
         <span>{fullName}</span>
         {title && <span>{title}</span>}
         <Button label="Show" linkPath={`/character/${linkPath}`} />
