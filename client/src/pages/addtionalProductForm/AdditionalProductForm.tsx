@@ -143,7 +143,7 @@ const AddtionalProductForm: FC<AddtionalProductFormProps> = ({
           (errors.description.type === "required" ? (
             <ErrorAlert error="This field is required!" />
           ) : (
-            <ErrorAlert error="Title must be 10-200 symbols!" />
+            <ErrorAlert error="Description must be 10-200 symbols!" />
           ))}
         {type === "creator" && (
           <input type="file" id="imgUrl" onChange={onFileChange} />

@@ -8,7 +8,6 @@ import Image from "../ui copy/images/Image";
 interface CharacterContainerProps {
   imgLink?: string;
   fullName: string;
-  title?: string;
   isEditing: boolean;
   linkPath: string;
 }
@@ -16,7 +15,6 @@ interface CharacterContainerProps {
 const CharacterContainer: FC<CharacterContainerProps> = ({
   imgLink,
   fullName,
-  title,
   isEditing,
   linkPath,
 }) => {
@@ -31,7 +29,6 @@ const CharacterContainer: FC<CharacterContainerProps> = ({
       <div className={charactersContainerStyle.info}>
         <Image height="5vw" width="5vw" />
         <span>{fullName}</span>
-        {title && <span>{title}</span>}
         <Button label="Show" linkPath={`/character/${linkPath}`} />
       </div>
     </div>

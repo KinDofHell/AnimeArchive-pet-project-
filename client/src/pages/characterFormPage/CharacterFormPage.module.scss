@@ -5,4 +5,33 @@
   @include mixins.flex-config(column, flex-start, center);
 
   width: 100%;
+
+  .name__age,
+  .sex__race {
+    @include mixins.flex-config(column, flex-start, center);
+
+    width: 100%;
+  }
+
+  .texts {
+    @include mixins.flex-config(row, space-around, center);
+    width: 100%;
+  }
+}
+
+.fields {
+  @include mixins.flex-config(row, space-around, center);
+
+  width: 100%;
+
+  select {
+    min-width: 30%;
+  }
+}
+.errors {
+  @include mixins.flex-config(row, center, center);
+
+  width: 100%;
+
+  margin-top: 0.5%;
 }

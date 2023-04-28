@@ -40,7 +40,7 @@
     input:not([type="submit"]) {
       background-color: colors.$silver;
 
-      width: 80%;
+      min-width: 20vw;
 
       text-align: center;
 
@@ -61,7 +61,7 @@
 
       padding: 1%;
 
-      max-width: 20vw;
+      max-width: 45%;
 
       &:not(:last-child) {
         margin-bottom: 2%;
@@ -132,6 +132,7 @@
       border: 0;
 
       padding: 0.2vw;
+      text-align: center;
 
       width: 24%;
 
