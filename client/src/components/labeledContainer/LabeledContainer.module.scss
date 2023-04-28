@@ -15,6 +15,12 @@
     margin-bottom: 1vw;
   }
 
+  @media screen and (max-width: 425px) {
+    &:not(:last-child) {
+      margin-bottom: 3vw;
+    }
+  }
+
   div:not(:first-child) {
     margin-top: 2%;
   }
@@ -25,11 +31,15 @@
     text-align: center;
 
     font-family: "Sofia";
-    font-size: clamp(1.1vw, 1.3vw, 1.4vw);
+    font-size: 1.3vw;
 
     width: 100%;
 
     background-color: colors.$silver;
+
+    @media screen and (max-width: 425px) {
+      font-size: 5vw;
+    }
   }
 
   .content {

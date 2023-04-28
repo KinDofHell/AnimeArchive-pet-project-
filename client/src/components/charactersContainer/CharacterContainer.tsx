@@ -27,7 +27,7 @@ const CharacterContainer: FC<CharacterContainerProps> = ({
         </div>
       )}
       <div className={charactersContainerStyle.info}>
-        <Image height="5vw" width="5vw" />
+        <Image classes={charactersContainerStyle.img} />
         <span>{fullName}</span>
         <Button label="Show" linkPath={`/character/${linkPath}`} />
       </div>

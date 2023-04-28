@@ -6,6 +6,8 @@
 
   min-width: 20vw;
 
+  padding: 0 1%;
+
   &:not(:last-child) {
     border-bottom: 1px solid colors.$silver;
   }
@@ -14,10 +16,21 @@
     width: 3vw;
     height: 3vw;
     border-radius: 10px;
+
+    @media screen and (max-width: 425px) {
+      width: 10vw;
+      height: 10vw;
+
+      border-radius: 5px;
+    }
   }
 
   .title {
-    font-size: clamp(1vw, 1.1vw, 1.2vw);
+    font-size: 1.1vw;
+
+    @media screen and (max-width: 425px) {
+      font-size: 4vw;
+    }
 
     padding: 0.2rem;
     border-radius: 10px;
@@ -25,5 +38,9 @@
 
   .important {
     color: rgb(153, 0, 0);
+  }
+
+  @media screen and (max-width: 425px) {
+    min-width: 75vw;
   }
 }

@@ -50,9 +50,7 @@ const ProductCard: FC<ProductCardProps> = ({
         imgLink={imgLink ? imgLink : reservImg}
         linkPath={`/${isAnime ? "anime" : "manga"}/${linkPath}`}
         alt={title}
-        width="20vw"
-        height="12vw"
-        borderTopRadius={true}
+        classes={productCardStyle.img}
       />
       <div className={productCardStyle.info}>
         {isSelected && (

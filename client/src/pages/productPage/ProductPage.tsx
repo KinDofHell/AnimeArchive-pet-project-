@@ -160,12 +160,10 @@ const ProductPage = ({ isAnime }: { isAnime: boolean }) => {
             {data.images[0] ? (
               <Image
                 imgLink={SERVER_HOST + data.images[0]}
-                width="100%"
-                height="100%"
-                allBordered={true}
+                classes={productPageStyle.img}
               />
             ) : (
-              <Image width="100%" height="100%" allBordered={true} />
+              <Image classes={productPageStyle.img} />
             )}
           </div>
           <span className={productPageStyle.title}>
@@ -204,27 +202,21 @@ const ProductPage = ({ isAnime }: { isAnime: boolean }) => {
           {data.images[1] ? (
             <Image
               imgLink={SERVER_HOST + data.images[1]}
-              width="15vw"
-              height="10vw"
-              allBordered={true}
+              classes={productPageStyle.img}
             />
           ) : (
-            <Image width="15vw" height="10vw" allBordered={true} />
+            <Image classes={productPageStyle.img} />
           )}
           {data.images[2] && (
             <Image
               imgLink={SERVER_HOST + data.images[2]}
-              width="15vw"
-              height="10vw"
-              allBordered={true}
+              classes={productPageStyle.img}
             />
           )}
           {data.images[3] && (
             <Image
               imgLink={SERVER_HOST + data.images[3]}
-              width="15vw"
-              height="10vw"
-              allBordered={true}
+              classes={productPageStyle.img}
             />
           )}
         </div>

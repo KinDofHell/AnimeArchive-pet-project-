@@ -33,7 +33,7 @@ const CharacterPage = () => {
     return (
       <div className={characterPageStyle.character__page}>
         <div className={characterPageStyle.left__bar}>
-          <Image imgLink={reservImg} height="12vw" width="12vw" />
+          <Image imgLink={reservImg} classes={characterPageStyle.img} />
           <span className={characterPageStyle.name}>Naruto Uzumaki</span>
           <div className={characterPageStyle.info}>
             <NameValueSpan name="Age" value={data.age} minWidth="100%" />

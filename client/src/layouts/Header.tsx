@@ -8,6 +8,11 @@ const Header = () => {
   return (
     <div className={headerStyle.header}>
       <Logo />
+      <div className={headerStyle.burger}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
       <Navbar />
       <Login />
     </div>

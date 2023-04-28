@@ -32,6 +32,10 @@ a {
   &:active {
     transform: translateY(-3px);
   }
+
+  @media screen and (max-width: 425px) {
+    font-size: 3vw;
+  }
 }
 
 .danger {
