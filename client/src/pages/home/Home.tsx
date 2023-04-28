@@ -45,7 +45,9 @@ const Home = () => {
               anime.items.map((obj: typeof anime | undefined, index: Key) => (
                 <ShortcutSpan
                   title={obj.title}
-                  imgLink={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
+                  imgLink={
+                    obj.images[0] ? `${SERVER_HOST}${obj.images[0]}` : ""
+                  }
                   linkPath={`/anime/${obj._id}`}
                   key={index}
                 />
@@ -59,7 +61,9 @@ const Home = () => {
               manga.items.map((obj: typeof manga | undefined, index: Key) => (
                 <ShortcutSpan
                   title={obj.title}
-                  imgLink={obj.imgCover ? `${SERVER_HOST}${obj.imgCover}` : ""}
+                  imgLink={
+                    obj.images[0] ? `${SERVER_HOST}${obj.images[0]}` : ""
+                  }
                   linkPath={`/manga/${obj._id}`}
                   key={index}
                 />

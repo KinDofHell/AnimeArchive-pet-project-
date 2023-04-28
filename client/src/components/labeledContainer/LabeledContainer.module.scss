@@ -15,6 +15,10 @@
     margin-bottom: 1vw;
   }
 
+  div:not(:first-child) {
+    margin-top: 2%;
+  }
+
   .title {
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
