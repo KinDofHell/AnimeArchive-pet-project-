@@ -41,9 +41,7 @@ dotenv.config();
 
 //db connection
 mongoose
-  .connect(
-    `mongodb+srv://${process.env.DB_LOGIN}:${process.env.DB_PASSWORD}@cluster0.skrw0ja.mongodb.net/${process.env.DB_DB}?retryWrites=true&w=majority`
-  )
+  .connect(`${process.env.MONGO_BD_CONNECTION}`)
   .then(() => console.log("DB Connected"))
   .catch((error: Error) => console.error(error));
 
