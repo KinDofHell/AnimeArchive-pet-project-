@@ -1,8 +1,8 @@
 import characterPageStyle from "./CharacterPage.module.scss";
 import reservImg from "../../assets/imgs/logo.png";
+import { SERVER_HOST } from "../../data/Constant";
 
 import { useEffect, Key, useState } from "react";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import axios from "../../utils/axios";
@@ -27,14 +27,19 @@ const CharacterPage = () => {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [id]);
 
   if (!isLoading)
     return (
       <div className={characterPageStyle.character__page}>
         <div className={characterPageStyle.left__bar}>
-          <Image imgLink={reservImg} classes={characterPageStyle.img} />
-          <span className={characterPageStyle.name}>Naruto Uzumaki</span>
+          <Image
+            imgLink={
+              data.images[0] ? `${SERVER_HOST}${data.images[0]}` : reservImg
+            }
+            classes={characterPageStyle.img}
+          />
+          <span className={characterPageStyle.name}>{data.fullName}</span>
           <div className={characterPageStyle.info}>
             <NameValueSpan name="Age" value={data.age} minWidth="100%" />
             <NameValueSpan name="Sex" value={data.sex} minWidth="100%" />
@@ -47,13 +52,19 @@ const CharacterPage = () => {
             />
           </div>
           <LabeledContainer label="Partners">
-            {data.partners && data.partners.length > 0 ? (
-              data.partners.map((partner: typeof data.partners) => {
-                <ShortcutSpan
-                  title={partner.fullName}
-                  linkPath={`/characters/${partner._id}`}
-                />;
-              })
+            {data.partnersArray && data.partnersArray.length > 0 ? (
+              data.partnersArray.map(
+                (partner: typeof data.partnersArray, index: Key) => (
+                  <ShortcutSpan
+                    title={partner.fullName}
+                    linkPath={`/character/${partner._id}`}
+                    imgLink={
+                      partner.images[0] && `${SERVER_HOST}${partner.images[0]}`
+                    }
+                    key={index}
+                  />
+                )
+              )
             ) : (
               <ShortcutSpan title="Characters" linkPath="/characters/" />
             )}

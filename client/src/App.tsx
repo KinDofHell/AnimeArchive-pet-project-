@@ -91,6 +91,10 @@ const App = () => {
             path="/character-adding"
             element={<CharacterFormPage isEditing={false} />}
           />
+          <Route
+            path="/character/:id/edit"
+            element={<CharacterFormPage isEditing={true} />}
+          />
           {/* login and register */}
           <Route path="/register" element={<UserForms isRegister={true} />} />
           <Route path="/login" element={<UserForms isRegister={false} />} />

@@ -50,6 +50,7 @@ const CharactersPage = () => {
           characters.items.map(
             (obj: typeof characters | undefined, index: Key) => (
               <CharacterContainer
+                _id={obj._id}
                 imgLink={obj.images[0] ? `${SERVER_HOST}${obj.images[0]}` : ""}
                 linkPath={obj._id}
                 fullName={obj.fullName}

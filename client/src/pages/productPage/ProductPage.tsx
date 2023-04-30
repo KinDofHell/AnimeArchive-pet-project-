@@ -90,6 +90,7 @@ const ProductPage = ({ isAnime }: { isAnime: boolean }) => {
                 <ShortcutSpan
                   title={obj.fullName}
                   linkPath={`/character/${obj._id}`}
+                  imgLink={obj.images[0] && `${SERVER_HOST}${obj.images[0]}`}
                   key={index}
                 />
               ))

@@ -1,13 +1,18 @@
 import characterFormPageStyle from "./CharacterFormPage.module.scss";
 
-import { FC, useState } from "react";
-import { useSelector } from "react-redux";
+import { FC, useState, useEffect, Key } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useForm, FieldValues } from "react-hook-form";
 import { useNavigate, Navigate, useParams } from "react-router-dom";
 
 import axios from "../../utils/axios";
 
 import { isAuthenticated, isProductModerator } from "../../redux/slices/user";
+
+import {
+  fetchCharacterCreating,
+  fetchCharacters,
+} from "../../redux/slices/character";
 
 import FormProduct from "../../components/ui copy/forms/formsProduct/FormProduct";
 import ErrorAlert from "../../components/ui copy/forms/ErrorAlert";
@@ -21,9 +26,26 @@ const CharacterFormPage: FC<CharacterFormPageProps> = ({ isEditing }) => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
 
+  const { id } = useParams<string>();
+
+  const [fullName, setFullName] = useState<string>();
+  const [age, setAge] = useState<string>();
+  const [sex, setSex] = useState<string>();
+  const [race, setRace] = useState<string>();
+  const [status, setStatus] = useState<string>();
+  const [partnersArray, setPartnersArray] = useState<string[]>();
+  const [appearance, setAppearance] = useState<string>();
+  const [personality, setPersonality] = useState<string>();
+  const [imagesArr, setImagesArr] = useState<string[]>();
+
+  const { characters } = useSelector((state: any) => state.characters);
+  const isCharactersLoading: boolean = characters.status === "loading";
+
   const navigate = useNavigate();
+  const dispatch = useDispatch<any>();
 
   const imagesArray: string[] = [];
   const imagesArrayFile: any[] = [];
@@ -34,13 +56,74 @@ const CharacterFormPage: FC<CharacterFormPageProps> = ({ isEditing }) => {
   const isPM = useSelector(isProductModerator);
   const isAuth = useSelector(isAuthenticated);
 
+  useEffect(() => {
+    dispatch(fetchCharacters());
+  }, []);
+
+  useEffect(() => {
+    if (id) {
+      let partn: string[] = [];
+      axios.get(`/character/${id}`).then(({ data }) => {
+        setFullName(data.fullName);
+        setAge(data.age);
+        setSex(data.sex);
+        setRace(data.race);
+        setStatus(data.status);
+        setAppearance(data.appearance);
+        setPersonality(data.personality);
+        setImagesArr(data.images);
+        if (data.partnersArray) {
+          data.partnersArray.map((obj: any) => partn.push(obj._id));
+          setPartnersArray(partn);
+        }
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setValue("fullName", fullName);
+      setValue("age", age);
+      setValue("sex", sex);
+      setValue("race", race);
+      setValue("status", status);
+      setValue("appearance", appearance);
+      setValue("personality", personality);
+      setValue("partnersArray", partnersArray);
+    });
+  }, [fullName]);
+
   if (!isAuth && !window.localStorage.getItem("token"))
     return <Navigate to="/" />;
   if (!isPM && isPM !== undefined) return <Navigate to="/" />;
 
+  const arrayChange = async (event: any) => {
+    let array: string[] | undefined = partnersArray;
+
+    if (array?.includes(event.target.value))
+      array = array.filter((value: string) => value !== event.target.value);
+    else array?.push(event.target.value);
+    setPartnersArray(array);
+  };
+
   const onSubmit = async (values: FieldValues) => {
-    if (images) values.imgUrl = images[0];
-    if (await axios.post("/characters/", values)) {
+    if (images) values.images = images;
+    else values.images = imagesArr;
+    console.log(values);
+    if (isEditing) {
+      if (await axios.patch(`/character/${id}/`, values)) {
+        if (imagesFile) {
+          const formData = new FormData();
+          // @ts-ignore
+          for (let i = 0; i < imagesFile.length; i++) {
+            // @ts-ignore
+            formData.append("image", imagesFile[i]);
+          }
+          await axios.post("/upload", formData);
+        }
+      }
+      navigate(`/character/${id}/`, { replace: true });
+    } else if (await dispatch(fetchCharacterCreating(values))) {
       if (imagesFile) {
         const formData = new FormData();
         // @ts-ignore
@@ -50,7 +133,7 @@ const CharacterFormPage: FC<CharacterFormPageProps> = ({ isEditing }) => {
         }
         await axios.post("/upload", formData);
       }
-      navigate(`/anime-adding/`, { replace: true });
+      navigate("/characters", { replace: true });
     }
   };
 
@@ -76,21 +159,27 @@ const CharacterFormPage: FC<CharacterFormPageProps> = ({ isEditing }) => {
             <input
               type="text"
               id="fullName"
+              value={fullName}
               placeholder="Enter fullname..."
               {...register("fullName", {
                 required: true,
                 minLength: 6,
                 maxLength: 30,
               })}
+              onChange={(e) =>
+                setFullName((e.target as HTMLInputElement).value)
+              }
             />
             <input
               type="text"
               id="age"
               placeholder="Enter age..."
+              value={age}
               {...register("age", {
                 minLength: 0,
                 maxLength: 5,
               })}
+              onChange={(e) => setAge((e.target as HTMLInputElement).value)}
             />
           </div>
           <div className={characterFormPageStyle.errors}>
@@ -116,6 +205,8 @@ const CharacterFormPage: FC<CharacterFormPageProps> = ({ isEditing }) => {
                 minLength: 4,
                 maxLength: 10,
               })}
+              value={sex}
+              onChange={(e) => setSex((e.target as HTMLSelectElement).value)}
             >
               <option value="">Choose sex</option>
               <option value="Male">Male</option>
@@ -125,20 +216,24 @@ const CharacterFormPage: FC<CharacterFormPageProps> = ({ isEditing }) => {
               type="text"
               id="race"
               placeholder="Enter race..."
+              value={race}
               {...register("race", {
                 required: true,
                 minLength: 3,
                 maxLength: 15,
               })}
+              onChange={(e) => setRace((e.target as HTMLInputElement).value)}
             />
           </div>
           <div className={characterFormPageStyle.errors}>
-            {errors.sex &&
+            {!errors.fullName &&
+              errors.sex &&
               (errors.sex.type === "maxLength" ||
                 errors.sex.type === "minLength") && (
                 <ErrorAlert error="Sex must be 6-30 symbols!" />
               )}
-            {!errors.sex &&
+            {!errors.fullName &&
+              !errors.sex &&
               errors.race &&
               (errors.race.type === "required" ? (
                 <ErrorAlert error="This field is required!" />
@@ -149,12 +244,14 @@ const CharacterFormPage: FC<CharacterFormPageProps> = ({ isEditing }) => {
         </div>
         <select
           id="status"
+          value={status}
           {...register("status", {
             required: true,
             minLength: 4,
             maxLength: 10,
           })}
-          style={{ width: "90%", marginBottom: "1%" }}
+          onChange={(e) => setStatus((e.target as HTMLSelectElement).value)}
+          style={{ width: "90%", marginBottom: "1vh" }}
         >
           <option value="">Choose status</option>
           <option value="Alive">Alive</option>
@@ -172,16 +269,24 @@ const CharacterFormPage: FC<CharacterFormPageProps> = ({ isEditing }) => {
           <textarea
             id="appearance"
             placeholder="Enter appearance description"
+            value={appearance}
             {...register("appearance", {
               required: true,
             })}
+            onChange={(e) =>
+              setAppearance((e.target as HTMLTextAreaElement).value)
+            }
           ></textarea>
           <textarea
             id="personality"
             placeholder="Enter personality description"
+            value={personality}
             {...register("personality", {
               required: true,
             })}
+            onChange={(e) =>
+              setPersonality((e.target as HTMLTextAreaElement).value)
+            }
           ></textarea>
         </div>
         {!errors.status &&
@@ -195,6 +300,21 @@ const CharacterFormPage: FC<CharacterFormPageProps> = ({ isEditing }) => {
           errors.personality.type === "required" && (
             <ErrorAlert error="This field is required!" />
           )}
+        <select
+          id="partnersArray"
+          value={partnersArray}
+          multiple={true}
+          {...register("partnersArray")}
+          onChange={arrayChange}
+          style={{ width: "90%", height: "6vh", marginBottom: "1vh" }}
+        >
+          {(isCharactersLoading ? [...Array(2)] : characters.items).map(
+            (obj: typeof characters | undefined, index: Key) =>
+              !isCharactersLoading && (
+                <option label={obj.fullName} value={obj._id} key={index} />
+              )
+          )}
+        </select>
         <input
           type="file"
           id="images"
@@ -202,7 +322,7 @@ const CharacterFormPage: FC<CharacterFormPageProps> = ({ isEditing }) => {
           multiple={true}
           style={{ width: "90%" }}
         />
-        <input type="submit" value="Create" />
+        <input type="submit" value={isEditing ? "Update" : "Create"} />
       </FormProduct>
     </div>
   );
