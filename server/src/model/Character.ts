@@ -25,7 +25,7 @@ const CharacterSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    partners: {
+    partnersArray: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "Characters",
     },

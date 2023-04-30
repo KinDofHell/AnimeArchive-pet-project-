@@ -8,8 +8,8 @@ export const characterValidation = [
     .isString()
     .isLength({ min: 4, max: 10 }),
   body("race", "Invalid race").isString().isLength({ min: 3, max: 15 }),
-  body("status", "Invalid status").isString().isLength({ min: 5, max: 12 }),
-  body("partners", "Invalid partners").optional().isArray(),
+  body("status", "Invalid status").isString().isLength({ min: 4, max: 12 }),
+  body("partnersArray", "Invalid partners").optional().isArray(),
   body("appearance", "Invalid appearance").isString(),
   body("personality", "Invalid personality").isString(),
   body("images", "Invalid images").optional().isArray(),

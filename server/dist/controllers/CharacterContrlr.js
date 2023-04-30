@@ -76,7 +76,7 @@ export const getOneCharacter = async (req, res) => {
         const character = await CharacterModel.findOneAndUpdate({
             _id: characterID,
         }, { $inc: { viewsCount: 1 } })
-            .populate("partners")
+            .populate("partnersArray")
             .exec();
         res.json(character);
     }

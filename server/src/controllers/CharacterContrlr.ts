@@ -83,7 +83,7 @@ export const getOneCharacter = async (req: any, res: any) => {
       },
       { $inc: { viewsCount: 1 } }
     )
-      .populate("partners")
+      .populate("partnersArray")
       .exec();
     res.json(character);
   } catch (err) {
