@@ -98,6 +98,7 @@ export const getPopularCharacter = async (req: any, res: any) => {
   try {
     const character = await CharacterModel.find()
       .sort({ viewsCount: -1 })
+      .limit(1)
       .exec();
     res.json(character);
   } catch (err) {
