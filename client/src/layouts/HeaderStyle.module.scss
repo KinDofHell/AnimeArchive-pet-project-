@@ -103,6 +103,10 @@ a {
 .login {
   @include mixins.flex-config(row, center, center);
 
+  a {
+    width: 100%;
+  }
+
   min-width: 15%;
 
   img {
@@ -120,6 +124,15 @@ a {
     font-size: clamp(16px, 1vw, 1.2vw);
     margin-right: 2%;
     min-width: max-content;
+  }
+
+  .is__admin {
+    &:hover {
+      transition: color 0.5s, box-shadow 0.5s;
+
+      color: lime;
+      box-shadow: 2px 2px 8px black;
+    }
   }
 
   @media screen and (max-width: 425px) {

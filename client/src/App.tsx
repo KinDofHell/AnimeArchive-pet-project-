@@ -21,6 +21,8 @@ import UserForms from "./pages/user/UserForms";
 import AddtionalProductForm from "./pages/addtionalProductForm/AdditionalProductForm";
 import CharacterFormPage from "./pages/characterFormPage/CharacterFormPage";
 
+import MasterPage from "./pages/masterPage/MasterPage";
+
 const App = () => {
   const dispatch = useDispatch<any>();
   useEffect(() => {
@@ -98,6 +100,8 @@ const App = () => {
           {/* login and register */}
           <Route path="/register" element={<UserForms isRegister={true} />} />
           <Route path="/login" element={<UserForms isRegister={false} />} />
+          {/* for admins */}
+          <Route path="/master-page" element={<MasterPage />} />
         </Routes>
       </Content>
     </div>

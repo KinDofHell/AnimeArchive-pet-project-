@@ -1,0 +1,91 @@
+@use "../../assets/generalStyles/mixins.scss" as mixins;
+@use "../../assets/generalStyles/colors.scss" as colors;
+
+.master__page {
+  @include mixins.flex-config(row, space-around, center);
+  flex-wrap: wrap;
+
+  width: 100%;
+
+  .count__info,
+  .moderators,
+  .creating {
+    @include mixins.flex-config(column, flex-start, center);
+
+    background-color: rgb(34, 52, 73);
+
+    padding: 0.5% 1%;
+    border-radius: 10px;
+
+    box-shadow: 4px 4px 10px black;
+
+    &:hover {
+      transition: box-shadow 0.5s;
+
+      box-shadow: 7px 7px 14px black;
+    }
+
+    .title {
+      font-size: 1.2vw;
+      margin-bottom: 1%;
+
+      border-bottom: 1px solid white;
+    }
+
+    .news__gallery,
+    .users {
+      margin-top: 5vh;
+
+      border-top: 1px solid colors.$silver;
+
+      padding-top: 1vh;
+    }
+  }
+
+  .admin__moderators__info {
+    @include mixins.flex-config(column, flex-start, center);
+
+    min-width: 500px;
+
+    .moderators {
+      min-width: 100%;
+
+      margin-top: 10vh;
+
+      max-height: 12vw;
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar {
+        width: 0.4vw;
+      }
+      &::-webkit-scrollbar-track {
+        background: colors.$logoBackColor;
+        border-radius: 10px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: rgb(59, 104, 146); /* color of the scroll thumb */
+        border-radius: 10px; /* roundness of the scroll thumb */
+      }
+
+      .moderator__item {
+        @include mixins.flex-config(row, space-around, center);
+
+        min-width: 100%;
+
+        &:not(:last-child) {
+          margin-bottom: 1vh;
+        }
+
+        span:nth-child(2) {
+          background-color: colors.$logoBackColor;
+
+          padding: 1%;
+          border-radius: 10px;
+        }
+      }
+    }
+  }
+  .creating {
+    min-width: 300px;
+  }
+}

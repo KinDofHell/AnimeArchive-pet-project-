@@ -85,6 +85,12 @@ export const isProductModerator = (state: any) => {
     else return false;
   }
 };
+export const isAdmin = (state: any) => {
+  if (state.user.data) {
+    if (state.user.data.role.name === "admin") return true;
+    else return false;
+  }
+};
 
 export const userReducer = userSlice.reducer;
 export const { logout } = userSlice.actions;

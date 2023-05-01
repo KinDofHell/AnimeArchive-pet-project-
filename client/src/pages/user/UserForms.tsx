@@ -141,7 +141,7 @@ const UserForms: FC<UserFormsProps> = ({ isRegister }) => {
             onInput={(e) => setPassword((e.target as HTMLInputElement).value)}
             {...register("password", {
               required: true,
-              minLength: 10,
+              minLength: 6,
               maxLength: 30,
             })}
           />

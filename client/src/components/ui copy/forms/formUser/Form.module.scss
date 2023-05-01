@@ -109,6 +109,41 @@
       }
     }
 
+    select {
+      background-color: colors.$silver;
+
+      border-radius: 10px;
+      border: 0;
+
+      padding: 0.2vw;
+      text-align: center;
+
+      width: 80%;
+
+      margin-bottom: 2%;
+
+      font-size: 1.1vw;
+
+      &::-webkit-scrollbar {
+        width: 0.4vw;
+      }
+      &::-webkit-scrollbar-track {
+        background: colors.$logoBackColor;
+        border-radius: 10px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: rgb(59, 104, 146); /* color of the scroll thumb */
+        border-radius: 10px; /* roundness of the scroll thumb */
+      }
+
+      option {
+        padding: 2%;
+        border-radius: 10px;
+
+        width: 100%;
+      }
+    }
+
     .register__block {
       @include mixins.flex-config(row, center, center);
 

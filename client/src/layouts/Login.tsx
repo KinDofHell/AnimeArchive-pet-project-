@@ -4,14 +4,20 @@ import avatar from "../assets/imgs/reservAva.jpg";
 import { SERVER_HOST } from "../data/Constant";
 
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
-import { isAuthenticated, logout } from "../redux/slices/user";
+import {
+  isAuthenticated,
+  isProductModerator,
+  logout,
+} from "../redux/slices/user";
 
 import Button from "../components/ui copy/buttons/Button";
 
 const Login = () => {
   const dispatch = useDispatch<any>();
   const isAuth = useSelector(isAuthenticated);
+  const isModerator = useSelector(isProductModerator);
   const { user } = useSelector((state: any) => state);
 
   const isUserLoading = user.status === "loading";
@@ -26,9 +32,17 @@ const Login = () => {
 
   return (
     <div className={headerStyle.login}>
-      <span className={headerStyle.name}>
-        {isAuth ? user.data.fullName : "Noname"}
-      </span>
+      {isAuth && isModerator ? (
+        <Link to="/master-page">
+          <span className={headerStyle.name + " " + headerStyle.is__admin}>
+            {user.data.fullName}
+          </span>
+        </Link>
+      ) : (
+        <span className={headerStyle.name}>
+          {isAuth ? user.data.fullName : "Noname"}
+        </span>
+      )}
       <img
         src={
           isAuth && user.data.avatarUrl
