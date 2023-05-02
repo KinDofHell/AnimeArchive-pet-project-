@@ -22,6 +22,7 @@ import {
   MangaController,
   NewsController,
   CharacterController,
+  AdminInfoController,
 } from "./controllers/imports.js";
 
 import {
@@ -71,6 +72,14 @@ app.post("/upload", upload.array("image"), (req: any, res: any) => {
   });
 });
 
+//admin
+app.get(
+  "/admin-info",
+  CheckAuth,
+  CheckAdmin,
+  AdminInfoController.getNumberOfEntities
+);
+
 //user
 app.post(
   "/register",
@@ -107,8 +116,8 @@ app.patch(
   RoleController.updateRole
 );
 
-app.get("/role/", RoleController.getAllRoles);
-app.get("/role/:id", RoleController.getOneRole);
+app.get("/role/", CheckAuth, CheckAdmin, RoleController.getAllRoles);
+app.get("/role/:id", CheckAuth, CheckAdmin, RoleController.getOneRole);
 
 //category
 app.post(

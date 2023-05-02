@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import multer from "multer";
 import { handleValidationErrors } from "./utils/imports.js";
 import { CheckAuth, CheckProductModerator, CheckAdmin, CheckNewsModerator, } from "./utils/checks/imports.js";
-import { CategoryController, CreatorController, AnimeController, UserController, StatusController, RoleController, MangaController, NewsController, CharacterController, } from "./controllers/imports.js";
+import { CategoryController, CreatorController, AnimeController, UserController, StatusController, RoleController, MangaController, NewsController, CharacterController, AdminInfoController, } from "./controllers/imports.js";
 import { UserValidation, AnimeValidation, CategoryValidation, CreatorValidation, StatusValidation, RoleValidation, MangaValidation, NewsValidation, CharacterValidation, } from "./validations/imports.js";
 //env config
 dotenv.config();
@@ -35,6 +35,8 @@ app.post("/upload", upload.array("image"), (req, res) => {
         message: "success",
     });
 });
+//admin
+app.get("/admin-info", CheckAuth, CheckAdmin, AdminInfoController.getNumberOfEntities);
 //user
 app.post("/register", UserValidation.registerValidation, handleValidationErrors, UserController.registerUser);
 app.post("/login", UserValidation.loginValidation, handleValidationErrors, UserController.loginUser);
@@ -45,8 +47,8 @@ app.patch("/watched-list", CheckAuth, UserController.removeFromWatched);
 app.post("/role", CheckAuth, CheckAdmin, RoleValidation.roleValidation, handleValidationErrors, RoleController.createRole);
 app.delete("/role/:id", CheckAuth, CheckAdmin, RoleController.removeRole);
 app.patch("/role/:id", CheckAuth, CheckAdmin, RoleValidation.roleValidation, handleValidationErrors, RoleController.updateRole);
-app.get("/role/", RoleController.getAllRoles);
-app.get("/role/:id", RoleController.getOneRole);
+app.get("/role/", CheckAuth, CheckAdmin, RoleController.getAllRoles);
+app.get("/role/:id", CheckAuth, CheckAdmin, RoleController.getOneRole);
 //category
 app.post("/category", CheckAuth, CheckProductModerator, CategoryValidation.categoryValidation, handleValidationErrors, CategoryController.createCategory);
 app.delete("/category/:id", CheckAuth, CheckProductModerator, CategoryController.removeCategory);

@@ -7,3 +7,4 @@ export * as RoleController from "./RoleContrlr.js";
 export * as MangaController from "./MangaContrlr.js";
 export * as NewsController from "./NewsContrlr.js";
 export * as CharacterController from "./CharacterContrlr.js";
+export * as AdminInfoController from "./AdminInfoContrlr.js";
