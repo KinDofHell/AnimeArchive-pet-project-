@@ -6,18 +6,14 @@ import { SERVER_HOST } from "../data/Constant";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import {
-  isAuthenticated,
-  isProductModerator,
-  logout,
-} from "../redux/slices/user";
+import { isAuthenticated, isAdmin, logout } from "../redux/slices/user";
 
 import Button from "../components/ui copy/buttons/Button";
 
 const Login = () => {
   const dispatch = useDispatch<any>();
   const isAuth = useSelector(isAuthenticated);
-  const isModerator = useSelector(isProductModerator);
+  const isAdm = useSelector(isAdmin);
   const { user } = useSelector((state: any) => state);
 
   const isUserLoading = user.status === "loading";
@@ -32,7 +28,7 @@ const Login = () => {
 
   return (
     <div className={headerStyle.login}>
-      {isAuth && isModerator ? (
+      {isAuth && isAdm ? (
         <Link to="/master-page">
           <span className={headerStyle.name + " " + headerStyle.is__admin}>
             {user.data.fullName}

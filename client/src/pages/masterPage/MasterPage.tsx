@@ -1,15 +1,16 @@
 import masterPageStyle from "./MasterPage.module.scss";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { FieldValues, useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { Key, useEffect, useState } from "react";
 
 import axios from "../../utils/axios";
+import { fetchAdminInfo, fetchUserRoles } from "../../redux/slices/admin";
 import {
   isAuthenticated,
-  isProductModerator,
   isAdmin,
+  fetchRegister,
 } from "../../redux/slices/user";
 
 import NameValueSpan from "../../components/nameValueSpan/NameValueSpan";
@@ -18,14 +19,23 @@ import ErrorAlert from "../../components/ui copy/forms/ErrorAlert";
 import Button from "./../../components/ui copy/buttons/Button";
 
 const MasterPage = () => {
-  const isPM = useSelector(isProductModerator);
   const isAuth = useSelector(isAuthenticated);
   const isAdm = useSelector(isAdmin);
+
+  const [data, setData] = useState<any>({});
+  const [loading, setIsLoading] = useState<boolean>(true);
+
+  const { roles } = useSelector((state: any) => state.roles);
+
+  const isLoadingRoles: boolean = roles.status === "loading";
+
+  const dispatch = useDispatch<any>();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
 
   const [password, setPassword] = useState<string>("");
@@ -39,6 +49,11 @@ const MasterPage = () => {
   const [imagesFile, setImagesFile] = useState();
 
   useEffect(() => {
+    dispatch(fetchAdminInfo());
+    dispatch(fetchUserRoles());
+  }, []);
+
+  useEffect(() => {
     if (passwordRepeat === password) {
       setPasswordMatching(true);
       console.log(passwordMatching);
@@ -47,7 +62,7 @@ const MasterPage = () => {
 
   if (!isAuth && !window.localStorage.getItem("token"))
     return <Navigate to="/" />;
-  if (!isPM && isPM !== undefined) return <Navigate to="/" />;
+  if (!isAdm && isAdm !== undefined) return <Navigate to="/" />;
 
   const onSubmitRegister = async (values: FieldValues) => {
     if (images) values.avatarUrl = images[0];
@@ -61,9 +76,27 @@ const MasterPage = () => {
         }
         await axios.post("/upload", formData);
       }
-      console.log(values);
+      setTimeout(() => {
+        setValue("fullName", "");
+        setValue("email", "");
+        setValue("password", "");
+        setValue("passwordRepeat", "");
+        setValue("role", "");
+      });
     }
   };
+
+  useEffect(() => {
+    axios
+      .get(`/${"admin-info"}`)
+      .then((res) => {
+        setData(res.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   const onFileChange = async (event: any) => {
     for (let i = 0; i < event.target.files.length; i++) {
@@ -77,41 +110,47 @@ const MasterPage = () => {
 
   return (
     <div className={masterPageStyle.master__page}>
-      <div className={masterPageStyle.count__info}>
-        <span className={masterPageStyle.title}>Number of...</span>
-        <div className={masterPageStyle.product}>
-          <NameValueSpan
-            name="Anime on the Site"
-            value="120"
-            minWidth="400px"
-          />
-          <NameValueSpan
-            name="Manga on the Site"
-            value="120"
-            minWidth="400px"
-          />
-          <NameValueSpan
-            name="Characters on the Site"
-            value="120"
-            minWidth="400px"
-          />
+      {!loading && (
+        <div className={masterPageStyle.count__info}>
+          <span className={masterPageStyle.title}>Number of...</span>
+          <div className={masterPageStyle.product}>
+            <NameValueSpan
+              name="Anime on the Site"
+              value={data.anime}
+              minWidth="400px"
+            />
+            <NameValueSpan
+              name="Manga on the Site"
+              value={data.manga}
+              minWidth="400px"
+            />
+            <NameValueSpan
+              name="Characters on the Site"
+              value={data.characters}
+              minWidth="400px"
+            />
+          </div>
+          <div className={masterPageStyle.news__gallery}>
+            <NameValueSpan
+              name="News on the Site"
+              value={data.news}
+              minWidth="400px"
+            />
+            <NameValueSpan
+              name="Images in Gallery"
+              value="120"
+              minWidth="400px"
+            />
+          </div>
+          <div className={masterPageStyle.users}>
+            <NameValueSpan
+              name="Users on the Site"
+              value={data.users}
+              minWidth="400px"
+            />
+          </div>
         </div>
-        <div className={masterPageStyle.news__gallery}>
-          <NameValueSpan name="News on the Site" value="120" minWidth="400px" />
-          <NameValueSpan
-            name="Images in Gallery"
-            value="120"
-            minWidth="400px"
-          />
-        </div>
-        <div className={masterPageStyle.users}>
-          <NameValueSpan
-            name="Users on the Site"
-            value="120"
-            minWidth="400px"
-          />
-        </div>
-      </div>
+      )}
       {isAdm && (
         <div className={masterPageStyle.admin__moderators__info}>
           <div className={masterPageStyle.form}>
@@ -194,57 +233,33 @@ const MasterPage = () => {
                 passwordRepeat.length > 0 && (
                   <ErrorAlert error="Your passwords don't match" />
                 )}
-              <select id="role" {...register("passwordRepeat")}>
+              <select id="role" {...register("role")}>
                 <option value="">Choose role</option>
-                <option value=""></option>
-                <option value=""></option>
+                {!isLoadingRoles &&
+                  roles.items.map(
+                    (obj: typeof roles | undefined, index: Key) => (
+                      <option value={obj._id} key={index}>
+                        {obj.name}
+                      </option>
+                    )
+                  )}
               </select>
               <input type="file" id="avatarUrl" onChange={onFileChange} />
               <input type="submit" value="Create" />
             </Form>
           </div>
-          <div className={masterPageStyle.moderators}>
-            <div className={masterPageStyle.moderator__item}>
-              <span id="name">Mikasa Ackerman</span>
-              <span id="name">Product manager</span>
-              <Button label="Delete user" isDanger={true} />
+          {!loading && (
+            <div className={masterPageStyle.moderators}>
+              {data &&
+                data.moderators.map((obj: any, index: Key) => (
+                  <div className={masterPageStyle.moderator__item}>
+                    <span id="name">{obj.fullName}</span>
+                    <span id="name">{obj.role.name}</span>
+                    <Button label="Delete user" isDanger={true} />
+                  </div>
+                ))}
             </div>
-            <div className={masterPageStyle.moderator__item}>
-              <span id="name">Mikasa Ackerman</span>
-              <span id="name">Product manager</span>
-              <Button label="Delete user" isDanger={true} />
-            </div>
-            <div className={masterPageStyle.moderator__item}>
-              <span id="name">Mikasa Ackerman</span>
-              <span id="name">Product manager</span>
-              <Button label="Delete user" isDanger={true} />
-            </div>
-            <div className={masterPageStyle.moderator__item}>
-              <span id="name">Mikasa Ackerman</span>
-              <span id="name">Product manager</span>
-              <Button label="Delete user" isDanger={true} />
-            </div>
-            <div className={masterPageStyle.moderator__item}>
-              <span id="name">Mikasa Ackerman</span>
-              <span id="name">Product manager</span>
-              <Button label="Delete user" isDanger={true} />
-            </div>
-            <div className={masterPageStyle.moderator__item}>
-              <span id="name">Mikasa Ackerman</span>
-              <span id="name">Product manager</span>
-              <Button label="Delete user" isDanger={true} />
-            </div>
-            <div className={masterPageStyle.moderator__item}>
-              <span id="name">Mikasa Ackerman</span>
-              <span id="name">Product manager</span>
-              <Button label="Delete user" isDanger={true} />
-            </div>
-            <div className={masterPageStyle.moderator__item}>
-              <span id="name">Mikasa Ackerman</span>
-              <span id="name">Product manager</span>
-              <Button label="Delete user" isDanger={true} />
-            </div>
-          </div>
+          )}
         </div>
       )}
       <div className={masterPageStyle.creating}>

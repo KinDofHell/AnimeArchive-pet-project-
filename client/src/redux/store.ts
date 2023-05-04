@@ -9,6 +9,8 @@ import { statusesReducer } from "./slices/status";
 import { mangaReducer } from "./slices/manga";
 import { newsReducer } from "./slices/news";
 import { characterReducer } from "./slices/character";
+import { adminInfoReducer } from "./slices/admin";
+import { rolesReducer } from "./slices/roles";
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +22,8 @@ export const store = configureStore({
     user: userReducer,
     news: newsReducer,
     characters: characterReducer,
+    adminInfo: adminInfoReducer,
+    roles: rolesReducer,
   },
   middleware: [thunkMiddleware],
 });
