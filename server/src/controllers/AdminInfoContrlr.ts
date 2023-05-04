@@ -26,7 +26,7 @@ export const getNumberOfEntities = async (req: any, res: any) => {
         { role: "642c6ba083145c6516e56f9e" },
         { role: "642c6c31cfc433e920667102" },
       ],
-    });
+    }).populate("role");
 
     const numbers: INumberEntities = {
       anime: num_anime.length,
