@@ -16,7 +16,7 @@ interface ProductCardProps {
   title: string;
   linkPath: string;
   isAnime: boolean;
-  isMy?: boolean;
+  isNews?: boolean;
   imgLink?: string;
   isEditable?: boolean;
   isSelected?: boolean;
@@ -26,7 +26,7 @@ const ProductCard: FC<ProductCardProps> = ({
   _id,
   title,
   isAnime,
-  isMy,
+  isNews,
   linkPath,
   imgLink,
   isEditable,
@@ -48,7 +48,9 @@ const ProductCard: FC<ProductCardProps> = ({
     <div className={productCardStyle.product__card}>
       <Image
         imgLink={imgLink ? imgLink : reservImg}
-        linkPath={`/${isAnime ? "anime" : "manga"}/${linkPath}`}
+        linkPath={`/${
+          isAnime ? "anime" : isNews ? "news" : "manga"
+        }/${linkPath}`}
         alt={title}
         classes={productCardStyle.img}
       />

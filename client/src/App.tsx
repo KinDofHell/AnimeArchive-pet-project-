@@ -15,10 +15,12 @@ import ProductListPage from "./pages/productListPage/ProductListPage";
 import ProductPage from "./pages/productPage/ProductPage";
 import CharactersPage from "./pages/characters/CharactersPage";
 import CharacterPage from "./pages/characters/CharacterPage";
+import NewsListPage from "./pages/news/NewsListPage";
+import NewsPage from "./pages/news/NewsPage";
 
 import ProductForms from "./pages/productForm/ProductForm";
 import UserForms from "./pages/user/UserForms";
-import AddtionalProductForm from "./pages/addtionalProductForm/AdditionalProductForm";
+import AdditionalProductForm from "./pages/addtionalProductForm/AdditionalProductForm";
 import CharacterFormPage from "./pages/characterFormPage/CharacterFormPage";
 
 import MasterPage from "./pages/masterPage/MasterPage";
@@ -74,17 +76,19 @@ const App = () => {
           {/* category */}
           <Route
             path="/category-adding"
-            element={<AddtionalProductForm type="category" isEditing={false} />}
+            element={
+              <AdditionalProductForm type="category" isEditing={false} />
+            }
           />
           {/* creator */}
           <Route
             path="/creator-adding"
-            element={<AddtionalProductForm type="creator" isEditing={false} />}
+            element={<AdditionalProductForm type="creator" isEditing={false} />}
           />
           {/* status */}
           <Route
             path="/status-adding"
-            element={<AddtionalProductForm type="status" isEditing={false} />}
+            element={<AdditionalProductForm type="status" isEditing={false} />}
           />
           {/* character */}
           <Route path="/characters" element={<CharactersPage />} />
@@ -97,6 +101,9 @@ const App = () => {
             path="/character/:id/edit"
             element={<CharacterFormPage isEditing={true} />}
           />
+          {/* news */}
+          <Route path="/news" element={<NewsListPage />} />
+          <Route path="/news/:id" element={<NewsPage />} />
           {/* login and register */}
           <Route path="/register" element={<UserForms isRegister={true} />} />
           <Route path="/login" element={<UserForms isRegister={false} />} />

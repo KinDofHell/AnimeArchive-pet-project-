@@ -77,18 +77,21 @@ const userSlice = createSlice({
 export const isAuthenticated = (state: any) => state.user.data;
 export const isProductModerator = (state: any) => {
   if (state.user.data) {
-    if (
+    return (
       state.user.data.role.name === "productModerator" ||
       state.user.data.role.name === "admin"
-    )
-      return true;
-    else return false;
+    );
   }
 };
 export const isAdmin = (state: any) => {
   if (state.user.data) {
-    if (state.user.data.role.name === "admin") return true;
-    else return false;
+    return state.user.data.role.name === "admin";
+  }
+};
+
+export const isNewsModerator = (state: any) => {
+  if (state.user.data) {
+    return state.user.data.role.name === "newsModerator";
   }
 };
 

@@ -95,7 +95,7 @@ const ProductPage = ({ isAnime }: { isAnime: boolean }) => {
                 />
               ))
             ) : (
-              <ShortcutSpan title="Character" linkPath="/character/" />
+              <ShortcutSpan title="Character" linkPath="/characters/" />
             )}
           </LabeledContainer>
           <LabeledContainer label="Categories">

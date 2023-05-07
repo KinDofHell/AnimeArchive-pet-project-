@@ -1,0 +1,10 @@
+export { animeReducer } from "./anime";
+export { mangaReducer } from "./manga";
+export { characterReducer } from "./character";
+export { adminInfoReducer } from "./admin";
+export { categoriesReducer } from "./category";
+export { creatorsReducer } from "./creators";
+export { newsReducer } from "./news";
+export { rolesReducer } from "./roles";
+export { statusesReducer } from "./status";
+export { userReducer } from "./user";

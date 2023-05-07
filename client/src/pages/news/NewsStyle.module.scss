@@ -1,0 +1,85 @@
+@use "../../assets/generalStyles/mixins.scss" as mixins;
+@use "../../assets/generalStyles/colors.scss" as colors;
+
+.news__list__page {
+  @include mixins.flex-config(column, flex-start, center);
+
+  width: 100%;
+
+  .search__tools {
+    @include mixins.flex-config(row, space-between, center);
+    width: 100%;
+
+    .searchbar,
+    .btn__group__tools {
+      background-color: colors.$logoBackColor;
+
+      padding: 0.5em;
+      border-radius: 10px;
+
+      min-width: 40%;
+    }
+
+    .btn__group__tools {
+      @include mixins.flex-config(row, space-around, center);
+    }
+  }
+
+  .content {
+    @include mixins.flex-config(row, space-around, center);
+
+    min-width: 100%;
+
+    @media screen and (width < 1025px) {
+      max-height: 50vw;
+      padding-top: 5vh;
+    }
+    @media screen and (width < 1500px) {
+      padding-top: 5vh;
+    }
+
+    flex-wrap: wrap;
+    margin-top: 8vh;
+
+    max-height: 29.2vw;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 0.4vw;
+    }
+    &::-webkit-scrollbar-track {
+      background: colors.$logoBackColor;
+      border-radius: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: rgb(59, 104, 146); /* color of the scroll thumb */
+      border-radius: 10px; /* roundness of the scroll thumb */
+    }
+  }
+}
+
+.news__page{
+  @include mixins.flex-config(column, flex-start, center);
+
+  .images__title{
+    @include mixins.flex-config(column, flex-start, center);
+
+    img{
+      width: 80%;
+    }
+
+    span.title{
+      font-size: 2vw;
+    }
+  }
+
+
+
+  .related{
+    @include mixins.flex-config(row, space-around, center);
+
+    width: 100%;
+
+    margin-top: 5vh;
+  }
+}
