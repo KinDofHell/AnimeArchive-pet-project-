@@ -4,7 +4,7 @@
 .labeled__container {
   @include mixins.flex-config(column, flex-start, center);
 
-  min-width: max-content;
+  min-width: 20vw;
   min-height: 5vw;
 
   background-color: colors.$logoBackColor;
@@ -30,7 +30,7 @@
     border-top-left-radius: 10px;
     text-align: center;
 
-    font-family: "Sofia";
+    font-family: "Sofia", sans-serif;
     font-size: 1.3vw;
 
     width: 100%;

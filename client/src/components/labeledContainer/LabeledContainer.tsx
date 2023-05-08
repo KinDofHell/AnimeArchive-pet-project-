@@ -1,9 +1,9 @@
 import lContainerStyle from "./LabeledContainer.module.scss";
 
-import { FC } from "react";
+import { FC, HTMLAttributes } from "react";
 import { Link } from "react-router-dom";
 
-interface LabeledContainerProps {
+interface LabeledContainerProps extends HTMLAttributes<HTMLDivElement> {
   label: string;
   linkPath?: string;
   attractiveTitle?: boolean;

@@ -1,5 +1,5 @@
 import characterPageStyle from "./CharacterPage.module.scss";
-import reservImg from "../../../../../Master React/public/logo.png";
+import reserveImg from "../../assets/imgs/reservAva.jpg";
 import { SERVER_HOST } from "../../data/Constant";
 
 import { useEffect, Key, useState } from "react";
@@ -35,7 +35,7 @@ const CharacterPage = () => {
         <div className={characterPageStyle.left__bar}>
           <Image
             imgLink={
-              data.images[0] ? `${SERVER_HOST}${data.images[0]}` : reservImg
+              data.images[0] ? `${SERVER_HOST}${data.images[0]}` : reserveImg
             }
             classes={characterPageStyle.img}
           />

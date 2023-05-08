@@ -2,11 +2,11 @@ import ShortcutSpanStyle from "./ShortcutSpan.module.scss";
 
 import reservImg from "../../../../../Master React/public/logo.png";
 
-import { FC } from "react";
+import { FC, HTMLAttributes } from "react";
 
 import Button from "../ui copy/buttons/Button";
 
-interface ShortcutSpanProps {
+interface ShortcutSpanProps extends HTMLAttributes<HTMLDivElement> {
   imgLink?: string;
   title: string;
   linkPath: string;

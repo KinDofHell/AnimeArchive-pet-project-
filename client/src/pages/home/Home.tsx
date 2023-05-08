@@ -52,9 +52,6 @@ const Home = () => {
                   key={index}
                 />
               ))}
-            {isAnimeLoading && (
-              <ShortcutSpan title="Attack on Titan" linkPath="/anime/" />
-            )}
           </LabeledContainer>
           <LabeledContainer label="Recent Manga" linkPath="/manga/">
             {!isMangaLoading &&
@@ -68,9 +65,6 @@ const Home = () => {
                   key={index}
                 />
               ))}
-            {isMangaLoading && (
-              <ShortcutSpan title="Attack on Titan" linkPath="/anime/" />
-            )}
           </LabeledContainer>
         </div>
         <div className={homeStyle.popular + " inner-page-section"}>

@@ -26,7 +26,7 @@ export const fetchRecentAnime = createAsyncThunk(
 export const fetchRemoveAnime = createAsyncThunk(
   "anime/fetchRemoveAnime",
   async (id: any) => {
-    axios.delete(`/anime/${id}`);
+    await axios.delete(`/anime/${id}`);
   }
 );
 
@@ -56,27 +56,27 @@ const animeSlice = createSlice({
     builder.addCase(fetchAnime.pending, (state) => {
       state.anime.items = [];
       state.anime.status = "loading";
-    }),
-      builder.addCase(fetchAnime.fulfilled, (state, action) => {
-        state.anime.items = action.payload;
-        state.anime.status = "loaded";
-      }),
-      builder.addCase(fetchAnime.rejected, (state) => {
-        state.anime.items = [];
-        state.anime.status = "error";
-      }),
-      builder.addCase(fetchRecentAnime.pending, (state) => {
-        state.anime.items = [];
-        state.anime.status = "loading";
-      }),
-      builder.addCase(fetchRecentAnime.fulfilled, (state, action) => {
-        state.anime.items = action.payload;
-        state.anime.status = "loaded";
-      }),
-      builder.addCase(fetchRecentAnime.rejected, (state) => {
-        state.anime.items = [];
-        state.anime.status = "error";
-      });
+    });
+    builder.addCase(fetchAnime.fulfilled, (state, action) => {
+      state.anime.items = action.payload;
+      state.anime.status = "loaded";
+    });
+    builder.addCase(fetchAnime.rejected, (state) => {
+      state.anime.items = [];
+      state.anime.status = "error";
+    });
+    builder.addCase(fetchRecentAnime.pending, (state) => {
+      state.anime.items = [];
+      state.anime.status = "loading";
+    });
+    builder.addCase(fetchRecentAnime.fulfilled, (state, action) => {
+      state.anime.items = action.payload;
+      state.anime.status = "loaded";
+    });
+    builder.addCase(fetchRecentAnime.rejected, (state) => {
+      state.anime.items = [];
+      state.anime.status = "error";
+    });
     //deleting anime
     builder.addCase(fetchRemoveAnime.pending, (state, action) => {
       state.anime.items = state.anime.items.filter(
