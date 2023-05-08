@@ -40,37 +40,37 @@ const userSlice = createSlice({
     builder.addCase(fetchRegister.pending, (state) => {
       state.status = "loading";
       state.data = null;
-    }),
-      builder.addCase(fetchRegister.rejected, (state) => {
-        state.data = null;
-        state.status = "error";
-      });
+    });
+    builder.addCase(fetchRegister.rejected, (state) => {
+      state.data = null;
+      state.status = "error";
+    });
     //login
     builder.addCase(fetchLogin.pending, (state) => {
       state.status = "loading";
       state.data = null;
-    }),
-      builder.addCase(fetchLogin.fulfilled, (state, action) => {
-        state.data = action.payload;
-        state.status = "loaded";
-      }),
-      builder.addCase(fetchLogin.rejected, (state) => {
-        state.data = null;
-        state.status = "error";
-      });
+    });
+    builder.addCase(fetchLogin.fulfilled, (state, action) => {
+      state.data = action.payload;
+      state.status = "loaded";
+    });
+    builder.addCase(fetchLogin.rejected, (state) => {
+      state.data = null;
+      state.status = "error";
+    });
     //profile
     builder.addCase(fetchMe.pending, (state) => {
       state.status = "loading";
       state.data = null;
-    }),
-      builder.addCase(fetchMe.fulfilled, (state, action) => {
-        state.data = action.payload;
-        state.status = "loaded";
-      }),
-      builder.addCase(fetchMe.rejected, (state) => {
-        state.data = null;
-        state.status = "error";
-      });
+    });
+    builder.addCase(fetchMe.fulfilled, (state, action) => {
+      state.data = action.payload;
+      state.status = "loaded";
+    });
+    builder.addCase(fetchMe.rejected, (state) => {
+      state.data = null;
+      state.status = "error";
+    });
   },
 });
 
@@ -91,7 +91,10 @@ export const isAdmin = (state: any) => {
 
 export const isNewsModerator = (state: any) => {
   if (state.user.data) {
-    return state.user.data.role.name === "newsModerator";
+    return (
+      state.user.data.role.name === "newsModerator" ||
+      state.user.data.role.name === "admin"
+    );
   }
 };
 

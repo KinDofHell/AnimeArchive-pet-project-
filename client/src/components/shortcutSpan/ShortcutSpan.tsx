@@ -1,6 +1,6 @@
 import ShortcutSpanStyle from "./ShortcutSpan.module.scss";
 
-import reservImg from "../../assets/imgs/logo.png";
+import reservImg from "../../../../../Master React/public/logo.png";
 
 import { FC } from "react";
 

@@ -24,6 +24,7 @@ import AdditionalProductForm from "./pages/addtionalProductForm/AdditionalProduc
 import CharacterFormPage from "./pages/characterFormPage/CharacterFormPage";
 
 import MasterPage from "./pages/masterPage/MasterPage";
+import NewsAdding from "./pages/news/NewsAdding";
 
 const App = () => {
   const dispatch = useDispatch<any>();
@@ -104,6 +105,14 @@ const App = () => {
           {/* news */}
           <Route path="/news" element={<NewsListPage />} />
           <Route path="/news/:id" element={<NewsPage />} />
+          <Route
+            path="/news-adding"
+            element={<NewsAdding isEditing={false} />}
+          />
+          <Route
+            path="/news/:id/edit"
+            element={<NewsAdding isEditing={true} />}
+          />
           {/* login and register */}
           <Route path="/register" element={<UserForms isRegister={true} />} />
           <Route path="/login" element={<UserForms isRegister={false} />} />

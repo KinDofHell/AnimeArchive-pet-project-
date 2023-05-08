@@ -1,6 +1,6 @@
 import imageStyle from "./Image.module.scss";
 
-import reservImg from "../../../assets/imgs/logo.png";
+import reservImg from "../../../../../../Master React/public/logo.png";
 
 import { FC, MouseEventHandler } from "react";
 import { Link } from "react-router-dom";

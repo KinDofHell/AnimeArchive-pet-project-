@@ -1,5 +1,5 @@
 import characterPageStyle from "./CharacterPage.module.scss";
-import reservImg from "../../assets/imgs/logo.png";
+import reservImg from "../../../../../Master React/public/logo.png";
 import { SERVER_HOST } from "../../data/Constant";
 
 import { useEffect, Key, useState } from "react";
