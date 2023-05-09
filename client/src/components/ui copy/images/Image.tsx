@@ -1,6 +1,6 @@
 import imageStyle from "./Image.module.scss";
 
-import reservImg from "../../../../../../Master React/public/logo.png";
+import reserveImg from "../../../assets/imgs/reservAva.jpg";
 
 import { FC, MouseEventHandler } from "react";
 import { Link } from "react-router-dom";
@@ -23,14 +23,14 @@ const Image: FC<ImageProps> = ({
   return linkPath ? (
     <Link to={linkPath} className={imageStyle.a}>
       <img
-        src={imgLink ? imgLink : reservImg}
+        src={imgLink ? imgLink : reserveImg}
         alt={alt}
         className={imageStyle.img + " " + classes}
       />
     </Link>
   ) : (
     <img
-      src={imgLink ? imgLink : reservImg}
+      src={imgLink ? imgLink : reserveImg}
       alt={alt}
       onClick={onClick}
       className={imageStyle.img + " " + classes}

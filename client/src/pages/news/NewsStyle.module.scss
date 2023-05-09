@@ -61,15 +61,38 @@
 .news__page{
   @include mixins.flex-config(column, flex-start, center);
 
-  .images__title{
-    @include mixins.flex-config(column, flex-start, center);
+  .title{
+    width: 90%;
 
-    img{
-      width: 80%;
-    }
+    background-color: colors.$logoBackColor;
+
+    border-radius: 0.5vw;
+    margin-bottom: 1vh;
+    text-align: center;
 
     span.title{
       font-size: 2vw;
+    }
+  }
+
+  .content{
+    @include mixins.flex-config(row, space-around, center);
+
+    .text{
+      @include mixins.flex-config(column, flex-start, center);
+
+      width: 70%;
+      .img{
+        width: 35vw;
+        height: 18vw;
+
+        border-radius: 0.5vw;
+        margin-bottom: 1vh;
+      }
+      .description{
+        margin-bottom: 1vh;
+        width: 70%;
+      }
     }
   }
 

@@ -1,6 +1,6 @@
 import productCardStyle from "./ProductCard.module.scss";
 
-import reservImg from "../../../../../Master React/public/logo.png";
+import reserveImg from "../../assets/imgs/reservAva.jpg";
 
 import { FC } from "react";
 import { useDispatch } from "react-redux";
@@ -50,7 +50,7 @@ const ProductCard: FC<ProductCardProps> = ({
   return (
     <div className={productCardStyle.product__card}>
       <Image
-        imgLink={imgLink ? imgLink : reservImg}
+        imgLink={imgLink ? imgLink : reserveImg}
         linkPath={`/${
           isAnime ? "anime" : isNews ? "news" : "manga"
         }/${linkPath}`}

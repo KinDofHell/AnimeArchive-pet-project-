@@ -3,7 +3,6 @@ import formStyle from "./Form.module.scss";
 import { FC, FormEventHandler } from "react";
 
 import Button from "../../buttons/Button";
-import Image from "../../images/Image";
 
 interface FormProps {
   isRegister?: boolean;

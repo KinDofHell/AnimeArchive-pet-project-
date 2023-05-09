@@ -47,11 +47,11 @@ const animeSlice = createSlice({
     builder.addCase(fetchAnimeCreating.pending, (state) => {
       state.anime.status = "loading";
       state.anime.data = null;
-    }),
-      builder.addCase(fetchAnimeCreating.rejected, (state) => {
-        state.anime.data = null;
-        state.anime.status = "loading";
-      });
+    });
+    builder.addCase(fetchAnimeCreating.rejected, (state) => {
+      state.anime.data = null;
+      state.anime.status = "loading";
+    });
     //getting anime
     builder.addCase(fetchAnime.pending, (state) => {
       state.anime.items = [];

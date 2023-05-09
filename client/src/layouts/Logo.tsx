@@ -1,5 +1,5 @@
 import headerStyle from "./HeaderStyle.module.scss";
-import logo from "../../../../Master React/public/logo.png";
+import logo from "../assets/imgs/logo.png";
 
 import { Link } from "react-router-dom";
 

@@ -1,6 +1,6 @@
 import ShortcutSpanStyle from "./ShortcutSpan.module.scss";
 
-import reservImg from "../../../../../Master React/public/logo.png";
+import reserveImg from "../../assets/imgs/reservAva.jpg";
 
 import { FC, HTMLAttributes } from "react";
 
@@ -25,7 +25,7 @@ const ShortcutSpan: FC<ShortcutSpanProps> = ({
 
   return (
     <div className={ShortcutSpanStyle.shortcut__span}>
-      <img src={imgLink ? imgLink : reservImg} alt={imgLink} />
+      <img src={imgLink ? imgLink : reserveImg} alt={imgLink} />
       <span
         className={ShortcutSpanStyle.title + " " + (isImportant && important)}
         style={backForTitle ? { backgroundColor: "rgb(18, 27, 32)" } : {}}

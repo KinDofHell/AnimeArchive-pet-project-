@@ -9,6 +9,7 @@ import { isNewsModerator } from "../../redux/slices/user";
 import Searchbar from "../../components/searchtools/Searchbar";
 import Button from "../../components/ui copy/buttons/Button";
 import ProductCard from "../../components/productCard/ProductCard";
+import { SERVER_HOST } from "../../data/Constant";
 
 const NewsListPage = () => {
   const isNewsMod: boolean | undefined = useSelector(isNewsModerator);
@@ -50,6 +51,7 @@ const NewsListPage = () => {
           news.items.map((obj: typeof news | undefined, index: Key) => (
             <ProductCard
               _id={obj._id}
+              imgLink={SERVER_HOST + obj.images[0]}
               title={obj.title}
               linkPath={obj._id}
               isAnime={false}
