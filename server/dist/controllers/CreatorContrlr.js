@@ -35,8 +35,8 @@ export const removeCreator = async (req, res) => {
         const creatorID = req.params.id;
         const creator = await CreatorModel.findById(creatorID);
         if (creator) {
-            if (fs.existsSync(`../server/${creator.imgUrl}`)) {
-                fs.unlink(`../server/${creator.imgUrl}`, (err) => {
+            if (fs.existsSync(`../server${creator.imgUrl}`)) {
+                fs.unlink(`../server${creator.imgUrl}`, (err) => {
                     if (err)
                         console.warn(err);
                 });
@@ -62,7 +62,7 @@ export const getAllCreators = async (req, res) => {
     catch (err) {
         console.log(err);
         res.status(500).json({
-            message: "Cannot recieve creators",
+            message: "Cannot receive creators",
         });
     }
 };
@@ -75,7 +75,7 @@ export const getOneCreator = async (req, res) => {
     catch (err) {
         console.log(err);
         res.status(500).json({
-            message: "Cannot recieve creator",
+            message: "Cannot receive creator",
         });
     }
 };

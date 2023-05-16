@@ -37,8 +37,8 @@ export const removeNews = async (req, res) => {
         if (news) {
             if (news.images) {
                 for (let i = 0; i < news.images.length; i++) {
-                    if (fs.existsSync(`../server/${news.images[i]}`)) {
-                        fs.unlink(`../server/${news.images[i]}`, (err) => {
+                    if (fs.existsSync(`../server${news.images[i]}`)) {
+                        fs.unlink(`../server${news.images[i]}`, (err) => {
                             if (err)
                                 console.warn(err);
                         });
@@ -66,7 +66,7 @@ export const getAllNews = async (req, res) => {
     catch (err) {
         console.warn(err);
         res.status(500).json({
-            message: "Cannot recieve news",
+            message: "Cannot receive news",
         });
     }
 };
@@ -85,7 +85,7 @@ export const getOneNews = async (req, res) => {
     catch (err) {
         console.warn(err);
         res.status(500).json({
-            message: "Cannot recieve news",
+            message: "Cannot receive news",
         });
     }
 };

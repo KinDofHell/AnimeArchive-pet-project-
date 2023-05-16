@@ -96,6 +96,12 @@ app.post(
 app.get("/profile", CheckAuth, UserController.profileUser);
 app.patch("/user", CheckAuth, UserController.updateUserWatched);
 app.patch("/watched-list", CheckAuth, UserController.removeFromWatched);
+app.delete(
+  "/user-delete/:id",
+  CheckAuth,
+  CheckAdmin,
+  UserController.removeUser
+);
 
 //role
 app.post(
@@ -224,6 +230,7 @@ app.patch(
 app.get("/character", CharacterController.getAllCharacter);
 app.get("/character/:id", CharacterController.getOneCharacter);
 app.get("/character-popular/", CharacterController.getPopularCharacter);
+app.get("/characters-popular/", CharacterController.getPopularCharacters);
 
 //anime
 app.post(

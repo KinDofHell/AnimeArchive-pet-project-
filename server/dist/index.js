@@ -43,6 +43,7 @@ app.post("/login", UserValidation.loginValidation, handleValidationErrors, UserC
 app.get("/profile", CheckAuth, UserController.profileUser);
 app.patch("/user", CheckAuth, UserController.updateUserWatched);
 app.patch("/watched-list", CheckAuth, UserController.removeFromWatched);
+app.delete("/user-delete/:id", CheckAuth, CheckAdmin, UserController.removeUser);
 //role
 app.post("/role", CheckAuth, CheckAdmin, RoleValidation.roleValidation, handleValidationErrors, RoleController.createRole);
 app.delete("/role/:id", CheckAuth, CheckAdmin, RoleController.removeRole);
@@ -74,6 +75,7 @@ app.patch("/character/:id", CheckAuth, CheckProductModerator, CharacterValidatio
 app.get("/character", CharacterController.getAllCharacter);
 app.get("/character/:id", CharacterController.getOneCharacter);
 app.get("/character-popular/", CharacterController.getPopularCharacter);
+app.get("/characters-popular/", CharacterController.getPopularCharacters);
 //anime
 app.post("/anime", CheckAuth, CheckProductModerator, AnimeValidation.animeValidation, handleValidationErrors, AnimeController.createAnime);
 app.delete("/anime/:id", CheckAuth, CheckProductModerator, AnimeController.removeAnime);

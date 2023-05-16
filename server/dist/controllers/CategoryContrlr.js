@@ -52,7 +52,7 @@ export const getAllCategories = async (req, res) => {
     catch (err) {
         console.log(err);
         res.status(500).json({
-            message: "Cannot recieve categories",
+            message: "Cannot receive categories",
         });
     }
 };
@@ -65,7 +65,7 @@ export const getOneCategory = async (req, res) => {
     catch (err) {
         console.log(err);
         res.status(500).json({
-            message: "Cannot recieve category",
+            message: "Cannot receive category",
         });
     }
 };

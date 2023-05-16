@@ -5,7 +5,6 @@ import fs from "fs";
 export const createNews = async (req: any, res: any) => {
   try {
     const document = new NewsModel(req.body);
-
     const news = await document.save();
     res.json(news);
   } catch (err) {
@@ -44,8 +43,8 @@ export const removeNews = async (req: any, res: any) => {
     if (news) {
       if (news.images) {
         for (let i = 0; i < news.images.length; i++) {
-          if (fs.existsSync(`../server/${news.images[i]}`)) {
-            fs.unlink(`../server/${news.images[i]}`, (err) => {
+          if (fs.existsSync(`../server${news.images[i]}`)) {
+            fs.unlink(`../server${news.images[i]}`, (err) => {
               if (err) console.warn(err);
             });
           }
@@ -71,7 +70,7 @@ export const getAllNews = async (req: any, res: any) => {
   } catch (err) {
     console.warn(err);
     res.status(500).json({
-      message: "Cannot recieve news",
+      message: "Cannot receive news",
     });
   }
 };
@@ -93,7 +92,7 @@ export const getOneNews = async (req: any, res: any) => {
   } catch (err) {
     console.warn(err);
     res.status(500).json({
-      message: "Cannot recieve news",
+      message: "Cannot receive news",
     });
   }
 };

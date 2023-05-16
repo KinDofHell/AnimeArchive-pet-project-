@@ -69,7 +69,7 @@ export const removeAnime = async (req: any, res: any) => {
       if (anime.images) {
         for (let i = 0; i < anime.images.length; i++) {
           if (fs.existsSync(`../server/${anime.images[i]}`)) {
-            fs.unlink(`../server/${anime.images[i]}`, (err) => {
+            fs.unlink(`../server${anime.images[i]}`, (err) => {
               if (err) console.warn(err);
             });
           }
@@ -99,7 +99,7 @@ export const getAllAnime = async (req: any, res: any) => {
   } catch (err) {
     console.warn(err);
     res.status(500).json({
-      message: "Cannot recieve anime",
+      message: "Cannot receive anime",
     });
   }
 };
@@ -122,7 +122,7 @@ export const getOneAnime = async (req: any, res: any) => {
   } catch (err) {
     console.warn(err);
     res.status(500).json({
-      message: "Cannot recieve anime",
+      message: "Cannot receive anime",
     });
   }
 };
@@ -137,7 +137,7 @@ export const getRecentAnime = async (req: any, res: any) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: "Cannot recieve anime",
+      message: "Cannot receive anime",
     });
   }
 };
@@ -145,8 +145,6 @@ export const getRecentAnime = async (req: any, res: any) => {
 export const getPopularAnime = async (req: any, res: any) => {
   try {
     const anime = await AnimeModel.find()
-      .populate("categoriesArray")
-      .populate("author")
       .populate("status")
       .sort({ viewsCount: -1 })
       .exec();
@@ -154,7 +152,7 @@ export const getPopularAnime = async (req: any, res: any) => {
   } catch (err) {
     console.warn(err);
     res.status(500).json({
-      message: "Cannot recieve anime",
+      message: "Cannot receive anime",
     });
   }
 };

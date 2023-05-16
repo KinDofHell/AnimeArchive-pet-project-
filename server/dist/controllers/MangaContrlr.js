@@ -57,8 +57,8 @@ export const removeManga = async (req, res) => {
         if (manga) {
             if (manga.images) {
                 for (let i = 0; i < manga.images.length; i++) {
-                    if (fs.existsSync(`../server/${manga.images[i]}`)) {
-                        fs.unlink(`../server/${manga.images[i]}`, (err) => {
+                    if (fs.existsSync(`../server${manga.images[i]}`)) {
+                        fs.unlink(`../server${manga.images[i]}`, (err) => {
                             if (err)
                                 console.warn(err);
                         });
@@ -90,7 +90,7 @@ export const getAllManga = async (req, res) => {
     catch (err) {
         console.warn(err);
         res.status(500).json({
-            message: "Cannot recieve manga",
+            message: "Cannot receive manga",
         });
     }
 };
@@ -110,7 +110,7 @@ export const getOneManga = async (req, res) => {
     catch (err) {
         console.warn(err);
         res.status(500).json({
-            message: "Cannot recieve manga",
+            message: "Cannot receive manga",
         });
     }
 };
@@ -125,7 +125,7 @@ export const getRecentManga = async (req, res) => {
     catch (err) {
         console.log(err);
         res.status(500).json({
-            message: "Cannot recieve manga",
+            message: "Cannot receive manga",
         });
     }
 };
@@ -140,7 +140,7 @@ export const getPopularManga = async (req, res) => {
     catch (err) {
         console.warn(err);
         res.status(500).json({
-            message: "Cannot recieve manga",
+            message: "Cannot receive manga",
         });
     }
 };

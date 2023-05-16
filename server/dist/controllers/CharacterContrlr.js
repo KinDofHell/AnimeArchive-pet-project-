@@ -37,8 +37,8 @@ export const removeCharacter = async (req, res) => {
         if (character) {
             if (character.images) {
                 for (let i = 0; i < character.images.length; i++) {
-                    if (fs.existsSync(`../server/${character.images[i]}`)) {
-                        fs.unlink(`../server/${character.images[i]}`, (err) => {
+                    if (fs.existsSync(`../server${character.images[i]}`)) {
+                        fs.unlink(`../server${character.images[i]}`, (err) => {
                             if (err)
                                 console.warn(err);
                         });
@@ -66,7 +66,7 @@ export const getAllCharacter = async (req, res) => {
     catch (err) {
         console.warn(err);
         res.status(500).json({
-            message: "Cannot recieve character",
+            message: "Cannot receive character",
         });
     }
 };
@@ -83,7 +83,7 @@ export const getOneCharacter = async (req, res) => {
     catch (err) {
         console.warn(err);
         res.status(500).json({
-            message: "Cannot recieve character",
+            message: "Cannot receive character",
         });
     }
 };
@@ -98,7 +98,21 @@ export const getPopularCharacter = async (req, res) => {
     catch (err) {
         console.warn(err);
         res.status(500).json({
-            message: "Cannot recieve character",
+            message: "Cannot receive character",
+        });
+    }
+};
+export const getPopularCharacters = async (req, res) => {
+    try {
+        const character = await CharacterModel.find()
+            .sort({ viewsCount: -1 })
+            .exec();
+        res.json(character);
+    }
+    catch (err) {
+        console.warn(err);
+        res.status(500).json({
+            message: "Cannot receive characters",
         });
     }
 };

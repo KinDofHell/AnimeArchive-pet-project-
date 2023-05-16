@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import UserModel from "../model/User.js";
+import fs from "fs";
 dotenv.config();
 export const registerUser = async (req, res) => {
     try {
@@ -123,6 +124,43 @@ export const removeFromWatched = async (req, res) => {
         console.log(err);
         res.status(500).json({
             message: "Cannot remove anime",
+        });
+    }
+};
+export const updateUserInfo = async (req, res) => {
+    try {
+        await UserModel.updateOne({
+            _id: req.userID,
+        }, req.body);
+        res.json({
+            success: true,
+        });
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: "Cannot update user info",
+        });
+    }
+};
+export const removeUser = async (req, res) => {
+    try {
+        const userID = req.params.id;
+        const user = await UserModel.findByIdAndRemove(userID);
+        if (fs.existsSync(`../server${user.avatarUrl}`)) {
+            fs.unlink(`../server${user.avatarUrl}`, (err) => {
+                if (err)
+                    console.warn(err);
+            });
+        }
+        res.status(204).json({
+            success: true,
+        });
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: "Cannot find user",
         });
     }
 };
