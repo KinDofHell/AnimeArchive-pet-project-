@@ -17,6 +17,13 @@ export const fetchRegister = createAsyncThunk(
   }
 );
 
+export const fetchRemoveUser = createAsyncThunk(
+  "user/fetchRemoveUser",
+  async (id: any) => {
+    await axios.delete(`/user-delete/${id}`);
+  }
+);
+
 export const fetchMe = createAsyncThunk("auth/fetchMe", async () => {
   const { data } = await axios.get("/profile");
   return data;

@@ -10,7 +10,7 @@ import { fetchAdminInfo, fetchUserRoles } from "../../redux/slices/admin";
 import {
   isAuthenticated,
   isAdmin,
-  fetchRegister,
+  fetchRemoveUser,
 } from "../../redux/slices/user";
 
 import NameValueSpan from "../../components/nameValueSpan/NameValueSpan";
@@ -106,6 +106,11 @@ const MasterPage = () => {
     setImages(imagesArray);
     // @ts-ignore
     setImagesFile(imagesArrayFile);
+  };
+
+  const onClickDelete = async (id: string) => {
+    if (window.confirm("Are you sure you want to delete anime"))
+      dispatch(fetchRemoveUser(id));
   };
 
   return (
@@ -252,10 +257,14 @@ const MasterPage = () => {
             <div className={masterPageStyle.moderators}>
               {data &&
                 data.moderators.map((obj: any, index: Key) => (
-                  <div className={masterPageStyle.moderator__item}>
+                  <div className={masterPageStyle.moderator__item} key={index}>
                     <span id="name">{obj.fullName}</span>
                     <span id="name">{obj.role.name}</span>
-                    <Button label="Delete user" isDanger={true} />
+                    <Button
+                      label="Delete user"
+                      isDanger={true}
+                      onClick={() => onClickDelete(obj._id)}
+                    />
                   </div>
                 ))}
             </div>

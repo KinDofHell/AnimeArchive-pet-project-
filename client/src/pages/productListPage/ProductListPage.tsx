@@ -32,9 +32,6 @@ const ProductListPage: FC<ProductListPageProps> = ({ isMyList, isAnime }) => {
 
   const { manga } = useSelector((state: any) => state.manga);
 
-  // const { data } = useSelector((state: any) =>
-  //   isAnime ? state.anime : state.manga
-  // );
 
   const isLoading: boolean = isAnime
     ? anime.status === "loading"

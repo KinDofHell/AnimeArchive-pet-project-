@@ -4,7 +4,7 @@ import avatar from "../assets/imgs/reservAva.jpg";
 import { SERVER_HOST } from "../data/Constant";
 
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import { isAuthenticated, isAdmin, logout } from "../redux/slices/user";
 
@@ -19,10 +19,12 @@ const Login = () => {
   const isUserLoading = user.status === "loading";
   if (!isUserLoading) console.log();
 
+  const navigate = useNavigate();
   const onClickLogout = () => {
     if (window.confirm("Are you sure you want to sign out?")) {
       dispatch(logout());
       window.localStorage.removeItem("token");
+      navigate(`/`, { replace: true });
     }
   };
 
