@@ -3,23 +3,44 @@ import MangaModel from "../model/Manga.js";
 import NewsModel from "../model/News.js";
 import CharacterModel from "../model/Character.js";
 import UserModel from "../model/User.js";
-
-interface INumberEntities {
-  anime: number;
-  manga: number;
-  news: number;
-  characters: number;
-  users: number;
-  moderators: object | null;
-}
+import mongoose, { Model } from "mongoose";
 
 export const getNumberOfEntities = async (req: any, res: any) => {
   try {
-    const num_anime = await AnimeModel.find();
-    const num_manga = await MangaModel.find();
-    const num_characters = await CharacterModel.find();
-    const num_news = await NewsModel.find();
-    const num_users = await UserModel.find();
+    const today: Date = new Date();
+    today.setUTCHours(0, 0, 0, 0);
+
+    const getAggregateCreatedToday = async (model: Model<any>) => {
+      const countDocsCreatedToday: any[] = await model.aggregate([
+        {
+          $match: {
+            createdAt: {
+              $gte: today,
+            },
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            count: { $sum: 1 },
+          },
+        },
+      ]);
+      if (!countDocsCreatedToday[0]) return 0;
+      else return countDocsCreatedToday[0].count;
+    };
+
+    const getAggregate = async (model: Model<any>) => {
+      const count: any[] = await model.aggregate([
+        {
+          $group: {
+            _id: null,
+            count: { $sum: 1 },
+          },
+        },
+      ]);
+      return count[0].count;
+    };
 
     const moderators = await UserModel.find({
       $nor: [
@@ -28,16 +49,47 @@ export const getNumberOfEntities = async (req: any, res: any) => {
       ],
     }).populate("role");
 
-    const numbers: INumberEntities = {
-      anime: num_anime.length,
-      manga: num_manga.length,
-      news: num_news.length,
-      characters: num_characters.length,
-      users: num_users.length,
+    const numbers = await Promise.all([
+      getAggregate(AnimeModel),
+      getAggregateCreatedToday(AnimeModel),
+      getAggregate(MangaModel),
+      getAggregateCreatedToday(MangaModel),
+      getAggregate(NewsModel),
+      getAggregateCreatedToday(NewsModel),
+      getAggregate(CharacterModel),
+      getAggregateCreatedToday(CharacterModel),
+      getAggregate(UserModel),
+      getAggregateCreatedToday(UserModel),
+    ]);
+
+    const [
+      anime,
+      animeToday,
+      manga,
+      mangaToday,
+      news,
+      newsToday,
+      characters,
+      charactersToday,
+      users,
+      userToday,
+    ] = numbers;
+
+    const result = {
+      anime,
+      animeToday,
+      manga,
+      mangaToday,
+      news,
+      newsToday,
+      characters,
+      charactersToday,
+      users,
+      userToday,
       moderators: moderators,
     };
 
-    res.json(numbers);
+    res.json(result);
   } catch (err) {
     console.error(err);
     res.status(500).json({

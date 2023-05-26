@@ -1,6 +1,7 @@
 import AnimeModel from "../model/Anime.js";
 
 import fs from "fs";
+import { Query } from "mongoose";
 
 export const createAnime = async (req: any, res: any) => {
   try {
