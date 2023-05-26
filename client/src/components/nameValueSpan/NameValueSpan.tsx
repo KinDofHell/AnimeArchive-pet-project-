@@ -58,7 +58,7 @@ const NameValueSpan: FC<NameValueSpanProps> = ({
               : {}
           }
         >
-          {value ? value : "Loading"}
+          {value || value === 0 ? value : "Loading"}
         </span>
       )}
     </div>

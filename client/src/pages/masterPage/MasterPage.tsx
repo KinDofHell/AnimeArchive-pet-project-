@@ -92,6 +92,7 @@ const MasterPage = () => {
       .then((res) => {
         setData(res.data);
         setIsLoading(false);
+        console.log(data);
       })
       .catch((err) => {
         console.error(err);
@@ -125,8 +126,18 @@ const MasterPage = () => {
               minWidth="400px"
             />
             <NameValueSpan
+              name="Anime added today"
+              value={data.animeToday}
+              minWidth="400px"
+            />
+            <NameValueSpan
               name="Manga on the Site"
               value={data.manga}
+              minWidth="400px"
+            />
+            <NameValueSpan
+              name="Manga added today"
+              value={data.mangaToday}
               minWidth="400px"
             />
             <NameValueSpan
@@ -134,11 +145,21 @@ const MasterPage = () => {
               value={data.characters}
               minWidth="400px"
             />
+            <NameValueSpan
+              name="Characters added today"
+              value={data.charactersToday}
+              minWidth="400px"
+            />
           </div>
           <div className={masterPageStyle.news__gallery}>
             <NameValueSpan
               name="News on the Site"
               value={data.news}
+              minWidth="400px"
+            />
+            <NameValueSpan
+              name="News added today"
+              value={data.newsToday}
               minWidth="400px"
             />
             <NameValueSpan
@@ -151,6 +172,11 @@ const MasterPage = () => {
             <NameValueSpan
               name="Users on the Site"
               value={data.users}
+              minWidth="400px"
+            />
+            <NameValueSpan
+              name="Users added today"
+              value={data.usersToday}
               minWidth="400px"
             />
           </div>
